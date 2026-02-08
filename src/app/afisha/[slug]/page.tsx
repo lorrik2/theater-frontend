@@ -53,6 +53,9 @@ export default async function PerformancePage({ params }: Props) {
           <span className="absolute right-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white">
             {play.ageRating}
           </span>
+          {play.isPremiere && (
+            <span className={styles.premiere}>Премьера</span>
+          )}
         </div>
         <div>
           <p className="text-graphite-700">{play.description}</p>

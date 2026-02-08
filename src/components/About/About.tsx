@@ -1,9 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./About.module.css";
+
+const MOBILE_BREAKPOINT = 768;
 
 const gallery = [
   { src: "/fon/8.jpg", alt: "Фасад театра" },
@@ -13,6 +16,17 @@ const gallery = [
 ];
 
 export default function About() {
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
+
   return (
     <section
       className={styles.section}
@@ -78,19 +92,40 @@ export default function About() {
           viewport={{ once: true }}
         >
           <h3 className={styles.galleryTitle}>Фотогалерея</h3>
-          <ul className={styles.galleryGrid}>
-            {gallery.map((img, i) => (
-              <li key={i}>
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={600}
-                  height={400}
-                  className={styles.galleryImg}
-                />
-              </li>
-            ))}
-          </ul>
+          <div
+            className={`${styles.galleryWrap} ${isMobile && !expanded ? styles.galleryWrapCollapsed : styles.galleryWrapExpanded}`}
+          >
+            <ul className={styles.galleryGrid}>
+              {gallery.map((img, i) => (
+                <li key={i}>
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={600}
+                    height={400}
+                    className={styles.galleryImg}
+                  />
+                </li>
+              ))}
+            </ul>
+            <div
+              className={`${styles.fadeOverlay} ${isMobile && !expanded ? styles.fadeOverlayVisible : styles.fadeOverlayHidden}`}
+              aria-hidden={!(isMobile && !expanded)}
+            >
+              <div className={styles.fadeCta}>
+                <button
+                  type="button"
+                  className={styles.fadeBtn}
+                  onClick={() => setExpanded(true)}
+                >
+                  Показать ещё
+                </button>
+                <Link href="/o-teatre" className={styles.fadeLink}>
+                  Вся галерея →
+                </Link>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

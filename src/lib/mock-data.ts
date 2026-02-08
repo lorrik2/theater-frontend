@@ -9,6 +9,7 @@ export interface Performance {
   genre: string;
   description: string;
   duration?: string;
+  isPremiere?: boolean;
 }
 
 export interface Premiere {
@@ -65,6 +66,7 @@ export const performances: Performance[] = [
     genre: "Драма",
     description: "Классическая постановка Чехова о уходящей эпохе.",
     duration: "2 ч 40 мин",
+    isPremiere: true,
   },
   {
     id: "2",
@@ -77,6 +79,7 @@ export const performances: Performance[] = [
     genre: "Комедия",
     description: "Гоголь в современном прочтении.",
     duration: "2 ч 20 мин",
+    isPremiere: true,
   },
   {
     id: "3",
@@ -89,6 +92,7 @@ export const performances: Performance[] = [
     genre: "Драма",
     description: "Вечная пьеса о любви и творчестве.",
     duration: "3 ч",
+    isPremiere: true,
   },
   {
     id: "4",
@@ -104,24 +108,60 @@ export const performances: Performance[] = [
   },
 ];
 
-export const mainPremiere: Premiere = {
-  id: "prem1",
-  title: "Вишнёвый сад",
-  slug: "vishnevyj-sad",
-  poster: "/spect/bese.jpg",
-  description:
-    "Премьера сезона — «Вишнёвый сад» в постановке главного режиссёра театра. Современный взгляд на классику: без париков и бутафории, с живыми эмоциями и актуальными смыслами. Символ уходящего мира и надежда на новый.",
-  director: "Андрей Волков",
-  cast: [
-    "Мария Светлова",
-    "Дмитрий Козлов",
-    "Елена Новикова",
-    "Игорь Белов",
-    "Ольга Морозова",
-  ],
-  date: "15 февраля 2025",
-  time: "19:00",
-};
+export const premieres: Premiere[] = [
+  {
+    id: "prem1",
+    title: "Вишнёвый сад",
+    slug: "vishnevyj-sad",
+    poster: "/spect/bese.jpg",
+    description:
+      "Премьера сезона — «Вишнёвый сад» в постановке главного режиссёра театра. Современный взгляд на классику: без париков и бутафории, с живыми эмоциями и актуальными смыслами. Символ уходящего мира и надежда на новый.",
+    director: "Андрей Волков",
+    cast: [
+      "Мария Светлова",
+      "Дмитрий Козлов",
+      "Елена Новикова",
+      "Игорь Белов",
+      "Ольга Морозова",
+    ],
+    date: "15 февраля 2025",
+    time: "19:00",
+  },
+  {
+    id: "prem2",
+    title: "Ревизор",
+    slug: "revizor",
+    poster: "/spect/hamlt.jpg",
+    description:
+      "Премьера — «Ревизор» в современном прочтении. Острые характеры, актуальные темы взяточничества и самообмана. Классика Гоголя звучит по-новому.",
+    director: "Андрей Волков",
+    cast: [
+      "Дмитрий Козлов",
+      "Елена Новикова",
+      "Игорь Белов",
+      "Мария Светлова",
+    ],
+    date: "22 февраля 2025",
+    time: "18:30",
+  },
+  {
+    id: "prem3",
+    title: "Чайка",
+    slug: "chajka",
+    poster: "/spect/idiot.jpg",
+    description:
+      "Вечная пьеса о любви и творчестве. Премьера сезона — «Чайка» с новым актёрским составом и обновлённой сценографией.",
+    director: "Андрей Волков",
+    cast: [
+      "Мария Светлова",
+      "Дмитрий Козлов",
+      "Елена Новикова",
+      "Ольга Морозова",
+    ],
+    date: "1 марта 2025",
+    time: "19:00",
+  },
+];
 
 export const actors: Actor[] = [
   {

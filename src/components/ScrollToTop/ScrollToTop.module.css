@@ -1,0 +1,7 @@
+.btn {
+  @apply fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-graphite-950 text-white shadow-lg transition-all hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+}
+
+.arrow {
+  @apply text-xl font-bold leading-none;
+}

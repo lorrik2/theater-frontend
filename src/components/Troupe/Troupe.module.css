@@ -30,8 +30,58 @@
   @apply rounded-md border border-graphite-950 bg-graphite-950 px-4 py-2 text-sm font-medium text-white;
 }
 
+.cardsWrap {
+  @apply relative;
+}
+
+.cardsWrapCollapsed {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardsWrapExpanded {
+  max-height: none;
+}
+
 .troupeGrid {
   @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-4;
+}
+
+.fadeOverlay {
+  @apply pointer-events-none absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-6 pt-24;
+  background: linear-gradient(to top, rgba(231, 231, 231, 0.98) 0%, rgba(231, 231, 231, 0.85) 40%, transparent 100%);
+}
+
+.fadeOverlayVisible {
+  @apply pointer-events-auto;
+}
+
+.fadeOverlayHidden {
+  @apply hidden;
+}
+
+.fadeCta {
+  @apply flex flex-col items-center gap-3;
+}
+
+.fadeBtn {
+  @apply rounded-md bg-graphite-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-graphite-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-graphite-950;
+}
+
+.fadeLink {
+  @apply text-sm font-medium text-graphite-600 no-underline hover:text-graphite-950 hover:underline;
+}
+
+@media (min-width: 768px) {
+  .cardsWrapCollapsed {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .fadeOverlay {
+    display: none !important;
+  }
 }
 
 .card {

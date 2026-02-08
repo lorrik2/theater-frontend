@@ -1,21 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { actors } from "@/lib/mock-data";
 import styles from "./Troupe.module.css";
 
+const MOBILE_BREAKPOINT = 768;
+
 type SortKey = "name" | "rank";
 
 export default function Troupe() {
   const [sort, setSort] = useState<SortKey>("name");
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const sorted = [...actors].sort((a, b) => {
     if (sort === "name") return a.name.localeCompare(b.name);
     const hasRank = (x: typeof a) => (x.rank ? 1 : 0);
     return hasRank(b) - hasRank(a) || a.name.localeCompare(b.name);
   });
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
 
   return (
     <section className={styles.section} id="truppa" aria-labelledby="troupe-title">
@@ -50,6 +63,9 @@ export default function Troupe() {
           </div>
         </motion.div>
 
+        <div
+          className={`${styles.cardsWrap} ${isMobile && !expanded ? styles.cardsWrapCollapsed : styles.cardsWrapExpanded}`}
+        >
         <ul className={styles.troupeGrid}>
           {sorted.map((actor, i) => (
             <motion.li
@@ -82,11 +98,31 @@ export default function Troupe() {
           ))}
         </ul>
 
+          <div
+            className={`${styles.fadeOverlay} ${isMobile && !expanded ? styles.fadeOverlayVisible : styles.fadeOverlayHidden}`}
+            aria-hidden={!(isMobile && !expanded)}
+          >
+            <div className={styles.fadeCta}>
+              <button
+                type="button"
+                className={styles.fadeBtn}
+                onClick={() => setExpanded(true)}
+              >
+                Показать ещё
+              </button>
+              <Link href="/truppa" className={styles.fadeLink}>
+                Вся труппа →
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <motion.div
           className={styles.moreWrap}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          style={isMobile && !expanded ? { display: "none" } : undefined}
         >
           <Link href="/truppa" className={styles.moreLink}>
             Вся труппа →

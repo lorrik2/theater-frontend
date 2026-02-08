@@ -23,15 +23,10 @@ const item = {
 };
 
 export default function Repertoire() {
-  const [dateFilter, setDateFilter] = useState<string>("all");
   const [expanded, setExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const dates = ["all", ...Array.from(new Set(performances.map((p) => p.date)))];
-  const filtered =
-    dateFilter === "all"
-      ? performances
-      : performances.filter((p) => p.date === dateFilter);
+  const filtered = performances;
 
   useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
@@ -52,24 +47,6 @@ export default function Repertoire() {
         >
           <h2 className={styles.title}>Афиша</h2>
           <p className={styles.subtitle}>Репертуар текущего сезона</p>
-          <div className={styles.filters}>
-            <label htmlFor="date-filter" className="sr-only">
-              Фильтр по дате
-            </label>
-            <select
-              id="date-filter"
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
-              className={styles.select}
-            >
-              <option value="all">Все даты</option>
-              {dates.filter((d) => d !== "all").map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-          </div>
         </motion.div>
 
         <div
@@ -94,6 +71,9 @@ export default function Repertoire() {
                       className={styles.poster}
                     />
                     <span className={styles.age}>{play.ageRating}</span>
+                    {play.isPremiere && (
+                      <span className={styles.premiere}>Премьера</span>
+                    )}
                   </div>
                   <div className={styles.body}>
                     <h3 className={styles.cardTitle}>{play.title}</h3>

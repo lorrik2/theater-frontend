@@ -19,7 +19,19 @@
 }
 
 .filters {
-  @apply mt-4 flex justify-center;
+  @apply mt-4 flex flex-wrap items-center justify-center gap-4;
+}
+
+.filterTabs {
+  @apply flex gap-1 rounded-md border border-graphite-200 bg-graphite-50 p-1;
+}
+
+.filterTab {
+  @apply rounded px-3 py-1.5 text-sm font-medium text-graphite-600 transition-colors hover:bg-graphite-200 hover:text-graphite-950;
+}
+
+.filterTabActive {
+  @apply rounded bg-graphite-950 px-3 py-1.5 text-sm font-medium text-white;
 }
 
 .select {
@@ -34,7 +46,7 @@
 .cardsWrapCollapsed {
   max-height: 1280px;
   overflow: hidden;
-  transition: max-height 0.4s ease-out;
+  transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cardsWrapExpanded {
@@ -106,6 +118,10 @@
 
 .age {
   @apply absolute right-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
+}
+
+.premiere {
+  @apply absolute left-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
 }
 
 .body {
