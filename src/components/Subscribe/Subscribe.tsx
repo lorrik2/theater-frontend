@@ -32,7 +32,7 @@ export default function Subscribe() {
             Узнавайте о премьерах первыми
           </h2>
           <p className={styles.subtitle}>
-            Подпишитесь на рассылку — анонсы спектаклей, спецпредложения и новости театра.
+            Подпишитесь на рассылку — анонсы спектаклей, спецпредложения и события театра.
           </p>
           <form onSubmit={handleSubmit} className={styles.form}>
             <label htmlFor="subscribe-email" className="sr-only">

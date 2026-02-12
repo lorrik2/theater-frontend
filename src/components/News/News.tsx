@@ -11,7 +11,7 @@ export default function News() {
   const items = newsItems.slice(0, NEWS_ON_MAIN_LIMIT);
 
   return (
-    <section className={styles.section} id="novosti" aria-labelledby="news-title">
+    <section className={styles.section} id="sobytiya" aria-labelledby="news-title">
       <div className={styles.container}>
         <motion.div
           className={styles.header}
@@ -37,7 +37,7 @@ export default function News() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.04 }}
             >
-              <Link href={`/novosti/${item.slug}`} className={styles.eventLink}>
+              <Link href={`/sobytiya/${item.slug}`} className={styles.eventLink}>
                 <span className={styles.eventTitle}>{item.title}</span>
                 <time className={styles.eventDate} dateTime={item.date}>
                   {item.date}
@@ -53,8 +53,8 @@ export default function News() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <Link href="/novosti" className={styles.moreLink}>
-            Все новости →
+          <Link href="/sobytiya" className={styles.moreLink}>
+            Все события →
           </Link>
         </motion.div>
       </div>

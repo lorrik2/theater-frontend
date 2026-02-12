@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import { reviews } from "@/lib/mock-data";
+import { theaterReviews } from "@/lib/mock-data";
 import styles from "./Reviews.module.css";
 
 import "swiper/css";
@@ -24,7 +24,7 @@ export default function Reviews() {
           viewport={{ once: true }}
         >
           <h2 id="reviews-title" className={styles.title}>
-            Отзывы о спектаклях
+            Отзывы о театре
           </h2>
           <p className={styles.subtitle}>
             Что говорят наши зрители
@@ -54,13 +54,13 @@ export default function Reviews() {
             }}
             className={styles.slider}
           >
-            {reviews.map((review) => (
+            {theaterReviews.map((review) => (
               <SwiperSlide key={review.id}>
                 <blockquote className={styles.quote}>
                   <span className={styles.quoteMark}>&ldquo;</span>
                   <p className={styles.quoteText}>{review.quote}</p>
                   <footer className={styles.attribution}>
-                    — из отзыва зрительницы {review.author}
+                    — {review.author}
                   </footer>
                 </blockquote>
               </SwiperSlide>

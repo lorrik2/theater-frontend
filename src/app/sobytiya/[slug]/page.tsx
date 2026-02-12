@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = newsItems.find((n) => n.slug === slug);
-  if (!item) return { title: "Новость" };
+  if (!item) return { title: "Событие" };
   return {
     title: `${item.title} — Драматический театр «Круг»`,
     description: item.excerpt,
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function NewsItemPage({ params }: Props) {
+export default async function EventItemPage({ params }: Props) {
   const { slug } = await params;
   const item = newsItems.find((n) => n.slug === slug);
   if (!item) notFound();
@@ -30,8 +30,8 @@ export default async function NewsItemPage({ params }: Props) {
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>
-        <Link href="/novosti" className="text-graphite-600 hover:underline">
-          ← Новости
+        <Link href="/sobytiya" className="text-graphite-600 hover:underline">
+          ← События
         </Link>
         <p className="mt-4 text-sm text-graphite-500">
           <time dateTime={item.date}>{item.date}</time> · {item.category}
@@ -41,17 +41,13 @@ export default async function NewsItemPage({ params }: Props) {
 
       <article className="mx-auto max-w-3xl">
         <div className="relative aspect-video overflow-hidden rounded-lg bg-graphite-200">
-          <Image
-            src={item.image}
-            alt=""
-            fill
-            className="object-cover"
-          />
+          <Image src={item.image} alt="" fill className="object-cover" />
         </div>
         <div className="mt-6 prose prose-graphite max-w-none">
           <p className="text-lg text-graphite-700">{item.excerpt}</p>
           <p className="mt-4 text-graphite-700">
-            Полный текст материала будет подгружаться из Strapi CMS. Здесь — заглушка для демонстрации структуры страницы новости.
+            Полный текст материала будет подгружаться из Strapi CMS. Здесь —
+            заглушка для демонстрации структуры страницы события.
           </p>
         </div>
       </article>

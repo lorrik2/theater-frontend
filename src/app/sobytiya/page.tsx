@@ -5,15 +5,16 @@ import { newsItems } from "@/lib/mock-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
-  title: "Новости — Драматический театр «Круг»",
-  description: "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
+  title: "События — Драматический театр «Круг»",
+  description:
+    "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
 };
 
-export default function NewsPage() {
+export default function EventsPage() {
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>
-        <h1 className={styles.h1}>Новости и блог</h1>
+        <h1 className={styles.h1}>События</h1>
         <p className={styles.lead}>
           Анонсы, рецензии, встречи с актерами и экскурсии
         </p>
@@ -23,7 +24,10 @@ export default function NewsPage() {
         <ul className={styles.newsGrid}>
           {newsItems.map((item) => (
             <li key={item.id} className={styles.newsCard}>
-              <Link href={`/novosti/${item.slug}`} className={styles.newsCardLink}>
+              <Link
+                href={`/sobytiya/${item.slug}`}
+                className={styles.newsCardLink}
+              >
                 <div className={styles.newsImageWrap}>
                   <Image
                     src={item.image}

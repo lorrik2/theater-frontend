@@ -1,9 +1,5 @@
-.section {
-  @apply bg-white py-16 md:py-24;
-}
-
-.container {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+.wrap {
+  @apply mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 md:py-16;
 }
 
 .header {
@@ -15,12 +11,16 @@
   letter-spacing: 0.04em;
 }
 
-.cardsWrap {
-  @apply flex justify-center;
+.subtitle {
+  @apply mt-2 text-lg text-graphite-600;
+}
+
+.section {
+  @apply mt-8;
 }
 
 .teamGrid {
-  @apply flex list-none flex-wrap justify-center gap-4 sm:gap-10;
+  @apply grid list-none grid-cols-2 gap-4 sm:gap-10 sm:grid-cols-2 lg:grid-cols-4;
 }
 
 .card {
@@ -32,7 +32,7 @@
 }
 
 .photoWrap {
-  @apply relative flex h-44 w-44 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 sm:h-56 sm:w-56 md:h-60 md:w-60;
+  @apply relative flex h-44 w-44 shrink-0 overflow-hidden rounded-full border-2 border-graphite-200 bg-graphite-200 ring-2 ring-white shadow-lg transition-transform duration-300 sm:h-64 sm:w-64 md:h-56 md:w-56 lg:h-60 lg:w-60;
 }
 
 .photo {
@@ -62,12 +62,4 @@
 
 .role {
   @apply text-[10px] text-graphite-500 sm:text-sm;
-}
-
-.moreWrap {
-  @apply mt-12 text-center;
-}
-
-.moreLink {
-  @apply font-medium text-graphite-950 no-underline hover:underline;
 }

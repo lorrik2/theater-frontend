@@ -7,12 +7,13 @@
 }
 
 .header {
-  @apply mb-12 text-center;
+  @apply mb-12 text-center pt-1;
 }
 
 .title {
   @apply font-posterama text-3xl font-bold tracking-wide md:text-4xl;
   letter-spacing: 0.05em;
+  padding-top: 0.15em;
 }
 
 .subtitle {
@@ -37,11 +38,11 @@
 }
 
 .quote {
-  @apply relative overflow-hidden rounded-lg border border-graphite-700 bg-graphite-900/50 px-6 py-8 md:px-8 md:py-10;
+  @apply relative overflow-hidden rounded-lg border border-graphite-700 bg-graphite-900/50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
 }
 
 .quoteMark {
-  @apply absolute top-0 left-0 block font-serif text-7xl leading-none text-graphite-600 opacity-60 md:text-8xl;
+  @apply absolute top-2 left-2 block font-serif text-7xl leading-none text-graphite-600 opacity-60 md:text-8xl md:top-3 md:left-3;
 }
 
 .quoteText {

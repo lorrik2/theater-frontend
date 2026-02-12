@@ -1,34 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { actors } from "@/lib/mock-data";
 import styles from "./Team.module.css";
 
-const MOBILE_BREAKPOINT = 768;
-
 export default function Team() {
-  const [expanded, setExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const sorted = [...actors].sort((a, b) => a.name.localeCompare(b.name));
-
-  useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const update = () => setIsMobile(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
+  const leadership = actors.filter(
+    (a) =>
+      a.role.toLowerCase().includes("режиссёр") ||
+      (a.rank && a.rank.includes("Художественный руководитель")),
+  );
+  const sorted = [...leadership].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <section
-      className={styles.section}
-      id="team"
-      aria-labelledby="team-title"
-    >
+    <section className={styles.section} id="team" aria-labelledby="team-title">
       <div className={styles.container}>
         <motion.div
           className={styles.header}
@@ -37,18 +24,11 @@ export default function Team() {
           viewport={{ once: true }}
         >
           <h2 id="team-title" className={styles.title}>
-            Команда
+            Художественный руководитель и режиссёр
           </h2>
-          <p className={styles.subtitle}>Актеры и режиссёры театра</p>
         </motion.div>
 
-        <div
-          className={`${styles.cardsWrap} ${
-            isMobile && !expanded
-              ? styles.cardsWrapCollapsed
-              : styles.cardsWrapExpanded
-          }`}
-        >
+        <div className={styles.cardsWrap}>
           <ul className={styles.teamGrid}>
             {sorted.map((actor, i) => (
               <motion.li
@@ -78,28 +58,6 @@ export default function Team() {
               </motion.li>
             ))}
           </ul>
-
-          <div
-            className={`${styles.fadeOverlay} ${
-              isMobile && !expanded
-                ? styles.fadeOverlayVisible
-                : styles.fadeOverlayHidden
-            }`}
-            aria-hidden={!(isMobile && !expanded)}
-          >
-            <div className={styles.fadeCta}>
-              <button
-                type="button"
-                className={styles.fadeBtn}
-                onClick={() => setExpanded(true)}
-              >
-                Показать ещё
-              </button>
-              <Link href="/team" className={styles.fadeLink}>
-                Вся команда →
-              </Link>
-            </div>
-          </div>
         </div>
 
         <motion.div
@@ -107,7 +65,6 @@ export default function Team() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          style={isMobile && !expanded ? { display: "none" } : undefined}
         >
           <Link href="/team" className={styles.moreLink}>
             Вся команда →

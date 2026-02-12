@@ -3,6 +3,7 @@ import Repertoire from "@/components/Repertoire";
 import TicketsBlock from "@/components/TicketsBlock";
 import About from "@/components/About";
 import Team from "@/components/Team";
+import Reviews from "@/components/Reviews";
 import News from "@/components/News";
 import Contacts from "@/components/Contacts";
 
@@ -14,6 +15,7 @@ export default function HomePage() {
       <About />
       <TicketsBlock />
       <Team />
+      <Reviews />
       <News />
       <Contacts />
     </>
