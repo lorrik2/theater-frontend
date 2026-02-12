@@ -6,6 +6,55 @@
   @apply list-none;
 }
 
+/* Вариант «один ряд» — фото и кнопка «смотреть все» как карточки одинакового размера */
+.galleryRow {
+  @apply mt-4 grid gap-4;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 640px) {
+  .galleryRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .galleryRow {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.galleryRowList {
+  @apply contents list-none;
+}
+
+.galleryRowItem {
+  @apply contents;
+}
+
+.galleryRow .thumbBtn {
+  @apply relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-lg border-0 p-0 text-left outline-none no-underline;
+}
+
+.moreCard {
+  @apply flex aspect-[4/3] w-full items-center justify-center rounded-lg border-2 border-dashed border-graphite-300 bg-graphite-50 px-4 py-6 text-center no-underline transition-colors;
+}
+
+.moreCard:hover,
+.moreCard:active {
+  border-color: var(--color-accent-red);
+  background-color: rgb(197 35 37 / 0.08);
+}
+
+.moreCardText {
+  @apply font-medium text-graphite-700;
+}
+
+.moreCard:hover .moreCardText,
+.moreCard:active .moreCardText {
+  color: var(--color-accent-red);
+}
+
 .thumbBtn {
   @apply block w-full cursor-zoom-in overflow-hidden rounded-lg border-0 p-0 text-left outline-none no-underline;
 }

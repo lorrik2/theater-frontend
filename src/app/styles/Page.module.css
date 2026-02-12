@@ -2,6 +2,27 @@
   @apply mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 md:py-16;
 }
 
+.contactsWrap {
+  @apply py-8 md:py-10;
+}
+
+.contactsHeader {
+  @apply mb-6 md:mb-8;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  @apply mb-8 flex items-center gap-2 text-xs uppercase tracking-wider text-graphite-500;
+}
+
+.breadcrumbs a:hover {
+  @apply text-graphite-950 underline;
+}
+
+.breadcrumbsSep {
+  @apply text-graphite-400;
+}
+
 .header {
   @apply mb-12 text-center;
 }
@@ -20,6 +41,10 @@
 
 .contentSection {
   @apply mt-12 max-w-3xl;
+}
+
+.contentSectionWide {
+  @apply max-w-none;
 }
 
 .contentSection p {
@@ -143,6 +168,14 @@
 
 .gallery li {
   @apply list-none overflow-hidden rounded-lg;
+}
+
+.galleryLink {
+  @apply mt-4 inline-block font-medium no-underline transition-colors;
+  color: var(--color-graphite-950);
+}
+.galleryLink:hover {
+  @apply underline;
 }
 
 .galleryImg {

@@ -2,6 +2,10 @@
   @apply bg-graphite-50 py-16 md:py-24;
 }
 
+.sectionCompact {
+  @apply py-8 md:py-10;
+}
+
 .container {
   @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
 }
@@ -19,16 +23,36 @@
   @apply mt-12 grid gap-10 lg:grid-cols-2;
 }
 
+.layoutGridCompact {
+  @apply mt-0 gap-6;
+}
+
 .info {
   @apply space-y-6;
+}
+
+.infoCompact {
+  @apply space-y-4;
 }
 
 .block {
   @apply rounded-sm border border-graphite-200 bg-white p-4;
 }
 
+.blockCompact {
+  @apply p-3;
+}
+
 .blockTitle {
   @apply mb-2 font-posterama text-lg font-bold text-graphite-950;
+}
+
+.blockCompact .blockTitle {
+  @apply mb-1;
+}
+
+.blockCompact .contactsContent {
+  @apply space-y-2;
 }
 
 .address {

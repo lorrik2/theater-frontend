@@ -1,0 +1,101 @@
+/* Макет в стиле mbronnaya.ru — страница актёра */
+
+.wrap {
+  @apply mx-auto max-w-5xl px-6 py-10 sm:px-8 md:py-12 lg:px-12;
+}
+
+.breadcrumbs {
+  @apply mb-8 flex items-center gap-2 text-xs uppercase tracking-wider text-graphite-500;
+}
+
+.breadcrumbs a:hover {
+  @apply text-graphite-950 underline;
+}
+
+.breadcrumbsSep {
+  @apply text-graphite-400;
+}
+
+.breadcrumbsCurrent {
+  @apply text-graphite-800;
+}
+
+.article {
+  @apply mt-2;
+}
+
+.layout {
+  @apply grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-14;
+}
+
+.photoColumn {
+  @apply flex flex-col gap-4;
+}
+
+.photoLink {
+  @apply block cursor-zoom-in overflow-hidden rounded-lg bg-graphite-200 outline-none no-underline;
+}
+
+.photoWrap {
+  @apply relative aspect-[4/5] w-full overflow-hidden;
+}
+
+.photo {
+  @apply h-full w-full object-cover object-top transition-transform duration-300;
+}
+
+.photoLink:hover .photo {
+  @apply scale-105;
+}
+
+.galleryGrid {
+  @apply grid list-none grid-cols-2 gap-3 sm:grid-cols-3;
+}
+
+.galleryThumb {
+  @apply block overflow-hidden rounded-lg border border-graphite-200 p-0 outline-none no-underline transition-opacity hover:opacity-90;
+}
+
+.galleryImg {
+  @apply aspect-[4/3] w-full object-cover transition-transform duration-300;
+}
+
+.galleryThumb:hover .galleryImg {
+  @apply scale-105;
+}
+
+.infoColumn {
+  @apply flex flex-col pt-6 md:pt-12;
+}
+
+.name {
+  @apply font-serif text-3xl font-medium tracking-tight text-graphite-950 md:text-4xl;
+}
+
+.rank {
+  @apply mt-1 text-sm font-medium uppercase tracking-wider text-graphite-600;
+}
+
+.role {
+  @apply mt-2 font-serif text-lg text-graphite-700;
+}
+
+.bio {
+  @apply mt-6 text-base leading-relaxed text-graphite-700 md:text-lg;
+}
+
+.bio p + p {
+  @apply mt-4;
+}
+
+.rolesSection {
+  @apply mt-10 border-t border-graphite-200 pt-8;
+}
+
+.rolesTitle {
+  @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.rolesList {
+  @apply mt-4 list-disc space-y-2 pl-5 font-serif text-base text-graphite-800 md:text-lg;
+}

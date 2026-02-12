@@ -28,33 +28,44 @@ const IconTelegram = () => (
   </svg>
 );
 
-export default function Contacts() {
+interface ContactsProps {
+  /** Скрыть заголовок — когда используется на странице /kontakty */
+  showTitle?: boolean;
+  /** Уменьшить отступы — для страницы /kontakty */
+  compact?: boolean;
+}
+
+export default function Contacts({ showTitle = true, compact = false }: ContactsProps) {
   return (
     <section
-      className={styles.section}
+      className={`${styles.section} ${compact ? styles.sectionCompact : ""}`}
       id="kontakty"
-      aria-labelledby="contacts-title"
+      aria-labelledby={showTitle ? "contacts-title" : undefined}
     >
       <div className={styles.container}>
-        <h2 id="contacts-title" className={styles.title}>
-          Контакты и схема проезда
-        </h2>
-        <p className={styles.subtitle}>
-          Адрес, контакты, режим работы кассы и администрации
-        </p>
+        {showTitle && (
+          <>
+            <h2 id="contacts-title" className={styles.title}>
+              Контакты и схема проезда
+            </h2>
+            <p className={styles.subtitle}>
+              Адрес, телефоны, карта и режим работы
+            </p>
+          </>
+        )}
 
-        <div className={styles.layoutGrid}>
-          <div className={styles.info}>
-            <div className={styles.block}>
+        <div className={`${styles.layoutGrid} ${compact ? styles.layoutGridCompact : ""}`}>
+          <div className={`${styles.info} ${compact ? styles.infoCompact : ""}`}>
+            <div className={`${styles.block} ${compact ? styles.blockCompact : ""}`}>
               <h3 className={styles.blockTitle}>Адрес</h3>
               <p className={styles.address}>{contactInfo.address}</p>
             </div>
-            <div className={styles.block}>
+            <div className={`${styles.block} ${compact ? styles.blockCompact : ""}`}>
               <h3 className={styles.blockTitle}>Режим работы</h3>
               <p>{contactInfo.workingHours.boxOffice}</p>
               <p className="mt-1">{contactInfo.workingHours.admin}</p>
             </div>
-            <div className={styles.contactsBlock}>
+            <div className={`${styles.contactsBlock} ${compact ? styles.blockCompact : ""}`}>
               <h3 className={styles.blockTitle}>Контакты</h3>
               <div className={styles.contactsContent}>
                 <div className={styles.contactRow}>
@@ -97,7 +108,7 @@ export default function Contacts() {
                 </div>
               </div>
             </div>
-            <div className={styles.transport}>
+            <div className={`${styles.transport} ${compact ? styles.blockCompact : ""}`}>
               <h3 className={styles.blockTitle}>Как добраться</h3>
               <p>
                 Метро «Волковская».Театр находится в 5 минутах от метро

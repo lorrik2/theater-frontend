@@ -128,6 +128,23 @@
   @apply mt-16 md:mt-20;
 }
 
+/* Награды, дипломы и участие в фестивалях */
+.awardsList {
+  @apply mt-6 list-none space-y-4;
+}
+
+.awardItem {
+  @apply flex flex-col gap-1 border-l-2 border-graphite-300 pl-6 py-1 sm:flex-row sm:items-baseline sm:gap-4;
+}
+
+.awardTitle {
+  @apply font-serif text-base text-graphite-800 md:text-lg;
+}
+
+.awardMeta {
+  @apply shrink-0 text-sm text-graphite-500;
+}
+
 /* Отступ от тизера до блока покупки билетов */
 .ticketsWrapper {
   @apply mt-16 md:mt-20;

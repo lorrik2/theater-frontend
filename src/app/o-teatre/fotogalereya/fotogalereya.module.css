@@ -1,0 +1,28 @@
+.pagination {
+  @apply mt-12 border-t border-graphite-200 pt-10;
+}
+
+.paginationList {
+  @apply flex list-none flex-wrap items-center justify-center gap-4;
+}
+
+.paginationPages {
+  @apply flex items-center gap-2;
+}
+
+.paginationLink {
+  @apply inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-md border border-graphite-300 px-3 font-medium text-graphite-700 no-underline transition-colors hover:border-graphite-950 hover:bg-graphite-100 hover:text-graphite-950;
+}
+
+.paginationCurrent {
+  @apply inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-md bg-graphite-950 px-3 font-medium text-white;
+}
+
+.paginationPrev,
+.paginationNext {
+  @apply font-medium text-graphite-700 no-underline hover:text-graphite-950 hover:underline;
+}
+
+.paginationInfo {
+  @apply mt-4 text-center text-sm text-graphite-500;
+}

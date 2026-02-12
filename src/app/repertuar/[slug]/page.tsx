@@ -85,28 +85,29 @@ export default async function RepertuarSlugPage({ params }: Props) {
                   <span className={styles.creatorName}>{play.author}</span>
                 </div>
               )}
-              {play.director && (() => {
-                const directorActor = actors.find(
-                  (a) => a.name === play.director
-                );
-                return (
-                  <div className={styles.creatorRow}>
-                    <span className={styles.creatorLabel}>Режиссёр</span>
-                    {directorActor ? (
-                      <Link
-                        href={`/team/${directorActor.slug}`}
-                        className={styles.creatorNameLink}
-                      >
-                        {play.director}
-                      </Link>
-                    ) : (
-                      <span className={styles.creatorName}>
-                        {play.director}
-                      </span>
-                    )}
-                  </div>
-                );
-              })()}
+              {play.director &&
+                (() => {
+                  const directorActor = actors.find(
+                    (a) => a.name === play.director,
+                  );
+                  return (
+                    <div className={styles.creatorRow}>
+                      <span className={styles.creatorLabel}>Режиссёр</span>
+                      {directorActor ? (
+                        <Link
+                          href={`/team/${directorActor.slug}`}
+                          className={styles.creatorNameLink}
+                        >
+                          {play.director}
+                        </Link>
+                      ) : (
+                        <span className={styles.creatorName}>
+                          {play.director}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
               {play.designer && (
                 <div className={styles.creatorRow}>
                   <span className={styles.creatorLabel}>Художник</span>
@@ -124,12 +125,16 @@ export default async function RepertuarSlugPage({ params }: Props) {
               {play.soundDesigner && (
                 <div className={styles.creatorRow}>
                   <span className={styles.creatorLabel}>Звукорежиссёр</span>
-                  <span className={styles.creatorName}>{play.soundDesigner}</span>
+                  <span className={styles.creatorName}>
+                    {play.soundDesigner}
+                  </span>
                 </div>
               )}
               {play.lightSoundOperator && (
                 <div className={styles.creatorRow}>
-                  <span className={styles.creatorLabel}>Свето-звуко оператор</span>
+                  <span className={styles.creatorLabel}>
+                    Свето-звуко оператор
+                  </span>
                   <span className={styles.creatorName}>
                     {play.lightSoundOperator}
                   </span>
@@ -137,40 +142,41 @@ export default async function RepertuarSlugPage({ params }: Props) {
               )}
             </div>
           )}
-          {play.directorQuote && play.director && (() => {
-            const directorActor = actors.find(
-              (a) => a.name === play.director
-            );
-            return (
-            <div className={styles.directorQuoteBlock}>
-              <p className={styles.directorQuoteLabel}>
-                {directorActor ? (
-                  <Link
-                    href={`/team/${directorActor.slug}`}
-                    className={styles.directorQuoteLabelLink}
-                  >
-                    {play.director}
-                  </Link>
-                ) : (
-                  play.director
-                )}
-                , режиссёр спектакля
-              </p>
-              <blockquote className={styles.directorQuoteText}>
-                {play.directorQuote}
-              </blockquote>
-            </div>
-            );
-          })()}
+          {play.directorQuote &&
+            play.director &&
+            (() => {
+              const directorActor = actors.find(
+                (a) => a.name === play.director,
+              );
+              return (
+                <div className={styles.directorQuoteBlock}>
+                  <p className={styles.directorQuoteLabel}>
+                    {directorActor ? (
+                      <Link
+                        href={`/team/${directorActor.slug}`}
+                        className={styles.directorQuoteLabelLink}
+                      >
+                        {play.director}
+                      </Link>
+                    ) : (
+                      play.director
+                    )}
+                    , режиссёр спектакля
+                  </p>
+                  <blockquote className={styles.directorQuoteText}>
+                    {play.directorQuote}
+                  </blockquote>
+                </div>
+              );
+            })()}
 
           {play.inAfisha &&
             (() => {
-              const schedule =
-                play.schedule?.length
-                  ? play.schedule
-                  : play.date !== "—"
-                    ? [{ date: play.date, time: play.time }]
-                    : [];
+              const schedule = play.schedule?.length
+                ? play.schedule
+                : play.date !== "—"
+                  ? [{ date: play.date, time: play.time }]
+                  : [];
               return schedule.length > 0 ? (
                 <div
                   className={styles.scheduleBlock}
@@ -223,6 +229,33 @@ export default async function RepertuarSlugPage({ params }: Props) {
           </h2>
           <PerformanceGallery images={[]} teaserUrl={play.teaserUrl} />
         </section>
+
+        {((play.awards?.length ?? 0) > 0 ||
+          (play.festivals?.length ?? 0) > 0) && (
+          <section className={styles.section} aria-labelledby="awards-title">
+            <h2 id="awards-title" className={styles.sectionTitle}>
+              Награды, дипломы и участие в фестивалях
+            </h2>
+            <ul className={styles.awardsList}>
+              {play.awards?.map((award, i) => (
+                <li key={`a-${i}`} className={styles.awardItem}>
+                  <span className={styles.awardTitle}>{award.title}</span>
+                  {award.year && (
+                    <span className={styles.awardMeta}>{award.year}</span>
+                  )}
+                </li>
+              ))}
+              {play.festivals?.map((fest, i) => (
+                <li key={`f-${i}`} className={styles.awardItem}>
+                  <span className={styles.awardTitle}>{fest.title}</span>
+                  <span className={styles.awardMeta}>
+                    {[fest.year, fest.place].filter(Boolean).join(" · ")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {play.inAfisha && (
           <div className={styles.ticketsWrapper}>

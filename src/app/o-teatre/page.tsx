@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import styles from "../styles/Page.module.css";
 
@@ -8,17 +9,22 @@ export const metadata: Metadata = {
     "История здания и труппы, миссия, художественный руководитель, фотогалерея и видео-визитка.",
 };
 
-const gallery = [
+/** Превью для страницы О театре — первые 4 фото */
+const galleryPreview = [
   { src: "/fon/8.jpg", alt: "Фасад театра" },
   { src: "/fon/12.jpg", alt: "Зрительный зал" },
   { src: "/fon/13.jpg", alt: "Фойе" },
   { src: "/fon/22.jpg", alt: "Гримёрки" },
-  { src: "/fon/23.jpg", alt: "Закулисье" },
 ];
 
 export default function AboutPage() {
   return (
     <div className={styles.wrap}>
+      <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
+        <Link href="/">Главная</Link>
+        <span className={styles.breadcrumbsSep}>→</span>
+        <span>О театре</span>
+      </nav>
       <header className={styles.header}>
         <h1 className={styles.h1}>О театре</h1>
         <p className={styles.lead}>История, миссия, атмосфера и люди</p>
@@ -52,9 +58,16 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section id="gallery" className={styles.contentSection}>
+      <section id="gallery" className={`${styles.contentSection} ${styles.contentSectionWide}`}>
         <h2 className={styles.h2}>Фотогалерея</h2>
-        <GalleryLightbox images={gallery} variant="grid" />
+        <GalleryLightbox
+          images={galleryPreview}
+          variant="row"
+          moreLink={{
+            href: "/o-teatre/fotogalereya",
+            label: "Смотреть все фото →",
+          }}
+        />
       </section>
 
       <section className={styles.contentSection}>
