@@ -1,4 +1,4 @@
-/* Posterama: положите PosteramaText-Regular.woff2 в public/fonts/ для использования */
+/* Posterama: положите PosteramaText-Regular.woff2 в public/fonts/ */
 @font-face {
   font-family: "Posterama";
   src: url("/fonts/PosteramaText-Regular.woff2") format("woff2");

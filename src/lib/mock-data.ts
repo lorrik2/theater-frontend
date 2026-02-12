@@ -322,8 +322,8 @@ export const contactInfo = {
   emailAdmin: "info@theater.ru",
   emailPress: "press@theater.ru",
   social: {
-    vk: "https://vk.com/theater",
-    telegram: "https://t.me/theater",
+    vk: "https://vk.com/teatr_krug",
+    telegram: "https://t.me/teatr_krug",
     instagram: "https://instagram.com/theater",
   },
   workingHours: {

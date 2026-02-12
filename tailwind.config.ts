@@ -26,6 +26,7 @@ const config: Config = {
         "accent-red": "rgb(197 35 37)",
       },
       fontFamily: {
+        /* Posterama — если файл в public/fonts/, иначе Cinzel (--font-posterama) */
         posterama: [
           "Posterama",
           "var(--font-posterama)",

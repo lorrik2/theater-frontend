@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { newsItems } from "@/lib/mock-data";
 import styles from "./News.module.css";
 
+const NEWS_ON_MAIN_LIMIT = 5;
+
 export default function News() {
-  const items = newsItems.slice(0, 3);
+  const items = newsItems.slice(0, NEWS_ON_MAIN_LIMIT);
 
   return (
     <section className={styles.section} id="novosti" aria-labelledby="news-title">
@@ -19,41 +20,28 @@ export default function News() {
           viewport={{ once: true }}
         >
           <h2 id="news-title" className={styles.title}>
-            Новости и блог
+            События
           </h2>
           <p className={styles.subtitle}>
             Анонсы, рецензии, творческие вечера и экскурсии
           </p>
         </motion.div>
 
-        <ul className={styles.newsGrid}>
+        <ul className={styles.eventList}>
           {items.map((item, i) => (
             <motion.li
               key={item.id}
-              className={styles.card}
-              initial={{ opacity: 0, y: 16 }}
+              className={styles.eventRow}
+              initial={{ opacity: 0, y: 4 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              transition={{ delay: i * 0.04 }}
             >
-              <Link href={`/novosti/${item.slug}`} className={styles.cardLink}>
-                <div className={styles.imageWrap}>
-                  <Image
-                    src={item.image}
-                    alt=""
-                    width={600}
-                    height={400}
-                    className={styles.image}
-                  />
-                  <span className={styles.category}>{item.category}</span>
-                </div>
-                <div className={styles.body}>
-                  <time className={styles.date} dateTime={item.date}>
-                    {item.date}
-                  </time>
-                  <h3 className={styles.cardTitle}>{item.title}</h3>
-                  <p className={styles.excerpt}>{item.excerpt}</p>
-                </div>
+              <Link href={`/novosti/${item.slug}`} className={styles.eventLink}>
+                <span className={styles.eventTitle}>{item.title}</span>
+                <time className={styles.eventDate} dateTime={item.date}>
+                  {item.date}
+                </time>
               </Link>
             </motion.li>
           ))}

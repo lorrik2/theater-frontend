@@ -3,11 +3,11 @@
 }
 
 .container {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply mx-auto max-w-3xl px-4 sm:px-6 lg:px-8;
 }
 
 .header {
-  @apply mb-10 text-center;
+  @apply mb-8 text-center;
 }
 
 .title {
@@ -19,52 +19,34 @@
   @apply mt-2 text-lg text-graphite-600;
 }
 
-.newsGrid {
-  @apply grid gap-8 md:grid-cols-3;
+/* Строчный список в стиле mbronnaya.ru «События» */
+.eventList {
+  @apply list-none divide-y border-t border-b border-graphite-200;
 }
 
-.card {
+.eventRow {
   @apply list-none;
 }
 
-.cardLink {
-  @apply block overflow-hidden rounded-sm border border-graphite-200 bg-white no-underline transition-all hover:border-graphite-400 hover:shadow-lg;
+.eventLink {
+  @apply flex flex-col gap-0.5 py-4 no-underline transition-colors sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-3;
 }
 
-.imageWrap {
-  @apply relative aspect-[3/2] overflow-hidden bg-graphite-200;
+.eventLink:hover .eventTitle {
+  @apply text-graphite-950 underline;
 }
 
-.image {
-  @apply h-full w-full object-cover transition-transform duration-300;
+.eventTitle {
+  @apply font-posterama text-base font-medium text-graphite-700 transition-colors sm:text-lg;
+  letter-spacing: 0.02em;
 }
 
-.cardLink:hover .image {
-  @apply scale-105;
-}
-
-.category {
-  @apply absolute left-2 top-2 rounded bg-graphite-950 px-2 py-0.5 text-xs font-medium text-white;
-}
-
-.body {
-  @apply p-4;
-}
-
-.date {
-  @apply text-sm text-graphite-500;
-}
-
-.cardTitle {
-  @apply mt-1 font-posterama text-lg font-bold text-graphite-950;
-}
-
-.excerpt {
-  @apply mt-2 line-clamp-2 text-sm text-graphite-600;
+.eventDate {
+  @apply shrink-0 text-sm text-graphite-500;
 }
 
 .moreWrap {
-  @apply mt-12 text-center;
+  @apply mt-10 text-center;
 }
 
 .moreLink {

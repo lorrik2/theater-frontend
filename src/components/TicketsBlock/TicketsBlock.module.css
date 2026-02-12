@@ -1,5 +1,5 @@
 .section {
-  @apply bg-graphite-50 py-16 md:py-20;
+  @apply bg-graphite-100 py-16 md:py-20;
 }
 
 .container {

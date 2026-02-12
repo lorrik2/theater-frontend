@@ -9,18 +9,11 @@ import styles from "./Team.module.css";
 
 const MOBILE_BREAKPOINT = 768;
 
-type SortKey = "name" | "rank";
-
 export default function Team() {
-  const [sort, setSort] = useState<SortKey>("name");
   const [expanded, setExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const sorted = [...actors].sort((a, b) => {
-    if (sort === "name") return a.name.localeCompare(b.name);
-    const hasRank = (x: typeof a) => (x.rank ? 1 : 0);
-    return hasRank(b) - hasRank(a) || a.name.localeCompare(b.name);
-  });
+  const sorted = [...actors].sort((a, b) => a.name.localeCompare(b.name));
 
   useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
@@ -47,26 +40,6 @@ export default function Team() {
             Команда
           </h2>
           <p className={styles.subtitle}>Актеры и режиссёры театра</p>
-          <div className={styles.filters}>
-            <button
-              type="button"
-              className={
-                sort === "name" ? styles.filterActive : styles.filterBtn
-              }
-              onClick={() => setSort("name")}
-            >
-              По алфавиту
-            </button>
-            <button
-              type="button"
-              className={
-                sort === "rank" ? styles.filterActive : styles.filterBtn
-              }
-              onClick={() => setSort("rank")}
-            >
-              По званиям
-            </button>
-          </div>
         </motion.div>
 
         <div

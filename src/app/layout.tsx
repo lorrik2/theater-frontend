@@ -10,7 +10,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-/* Cinzel — театральный шрифт в духе Posterama (римская античность, афиши). Чтобы использовать Posterama — добавьте файлы в public/fonts/ и @font-face в globals.css */
+/* Cinzel — театральный шрифт (римская античность, афиши). Fallback при отсутствии Posterama */
 const cinzel = Cinzel({
   subsets: ["latin", "latin-ext"],
   variable: "--font-posterama",

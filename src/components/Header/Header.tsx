@@ -23,15 +23,26 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [mobileOpen]);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <header ref={headerRef} className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label="На главную">
           <Image
-            src="/logo/лого круг.png"
+            src="/logo/без фона.png"
             alt="Драматический театр Круг"
-            width={140}
-            height={48}
+            width={220}
+            height={80}
             className={styles.logoImg}
             priority
           />
@@ -57,10 +68,10 @@ export default function Header() {
 
         <button
           type="button"
-          className={styles.burger}
+          className={`${styles.burger} ${mobileOpen ? styles.burgerOpen : ""}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
-          aria-label="Открыть меню"
+          aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
         >
           <span className={styles.burgerLine} />
           <span className={styles.burgerLine} />
@@ -72,10 +83,10 @@ export default function Header() {
         {mobileOpen && (
           <motion.div
             className={styles.mobileMenu}
-            initial={{ opacity: 0, maxHeight: 0 }}
-            animate={{ opacity: 1, maxHeight: 520 }}
-            exit={{ opacity: 0, maxHeight: 0 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
             <ul className={styles.mobileList}>
               {navLinks.map((link) => (

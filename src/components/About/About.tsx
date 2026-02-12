@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import styles from "./About.module.css";
 
-const MOBILE_BREAKPOINT = 768;
+import "swiper/css";
+import "swiper/css/pagination";
 
 const gallery = [
   { src: "/fon/8.jpg", alt: "Фасад театра" },
@@ -16,17 +18,6 @@ const gallery = [
 ];
 
 export default function About() {
-  const [expanded, setExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const update = () => setIsMobile(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
-
   return (
     <section
       className={styles.section}
@@ -75,58 +66,35 @@ export default function About() {
             </Link>
           </motion.div>
 
-          <div className={styles.videoWrap}>
-            <div className={styles.videoPlaceholder}>
-              <span className={styles.videoLabel}>
-                Видео-визитка театра (2–3 мин)
-              </span>
-              <div className={styles.videoPlaceholderInner} />
-            </div>
+          <div className={styles.sliderWrap}>
+            <Swiper
+              modules={[Pagination, Autoplay]}
+              spaceBetween={0}
+              slidesPerView={1}
+              loop
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+              }}
+              pagination={{ clickable: true }}
+              className={styles.slider}
+            >
+              {gallery.map((img, i) => (
+                <SwiperSlide key={i} className={styles.slide}>
+                  <div className={styles.slideInner}>
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className={styles.slideImg}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
-
-        <motion.div
-          className={styles.gallery}
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h3 className={styles.galleryTitle}>Фотогалерея</h3>
-          <div
-            className={`${styles.galleryWrap} ${isMobile && !expanded ? styles.galleryWrapCollapsed : styles.galleryWrapExpanded}`}
-          >
-            <ul className={styles.galleryGrid}>
-              {gallery.map((img, i) => (
-                <li key={i}>
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={400}
-                    className={styles.galleryImg}
-                  />
-                </li>
-              ))}
-            </ul>
-            <div
-              className={`${styles.fadeOverlay} ${isMobile && !expanded ? styles.fadeOverlayVisible : styles.fadeOverlayHidden}`}
-              aria-hidden={!(isMobile && !expanded)}
-            >
-              <div className={styles.fadeCta}>
-                <button
-                  type="button"
-                  className={styles.fadeBtn}
-                  onClick={() => setExpanded(true)}
-                >
-                  Показать ещё
-                </button>
-                <Link href="/o-teatre" className={styles.fadeLink}>
-                  Вся галерея →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

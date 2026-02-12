@@ -52,7 +52,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className={styles.contentSection}>
+      <section id="gallery" className={styles.contentSection}>
         <h2 className={styles.h2}>Фотогалерея</h2>
         <ul className={styles.gallery}>
           {gallery.map((img, i) => (

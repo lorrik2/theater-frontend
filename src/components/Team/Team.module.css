@@ -19,18 +19,6 @@
   @apply mt-2 text-lg text-graphite-600;
 }
 
-.filters {
-  @apply mt-4 flex justify-center gap-2;
-}
-
-.filterBtn {
-  @apply rounded-md border border-graphite-400 bg-white px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:bg-graphite-200;
-}
-
-.filterActive {
-  @apply rounded-md border border-graphite-950 bg-graphite-950 px-4 py-2 text-sm font-medium text-white;
-}
-
 .cardsWrap {
   @apply relative;
 }

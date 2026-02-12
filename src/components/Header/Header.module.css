@@ -1,5 +1,5 @@
 .header {
-  @apply relative sticky top-0 z-50 w-full border-b border-graphite-300;
+  @apply relative sticky top-0 z-50 w-full overflow-visible border-b border-graphite-300;
   background: #cccccc;
 }
 
@@ -8,11 +8,18 @@
 }
 
 .logo {
-  @apply flex shrink-0 items-center no-underline;
+  @apply flex shrink-0 items-center overflow-visible no-underline;
 }
 
 .logoImg {
-  @apply h-10 w-auto object-contain min-[400px]:h-12;
+  @apply w-auto object-contain;
+  height: 4rem;
+}
+
+@media (min-width: 400px) {
+  .logoImg {
+    height: 5rem;
+  }
 }
 
 .nav {
@@ -40,29 +47,43 @@
 }
 
 .burger {
-  @apply flex flex-col justify-center gap-1.5 rounded p-2 text-graphite-950 outline-none min-[960px]:hidden;
-  @apply focus:outline-none hover:ring-2 hover:ring-graphite-950 hover:ring-offset-2;
+  @apply relative flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 rounded p-2 text-graphite-950 outline-none min-[960px]:hidden;
+  @apply hover:ring-2 hover:ring-graphite-950 hover:ring-offset-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 active:outline-none active:ring-0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .burgerLine {
-  @apply h-0.5 w-6 bg-graphite-950 transition-transform;
+  @apply block h-0.5 w-6 origin-center bg-graphite-950 transition-all duration-300 ease-out;
+}
+
+.burgerOpen .burgerLine:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.burgerOpen .burgerLine:nth-child(2) {
+  @apply scale-0 opacity-0;
+}
+
+.burgerOpen .burgerLine:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 .mobileMenu {
-  @apply absolute left-0 right-0 top-full z-50 overflow-hidden border-t border-graphite-300 bg-[#cccccc] min-[960px]:hidden;
-  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.15);
+  @apply fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col items-center justify-center px-4 min-[960px]:hidden;
+  min-height: calc(100vh - 4rem);
+  background: #cccccc;
 }
 
 .mobileList {
-  @apply flex flex-col gap-0 px-4 py-4;
+  @apply flex flex-col items-center gap-2;
 }
 
 .mobileLink {
-  @apply -mx-4 block rounded-md px-4 py-3 text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
+  @apply block rounded-md px-6 py-3 text-lg font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
 }
 
 .mobileTicketBtn {
-  @apply mt-2 inline-flex w-full justify-center rounded-md px-6 py-3 text-sm font-semibold text-white transition-all;
+  @apply mt-4 inline-flex justify-center rounded-md px-8 py-3 text-base font-semibold text-white transition-all;
   background: var(--color-accent-red);
 }
 .mobileTicketBtn:hover {
