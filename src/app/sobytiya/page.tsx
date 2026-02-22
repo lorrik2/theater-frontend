@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { newsItems } from "@/lib/mock-data";
+import { getNewsItems } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +10,8 @@ export const metadata: Metadata = {
     "Анонсы творческих вечеров, рецензии, экскурсии по театру, блог.",
 };
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const newsItems = await getNewsItems();
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

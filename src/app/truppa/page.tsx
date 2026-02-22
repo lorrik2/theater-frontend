@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { actors } from "@/lib/mock-data";
+import { getActors } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   description: "Актеры и режиссёры театра. Биографии, роли, фото.",
 };
 
-export default function TroupePage() {
+export default async function TroupePage() {
+  const actors = await getActors();
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

@@ -28,7 +28,7 @@
 }
 
 .h1 {
-  @apply font-serif text-3xl font-bold text-graphite-950 md:text-4xl;
+  @apply font-posterama text-3xl font-bold text-graphite-950 md:text-4xl;
 }
 
 .lead {
@@ -52,7 +52,7 @@
 }
 
 .h2 {
-  @apply font-serif text-2xl font-bold text-graphite-950;
+  @apply font-posterama text-2xl font-bold text-graphite-950;
 }
 
 /* Afisha / Repertuar grid — карточки PerformanceCard (пропорционально крупнее) */
@@ -114,6 +114,84 @@
   @apply mb-6 flex flex-wrap gap-2;
 }
 
+/* Radix Accordion — афиша по месяцам */
+.accordionRoot {
+  @apply flex flex-col;
+}
+
+.accordionItem {
+  @apply border-b border-graphite-200;
+}
+
+.accordionItem:last-child {
+  @apply border-b-0;
+}
+
+.accordionHeader {
+  @apply m-0;
+}
+
+.accordionTrigger {
+  @apply flex w-full cursor-pointer items-center justify-between gap-4 rounded-md px-0 py-4 text-left font-posterama text-2xl font-bold text-graphite-950 transition-colors hover:bg-graphite-100 md:text-3xl;
+  letter-spacing: 0.04em;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.accordionTrigger:focus,
+.accordionTrigger:focus-visible,
+.accordionTrigger:active {
+  outline: none;
+}
+
+.accordionTrigger[data-state="open"] {
+  @apply bg-graphite-100;
+}
+
+.accordionChevron {
+  @apply shrink-0 text-graphite-500 transition-transform duration-200 ease-out;
+}
+
+.accordionTrigger[data-state="open"] .accordionChevron {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+  overflow: hidden;
+}
+
+.accordionContent[data-state="open"] {
+  animation: accordionSlideDown 0.3s ease-out;
+}
+
+.accordionContent[data-state="closed"] {
+  animation: accordionSlideUp 0.3s ease-out;
+}
+
+@keyframes accordionSlideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordionSlideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.monthCards {
+  @apply mt-2;
+}
+
 .filterBtn {
   @apply rounded-md border border-graphite-300 bg-white px-4 py-2 text-sm font-medium text-graphite-700 transition-colors hover:bg-graphite-100 hover:border-graphite-400;
 }
@@ -127,7 +205,7 @@
 }
 
 .cardTitle {
-  @apply font-serif text-lg font-bold text-graphite-950;
+  @apply font-posterama text-lg font-bold text-graphite-950;
 }
 
 .meta {
@@ -212,7 +290,7 @@
 }
 
 .teamName {
-  @apply font-serif text-lg font-bold text-graphite-950;
+  @apply font-posterama text-lg font-bold text-graphite-950;
 }
 
 .teamRank {
@@ -257,7 +335,7 @@
 }
 
 .newsTitle {
-  @apply mt-1 font-serif text-lg font-bold text-graphite-950;
+  @apply mt-1 font-posterama text-lg font-bold text-graphite-950;
 }
 
 .newsExcerpt {

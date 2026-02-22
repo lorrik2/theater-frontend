@@ -27,11 +27,28 @@
 }
 
 .navList {
-  @apply flex items-center gap-8;
+  @apply flex items-center gap-6;
+}
+
+.navItemDropdown {
+  @apply relative;
 }
 
 .navLink {
-  @apply block rounded-md px-3 py-2 text-sm font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/70 hover:text-graphite-950;
+  @apply flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/70 hover:text-graphite-950;
+  @apply border-0 bg-transparent cursor-pointer;
+}
+
+.dropdownChevron {
+  @apply text-[0.6em] opacity-70;
+}
+
+.dropdown {
+  @apply absolute left-0 top-full z-50 mt-1 min-w-[180px] rounded-md border border-graphite-200 bg-white py-1 shadow-lg;
+}
+
+.dropdownLink {
+  @apply block px-4 py-2 text-sm text-graphite-700 no-underline transition-colors hover:bg-graphite-100 hover:text-graphite-950;
 }
 
 .actions {
@@ -76,11 +93,36 @@
 }
 
 .mobileList {
-  @apply flex flex-col items-center gap-2;
+  @apply flex flex-col items-center gap-2 w-full max-w-xs;
 }
 
 .mobileLink {
-  @apply block rounded-md px-6 py-3 text-lg font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
+  @apply block w-full rounded-md px-6 py-3 text-center text-lg font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
+}
+
+.mobileGroup {
+  @apply mt-2 w-full first:mt-0;
+}
+
+.mobileGroupTitle {
+  @apply relative flex w-full items-center justify-center rounded-md px-6 py-3 text-center text-lg font-medium text-graphite-800;
+  @apply border-0 bg-transparent cursor-pointer transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
+}
+
+.mobileChevron {
+  @apply absolute right-4 text-[0.6em] text-graphite-500 transition-transform duration-200;
+}
+
+.mobileChevronOpen {
+  @apply rotate-180;
+}
+
+.mobileSublist {
+  @apply flex flex-col gap-0 overflow-hidden;
+}
+
+.mobileSublink {
+  @apply block rounded-md px-6 py-3 text-center text-lg font-medium text-graphite-700 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
 }
 
 .mobileTicketBtn {

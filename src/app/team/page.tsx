@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { actors } from "@/lib/mock-data";
+import { getActors } from "@/lib/cms-data";
 import styles from "./TeamPage.module.css";
 
 export const metadata: Metadata = {
@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   description: "Актеры и режиссёры театра. Биографии, роли, фото.",
 };
 
-const sorted = [...actors].sort((a, b) => a.name.localeCompare(b.name));
-
-export default function TeamPage() {
+export default async function TeamPage() {
+  const actors = await getActors();
+  const sorted = [...actors].sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

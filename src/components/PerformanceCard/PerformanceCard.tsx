@@ -71,7 +71,12 @@ export default function PerformanceCard({ play, variant, animated, variants, com
             <span className={styles.btnDetail}>Подробнее</span>
           </Link>
           {showTicket && (
-            <Link href="/afisha#tickets" className={styles.btnTicket}>
+            <Link
+              href="https://quicktickets.ru/spb-teatr-krug/s44"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.btnTicket}
+            >
               Купить билет
             </Link>
           )}

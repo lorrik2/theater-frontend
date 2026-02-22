@@ -1,5 +1,5 @@
 {
-  "name": "theater-website",
+  "name": "teatr-krug-spb",
   "version": "0.1.0",
   "private": true,
   "packageManager": "yarn@1.22.22",
@@ -7,10 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "strapi": "cd strapi && yarn develop",
+    "strapi:build": "cd strapi && yarn build",
+    "dev:all": "concurrently -n next,strapi -c blue,green \"yarn dev\" \"yarn strapi\""
   },
   "dependencies": {
     "@fancyapps/ui": "^6.1.10",
+    "@radix-ui/react-accordion": "^1.2.12",
     "framer-motion": "^11.11.17",
     "next": "15.0.5",
     "react": "^19.0.0",
@@ -23,6 +27,7 @@
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.5",
     "postcss": "^8.4.49",

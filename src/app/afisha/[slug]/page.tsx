@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { performances, actors } from "@/lib/mock-data";
+import {
+  getPerformanceBySlug,
+  getRepertoirePerformances,
+  getActors,
+} from "@/lib/cms-data";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceCast from "@/components/PerformanceCast";
 import PerformanceGallery from "@/components/PerformanceGallery";
@@ -12,12 +16,15 @@ import styles from "../../styles/PerformancePage.module.css";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return performances.map((p) => ({ slug: p.slug }));
+  const performances = await getRepertoirePerformances();
+  return performances
+    .filter((p) => p.inAfisha)
+    .map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const play = performances.find((p) => p.slug === slug);
+  const play = await getPerformanceBySlug(slug);
   if (!play) return { title: "Спектакль" };
   return {
     title: `${play.title} — Драматический театр «Круг»`,
@@ -28,9 +35,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PerformancePage({ params }: Props) {
   const { slug } = await params;
-  const play = performances.find((p) => p.slug === slug);
+  const play = await getPerformanceBySlug(slug);
   if (!play) notFound();
 
+  const actors = await getActors();
   const galleryImages = play.gallery ?? [play.poster];
   const hasCreators =
     play.author ||
@@ -204,7 +212,7 @@ export default async function PerformancePage({ params }: Props) {
             <h2 id="cast-title" className={styles.sectionTitle}>
               В спектакле участвуют
             </h2>
-            <PerformanceCast cast={play.cast!} />
+            <PerformanceCast cast={play.cast!} actors={actors} />
           </section>
         )}
 

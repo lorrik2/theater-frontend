@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { newsItems } from "@/lib/mock-data";
+import { getNewsItemBySlug, getNewsItems } from "@/lib/cms-data";
 import styles from "../../styles/Page.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
+  const newsItems = await getNewsItems();
   return newsItems.map((n) => ({ slug: n.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const item = newsItems.find((n) => n.slug === slug);
+  const item = await getNewsItemBySlug(slug);
   if (!item) return { title: "Событие" };
   return {
     title: `${item.title} — Драматический театр «Круг»`,
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EventItemPage({ params }: Props) {
   const { slug } = await params;
-  const item = newsItems.find((n) => n.slug === slug);
+  const item = await getNewsItemBySlug(slug);
   if (!item) notFound();
 
   return (

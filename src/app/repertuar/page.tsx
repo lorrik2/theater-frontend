@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { repertoirePerformances } from "@/lib/mock-data";
+import { getRepertoirePerformances } from "@/lib/cms-data";
 import { PerformanceCard } from "@/components/PerformanceCard";
 import styles from "../styles/Page.module.css";
 
@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     "Полный репертуар театра: все спектакли с фото и описанием. Классика и современные постановки.",
 };
 
-export default function RepertuarPage() {
+export default async function RepertuarPage() {
+  const repertoirePerformances = await getRepertoirePerformances();
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>

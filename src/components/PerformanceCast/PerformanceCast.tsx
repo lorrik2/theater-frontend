@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import type { CastMember } from "@/lib/mock-data";
-import { actors } from "@/lib/mock-data";
+import type { CastMember, Actor } from "@/lib/mock-data";
 import styles from "./PerformanceCast.module.css";
 
-export default function PerformanceCast({ cast }: { cast: CastMember[] }) {
+export default function PerformanceCast({
+  cast,
+  actors = [],
+}: {
+  cast: CastMember[];
+  actors?: Actor[];
+}) {
   return (
     <ul className={styles.list}>
       {cast.map((member, i) => {

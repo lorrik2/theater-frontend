@@ -4,12 +4,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navLinks } from "@/lib/mock-data";
+import { navItems, type NavItem } from "@/lib/mock-data";
 import styles from "./Header.module.css";
+
+function isDropdown(item: NavItem): item is { label: string; items: { href: string; label: string }[] } {
+  return "items" in item;
+}
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+
+  const toggleMobileGroup = (label: string) => {
+    setMobileExpanded((prev) => (prev === label ? null : label));
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,6 +38,7 @@ export default function Header() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      setMobileExpanded(null);
     }
     return () => {
       document.body.style.overflow = "";
@@ -50,13 +61,59 @@ export default function Header() {
 
         <nav className={styles.nav} aria-label="Основное меню">
           <ul className={styles.navList}>
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className={styles.navLink}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              if (isDropdown(item)) {
+                return (
+                  <li
+                    key={item.label}
+                    className={styles.navItemDropdown}
+                    onMouseEnter={() => setOpenDropdown(item.label)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                  >
+                    <button
+                      type="button"
+                      className={styles.navLink}
+                      aria-expanded={openDropdown === item.label}
+                      aria-haspopup="true"
+                    >
+                      {item.label}
+                      <span className={styles.dropdownChevron} aria-hidden>▼</span>
+                    </button>
+                    <AnimatePresence>
+                      {openDropdown === item.label && (
+                        <motion.ul
+                          className={styles.dropdown}
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.15 }}
+                          role="menu"
+                        >
+                          {item.items.map((sub) => (
+                            <li key={sub.href} role="none">
+                              <Link
+                                href={sub.href}
+                                className={styles.dropdownLink}
+                                role="menuitem"
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                );
+              }
+              return (
+                <li key={item.href}>
+                  <Link href={item.href} className={styles.navLink}>
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -89,17 +146,60 @@ export default function Header() {
             transition={{ duration: 0.25 }}
           >
             <ul className={styles.mobileList}>
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={styles.mobileLink}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                if (isDropdown(item)) {
+                  const isExpanded = mobileExpanded === item.label;
+                  return (
+                    <li key={item.label} className={styles.mobileGroup}>
+                      <button
+                        type="button"
+                        className={styles.mobileGroupTitle}
+                        onClick={() => toggleMobileGroup(item.label)}
+                        aria-expanded={isExpanded}
+                        aria-controls={`mobile-submenu-${item.label}`}
+                      >
+                        {item.label}
+                        <span className={`${styles.mobileChevron} ${isExpanded ? styles.mobileChevronOpen : ""}`} aria-hidden>▼</span>
+                      </button>
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.ul
+                            id={`mobile-submenu-${item.label}`}
+                            className={styles.mobileSublist}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            {item.items.map((sub) => (
+                              <li key={sub.href}>
+                                <Link
+                                  href={sub.href}
+                                  className={styles.mobileSublink}
+                                  onClick={() => setMobileOpen(false)}
+                                >
+                                  {sub.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={styles.mobileLink}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
               <li>
                 <Link
                   href="/afisha#tickets"

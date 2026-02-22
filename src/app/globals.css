@@ -25,7 +25,10 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-white text-graphite-900 antialiased;
+    @apply bg-white font-sans text-graphite-900 antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-posterama;
   }
 }
 
@@ -50,7 +53,7 @@
     color: white;
   }
   .section-title {
-    @apply font-serif text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
+    @apply font-posterama text-3xl font-bold tracking-tight text-graphite-950 md:text-4xl;
   }
   .section-subtitle {
     @apply mt-2 text-lg text-graphite-600;

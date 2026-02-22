@@ -77,6 +77,8 @@ export interface Actor {
   roles: string[];
   /** Галерея фото — при отсутствии используется [photo] */
   gallery?: string[];
+  /** Ссылка на страницу «Ещё один театр» (для Маргариты Вафиной) */
+  theaterPage?: string;
 }
 
 export interface NewsItem {
@@ -97,15 +99,48 @@ export interface Review {
   vkUrl?: string;
 }
 
-export const navLinks = [
+/** Пункт меню — ссылка или группа с подпунктами */
+export type NavItem =
+  | { href: string; label: string }
+  | { label: string; items: { href: string; label: string }[] };
+
+/** Меню с группами и выпадающими списками */
+export const navItems: NavItem[] = [
   { href: "/", label: "Главная" },
-  { href: "/afisha", label: "Афиша" },
-  { href: "/repertuar", label: "Репертуар" },
-  { href: "/o-teatre", label: "О театре" },
-  { href: "/team", label: "Команда" },
-  { href: "/sobytiya", label: "События" },
-  { href: "/kontakty", label: "Контакты" },
+  {
+    label: "Спектакли",
+    items: [
+      { href: "/afisha", label: "Афиша" },
+      { href: "/repertuar", label: "Репертуар" },
+      { href: "/sobytiya", label: "События" },
+    ],
+  },
+  {
+    label: "О театре",
+    items: [
+      { href: "/o-teatre", label: "О театре" },
+      { href: "/team", label: "Команда" },
+      { href: "/o-teatre/fotogalereya", label: "Фотогалерея" },
+    ],
+  },
+  {
+    label: "Сотрудничество",
+    items: [
+      { href: "/kontakty", label: "Контакты" },
+      { href: "/arenda-zala", label: "Аренда зала" },
+      { href: "/pomoch-teatru", label: "Помочь театру" },
+    ],
+  },
+  {
+    href: "/teatr-teos",
+    label: "Театр ТЕОС",
+  },
 ];
+
+/** Плоский список ссылок (для Footer, breadcrumbs и т.д.) */
+export const navLinks = navItems.flatMap((item) =>
+  "items" in item ? item.items : [{ href: item.href, label: item.label }]
+);
 
 export const performances: Performance[] = [
   {
@@ -468,6 +503,16 @@ export const actors: Actor[] = [
     rank: "Художественный руководитель",
     bio: "Главный режиссёр театра с 2012 года. Постановки в России и за рубежом.",
     roles: ["«Вишнёвый сад»", "«Ревизор»", "«Чайка»"],
+  },
+  {
+    id: "5",
+    name: "Маргарита Вафина",
+    slug: "margarita-vafina",
+    photo: "/acter/margo.jpg",
+    role: "Актриса, режиссёр",
+    bio: "Маргарита Вафина — актриса и режиссёр. Основательница театрального проекта «Театр ТЕОС».",
+    roles: [],
+    theaterPage: "/teatr-teos",
   },
 ];
 

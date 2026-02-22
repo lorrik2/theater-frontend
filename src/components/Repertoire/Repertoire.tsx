@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { performances } from "@/lib/mock-data";
+import type { Performance } from "@/lib/mock-data";
 import { PerformanceCard } from "@/components/PerformanceCard";
 import styles from "./Repertoire.module.css";
 
@@ -21,7 +21,11 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function Repertoire() {
+export default function Repertoire({
+  performances,
+}: {
+  performances: Performance[];
+}) {
   const nearestInAfisha = performances
     .filter((p) => p.inAfisha !== false)
     .slice(0, AFISHA_ON_MAIN_LIMIT);
@@ -36,7 +40,6 @@ export default function Repertoire() {
           viewport={{ once: true }}
         >
           <h2 className={styles.title}>Афиша</h2>
-          <p className={styles.subtitle}>Репертуар текущего сезона</p>
         </motion.div>
 
         <div className={styles.cardsWrap}>

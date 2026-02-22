@@ -56,11 +56,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/o-teatre/fotogalereya" className={styles.link}>
-                  Фотогалерея
-                </Link>
-              </li>
             </ul>
           </nav>
           <div className={styles.contacts}>

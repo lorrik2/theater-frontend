@@ -4,14 +4,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Scrollbar } from "swiper/modules";
-import { heroSlides } from "@/lib/mock-data";
 import styles from "./Hero.module.css";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 
-export default function Hero() {
+export type HeroSlide = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  image: string;
+  cta?: string;
+};
+
+export default function Hero({
+  slides,
+}: {
+  slides: HeroSlide[];
+}) {
+  if (!slides?.length) return null;
+
   return (
     <section
       className={styles.section}
@@ -36,12 +49,12 @@ export default function Hero() {
         aria-label="Слайдер афиши театра"
         role="group"
       >
-        {heroSlides.map((slide, index) => (
+        {slides.map((slide, index) => (
           <SwiperSlide
             key={slide.id}
             className={styles.slide}
             role="group"
-            aria-label={`Слайд ${index + 1} из ${heroSlides.length}: ${slide.title}`}
+            aria-label={`Слайд ${index + 1} из ${slides.length}: ${slide.title}`}
           >
             <div className={styles.imageWrap}>
               <Image

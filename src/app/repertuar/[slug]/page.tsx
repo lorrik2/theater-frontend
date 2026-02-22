@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { repertoirePerformances, actors } from "@/lib/mock-data";
+import {
+  getPerformanceBySlug,
+  getRepertoirePerformances,
+  getActors,
+} from "@/lib/cms-data";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceCast from "@/components/PerformanceCast";
 import PerformanceGallery from "@/components/PerformanceGallery";
@@ -12,12 +16,13 @@ import styles from "../../styles/PerformancePage.module.css";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
+  const repertoirePerformances = await getRepertoirePerformances();
   return repertoirePerformances.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const play = repertoirePerformances.find((p) => p.slug === slug);
+  const play = await getPerformanceBySlug(slug);
   if (!play) return { title: "Спектакль" };
   return {
     title: `${play.title} — Репертуар — Драматический театр «Круг»`,
@@ -28,9 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RepertuarSlugPage({ params }: Props) {
   const { slug } = await params;
-  const play = repertoirePerformances.find((p) => p.slug === slug);
+  const play = await getPerformanceBySlug(slug);
   if (!play) notFound();
 
+  const actors = await getActors();
   const galleryImages = play.gallery ?? [play.poster];
   const hasCreators =
     play.author ||
@@ -207,7 +213,7 @@ export default async function RepertuarSlugPage({ params }: Props) {
             <h2 id="cast-title" className={styles.sectionTitle}>
               В спектакле участвуют
             </h2>
-            <PerformanceCast cast={play.cast!} />
+            <PerformanceCast cast={play.cast!} actors={actors} />
           </section>
         )}
 

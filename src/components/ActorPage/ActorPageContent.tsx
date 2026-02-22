@@ -90,6 +90,16 @@ export default function ActorPageContent({ actor }: ActorPageContentProps) {
                 ))}
               </ul>
             </section>
+            {actor.theaterPage && (
+              <div className="mt-8 pt-8 border-t border-graphite-200">
+                <Link
+                  href={actor.theaterPage}
+                  className="inline-flex items-center font-medium text-graphite-950 no-underline hover:underline"
+                >
+                  Театр ТЕОС →
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </article>

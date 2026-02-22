@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { actors } from "@/lib/mock-data";
+import type { Actor } from "@/lib/mock-data";
 import styles from "./Team.module.css";
 
-export default function Team() {
+export default function Team({ actors }: { actors: Actor[] }) {
   const leadership = actors.filter(
     (a) =>
       a.role.toLowerCase().includes("режиссёр") ||

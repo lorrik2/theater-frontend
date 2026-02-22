@@ -1,8 +1,7 @@
-import { contactInfo } from "@/lib/mock-data";
-import styles from "./Contacts.module.css";
+import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
 
-const YANDEX_MAP_IFRAME =
-  "https://yandex.ru/map-widget/v1/?um=constructor%3Adbecae41e4970e1a9cc64b8ece268108a8d47438c649db32abab1a359dcf2552&source=constructor";
+type ContactInfo = typeof defaultContactInfo;
+import styles from "./Contacts.module.css";
 
 const IconVK = () => (
   <svg
@@ -28,14 +27,24 @@ const IconTelegram = () => (
   </svg>
 );
 
+const DEFAULT_MAP_EMBED =
+  "https://yandex.ru/map-widget/v1/?um=constructor%3Adbecae41e4970e1a9cc64b8ece268108a8d47438c649db32abab1a359dcf2552&source=constructor";
+
 interface ContactsProps {
+  /** Данные контактов из CMS или mock */
+  contactInfo: ContactInfo;
   /** Скрыть заголовок — когда используется на странице /kontakty */
   showTitle?: boolean;
   /** Уменьшить отступы — для страницы /kontakty */
   compact?: boolean;
 }
 
-export default function Contacts({ showTitle = true, compact = false }: ContactsProps) {
+export default function Contacts({
+  contactInfo,
+  showTitle = true,
+  compact = false,
+}: ContactsProps) {
+  const mapSrc = contactInfo.mapEmbed || DEFAULT_MAP_EMBED;
   return (
     <section
       className={`${styles.section} ${compact ? styles.sectionCompact : ""}`}
@@ -121,7 +130,7 @@ export default function Contacts({ showTitle = true, compact = false }: Contacts
           </div>
           <div className={styles.mapWrap}>
             <iframe
-              src={YANDEX_MAP_IFRAME}
+              src={mapSrc}
               className={styles.mapIframe}
               title="Карта проезда к театру"
               frameBorder="0"

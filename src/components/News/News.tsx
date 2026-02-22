@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { newsItems } from "@/lib/mock-data";
+import type { NewsItem } from "@/lib/mock-data";
 import styles from "./News.module.css";
 
 const NEWS_ON_MAIN_LIMIT = 5;
 
-export default function News() {
+export default function News({ newsItems }: { newsItems: NewsItem[] }) {
   const items = newsItems.slice(0, NEWS_ON_MAIN_LIMIT);
 
   return (

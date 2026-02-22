@@ -62,11 +62,11 @@
 }
 
 .quoteMark {
-  @apply absolute top-2 left-2 block font-serif text-7xl leading-none text-graphite-600 opacity-60 md:text-8xl md:top-3 md:left-3;
+  @apply absolute top-2 left-2 block font-sans text-7xl leading-none text-graphite-600 opacity-60 md:text-8xl md:top-3 md:left-3;
 }
 
 .quoteMarkLight {
-  @apply absolute top-2 left-2 block font-serif text-7xl leading-none text-graphite-300 opacity-80 md:text-8xl md:top-3 md:left-3;
+  @apply absolute top-2 left-2 block font-sans text-7xl leading-none text-graphite-300 opacity-80 md:text-8xl md:top-3 md:left-3;
 }
 
 .quoteText {

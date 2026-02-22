@@ -1,0 +1,1 @@
+{"collectionName":"components_shared_schedule_items","info":{"displayName":"Schedule Item","icon":"calendar","description":"Дата и время показа"},"options":{},"attributes":{"date":{"type":"string","required":true},"time":{"type":"string","required":true}}}

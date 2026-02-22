@@ -1,0 +1,28 @@
+.contactsBlock {
+  @apply space-y-6;
+}
+
+.contactItem {
+  @apply flex flex-col gap-1;
+}
+
+.contactLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.contactItem p,
+.contactItem a {
+  @apply text-graphite-800 no-underline;
+}
+
+.contactItem a:hover {
+  @apply text-graphite-950 underline;
+}
+
+.socialIcons {
+  @apply flex gap-3;
+}
+
+.socialIcon {
+  @apply text-graphite-600 transition-colors hover:text-graphite-950;
+}

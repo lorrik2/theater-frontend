@@ -20,7 +20,6 @@ function VkIcon(props: SVGProps<SVGSVGElement>) {
 }
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import { theaterReviews } from "@/lib/mock-data";
 import type { Review } from "@/lib/mock-data";
 import styles from "./Reviews.module.css";
 
@@ -37,7 +36,7 @@ type ReviewsProps = {
 };
 
 export default function Reviews({
-  reviews = theaterReviews,
+  reviews = [],
   title = "Отзывы о театре",
   subtitle = "Что говорят наши зрители",
   variant = "dark",

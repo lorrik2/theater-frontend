@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "actors",
+  "info": {
+    "singularName": "actor",
+    "pluralName": "actors",
+    "displayName": "Актёр",
+    "description": "Актёры и сотрудники театра"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "name", "required": true },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "role": { "type": "string" },
+    "rank": { "type": "string" },
+    "bio": { "type": "text" },
+    "roles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.role-item"
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "theaterPage": {
+      "type": "string",
+      "required": false,
+      "description": "Ссылка на страницу «Театр ТЕОС» (например /teatr-teos)"
+    }
+  }
+}

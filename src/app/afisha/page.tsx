@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import AfishaContent from "./AfishaContent";
-import TicketsBlock from "@/components/TicketsBlock";
+import { getPerformances } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -9,21 +9,16 @@ export const metadata: Metadata = {
     "Репертуар спектаклей текущего сезона. Даты, время, возрастной рейтинг. Купить билеты онлайн.",
 };
 
-export default function AfishaPage() {
+export default async function AfishaPage() {
+  const performances = await getPerformances();
   return (
     <div className={styles.wrap}>
       <header className={styles.header}>
         <h1 className={styles.h1}>Афиша</h1>
-        <p className={styles.lead}>
-          Репертуар текущего сезона. Выберите спектакль и дату.
-        </p>
+        <p className={styles.lead}>Выберите спектакль и дату.</p>
       </header>
 
-      <AfishaContent />
-
-      <div className="mt-16 md:mt-24">
-        <TicketsBlock />
-      </div>
+      <AfishaContent performances={performances} />
     </div>
   );
 }

@@ -1,12 +1,15 @@
 # Шрифты
 
-## Posterama
+## Схема типографики
 
-Сейчас используется **Cinzel** (Google Fonts) как fallback. Если добавить Posterama — он будет отображаться первым.
+- **Posterama** — основные заголовки (h1–h6, секции, карточки)
+- **Montserrat** — всё остальное (Google Fonts, подключается в layout.tsx)
+
+## Posterama (локальный)
 
 1. Скачайте или купите лицензию на Posterama (Monotype).
 2. Конвертируйте в `.woff2` (например, через [transfonter.org](https://transfonter.org)).
 3. Поместите файл `PosteramaText-Regular.woff2` в эту папку.
-4. Готово — @font-face уже настроен в `globals.css`, Posterama будет подхвачен автоматически.
+4. Готово — @font-face уже настроен в `globals.css`.
 
-Сейчас используется **Cinzel** (Google Fonts) как замена с похожей театральной стилистикой.
+Если Posterama отсутствует, используется fallback: Georgia, serif.

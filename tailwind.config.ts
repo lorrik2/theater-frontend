@@ -26,22 +26,9 @@ const config: Config = {
         "accent-red": "rgb(197 35 37)",
       },
       fontFamily: {
-        /* Posterama — если файл в public/fonts/, иначе Cinzel (--font-posterama) */
-        posterama: [
-          "Posterama",
-          "var(--font-posterama)",
-          "Cinzel",
-          "Georgia",
-          "serif",
-        ],
-        serif: [
-          "Posterama",
-          "var(--font-posterama)",
-          "Cinzel",
-          "Georgia",
-          "serif",
-        ],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        posterama: ["Posterama", "Georgia", "serif"],
+        serif: ["Posterama", "Georgia", "serif"],
+        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out",

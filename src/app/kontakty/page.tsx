@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Contacts from "@/components/Contacts";
+import { getContactInfo } from "@/lib/cms-data";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
@@ -8,7 +9,8 @@ export const metadata: Metadata = {
   description: "Адрес, телефоны кассы и администрации, схема проезда, режим работы, соцсети.",
 };
 
-export default function ContactsPage() {
+export default async function ContactsPage() {
+  const contactInfo = await getContactInfo();
   return (
     <div className={`${styles.wrap} ${styles.contactsWrap}`}>
       <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
@@ -22,7 +24,7 @@ export default function ContactsPage() {
           Адрес, телефоны, карта и режим работы
         </p>
       </header>
-      <Contacts showTitle={false} compact />
+      <Contacts contactInfo={contactInfo} showTitle={false} compact />
     </div>
   );
 }
