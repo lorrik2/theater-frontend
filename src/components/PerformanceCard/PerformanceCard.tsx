@@ -40,12 +40,12 @@ export default function PerformanceCard({ play, variant, animated, variants, com
             <OptimizedImage
               src={play.poster}
               alt={play.title}
-              width={400}
-              height={560}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className={styles.posterImg}
+              style={{ objectFit: "cover" }}
               effect="blur"
             />
-            <div className={styles.overlay} />
             <span className={styles.age}>{play.ageRating}</span>
             <div className={styles.topLeft}>
               <span className={styles.dateTime}>

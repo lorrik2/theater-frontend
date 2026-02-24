@@ -104,7 +104,7 @@
 }
 
 .mobileLink {
-  @apply block w-full rounded-md px-6 py-3 text-center text-lg font-medium text-graphite-800 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
+  @apply block w-full rounded-md px-6 py-3 text-center text-lg font-semibold text-graphite-950 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
 }
 
 .mobileGroup {
@@ -112,7 +112,7 @@
 }
 
 .mobileGroupTitle {
-  @apply relative flex w-full items-center justify-center rounded-md px-6 py-3 text-center text-lg font-medium text-graphite-800;
+  @apply relative flex w-full items-center justify-center rounded-md px-6 py-3 text-center text-lg font-semibold text-graphite-950;
   @apply border-0 bg-transparent cursor-pointer transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
 }
 
@@ -129,7 +129,7 @@
 }
 
 .mobileSublink {
-  @apply block rounded-md px-6 py-3 text-center text-lg font-medium text-graphite-700 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
+  @apply block rounded-md px-6 py-3 text-center text-base font-normal text-graphite-600 no-underline transition-colors duration-200 hover:bg-graphite-200/80 hover:text-graphite-950;
 }
 
 .mobileTicketBtn {

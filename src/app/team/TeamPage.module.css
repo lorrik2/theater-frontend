@@ -19,8 +19,28 @@
   @apply mt-8;
 }
 
+.directorRow {
+  @apply mb-8 flex justify-center;
+}
+
+.actorsTitle {
+  @apply mb-8 text-center font-sans text-sm font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.directorWrap {
+  @apply flex flex-col items-center;
+}
+
+.directorLabel {
+  @apply mb-4 text-center font-sans text-sm font-medium uppercase tracking-wider text-graphite-500;
+}
+
+.directorGrid {
+  @apply flex list-none justify-center gap-4;
+}
+
 .teamGrid {
-  @apply grid list-none grid-cols-2 gap-2 sm:gap-10 sm:grid-cols-2 lg:grid-cols-4;
+  @apply flex list-none flex-wrap justify-center gap-2 sm:gap-10;
 }
 
 .card {

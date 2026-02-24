@@ -18,7 +18,6 @@ export default async function TeamPage() {
     <div className={styles.wrap}>
       <header className={styles.header}>
         <h1 className={styles.title}>Команда</h1>
-        <p className={styles.subtitle}>Актеры и режиссёры театра</p>
       </header>
 
       <section className={styles.section}>

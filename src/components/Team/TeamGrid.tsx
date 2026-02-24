@@ -23,10 +23,48 @@ export default function TeamGrid({
     performanceRoles: { title: string; slug: string; role: string }[];
   } | null>(null);
 
+  const director = actors.find((a) => isDirectorOrArtisticDirector(a));
+  const otherActors = actors.filter((a) => !isDirectorOrArtisticDirector(a));
+
   return (
     <>
-      <ul className={styles.teamGrid}>
-        {actors.map((actor) => {
+      {director && (
+        <div className={styles.directorRow}>
+          <div className={styles.directorWrap}>
+            <p className={styles.directorLabel}>Художественный руководитель и режиссёр-постановщик</p>
+            <ul className={styles.directorGrid}>
+            <li key={director.id} className={styles.card}>
+              <Link
+                href={`/team/${director.slug}`}
+                className={`${styles.cardLink} ${styles.cardLinkClickable}`}
+              >
+                <div className={styles.photoWrap}>
+                  <OptimizedImage
+                    src={director.photo}
+                    alt={director.name}
+                    width={400}
+                    height={500}
+                    className={styles.photo}
+                    effect="blur"
+                  />
+                </div>
+                <div className={styles.body}>
+                  <h2 className={styles.name}>{director.name}</h2>
+                  {director.rank && <p className={styles.rank}>{director.rank}</p>}
+                  <p className={styles.role}>{director.role}</p>
+                  <span className={styles.detailBtn}>Подробнее</span>
+                </div>
+              </Link>
+            </li>
+          </ul>
+          </div>
+        </div>
+      )}
+      {otherActors.length > 0 && (
+        <>
+          <h2 className={styles.actorsTitle}>Актеры и режиссёры театра</h2>
+          <ul className={styles.teamGrid}>
+        {otherActors.map((actor) => {
           const isDirector = isDirectorOrArtisticDirector(actor);
           const showLink = isDirector;
           const showModal = !showLink;
@@ -88,6 +126,8 @@ export default function TeamGrid({
           );
         })}
       </ul>
+        </>
+      )}
       {modalActor && (
         <ActorRolesModal
           name={modalActor.actor.name}

@@ -26,8 +26,8 @@ const config: Config = {
         "accent-red": "rgb(197 35 37)",
       },
       fontFamily: {
-        posterama: ["Posterama", "Georgia", "serif"],
-        serif: ["Posterama", "Georgia", "serif"],
+        posterama: ["var(--font-posterama)", "sans-serif"],
+        serif: ["var(--font-posterama)", "sans-serif"],
         sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
       animation: {

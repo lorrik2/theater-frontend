@@ -13,7 +13,8 @@ export default function Team({ actors }: { actors: Actor[] }) {
       a.role.toLowerCase().includes("режиссёр") ||
       (a.rank && a.rank.includes("Художественный руководитель")),
   );
-  const sorted = [...leadership].sort((a, b) => a.name.localeCompare(b.name));
+  const director = leadership[0];
+  if (!director) return null;
 
   return (
     <section className={styles.section} id="team" aria-labelledby="team-title">
@@ -31,14 +32,22 @@ export default function Team({ actors }: { actors: Actor[] }) {
 
         <div className={styles.cardsWrap}>
           <ul className={styles.teamGrid}>
-            {sorted.map((actor, i) => {
-              const hasContent = hasActorCardContent(actor);
-              const cardContent = (
-                <>
+            <motion.li
+              key={director.id}
+              className={styles.card}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              {hasActorCardContent(director) ? (
+                <Link
+                  href={`/team/${director.slug}`}
+                  className={`${styles.cardLink} ${styles.cardLinkClickable}`}
+                >
                   <div className={styles.photoWrap}>
                     <OptimizedImage
-                      src={actor.photo}
-                      alt={actor.name}
+                      src={director.photo}
+                      alt={director.name}
                       width={400}
                       height={500}
                       className={styles.photo}
@@ -46,37 +55,32 @@ export default function Team({ actors }: { actors: Actor[] }) {
                     />
                   </div>
                   <div className={styles.body}>
-                    <h3 className={styles.name}>{actor.name}</h3>
-                    {actor.rank && <p className={styles.rank}>{actor.rank}</p>}
-                    <p className={styles.role}>{actor.role}</p>
-                    {hasContent && (
-                      <span className={styles.detailBtn}>Подробнее</span>
-                    )}
+                    <h3 className={styles.name}>{director.name}</h3>
+                    {director.rank && <p className={styles.rank}>{director.rank}</p>}
+                    <p className={styles.role}>{director.role}</p>
+                    <span className={styles.detailBtn}>Подробнее</span>
                   </div>
-                </>
-              );
-              return (
-                <motion.li
-                  key={actor.id}
-                  className={styles.card}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  {hasContent ? (
-                    <Link
-                      href={`/team/${actor.slug}`}
-                      className={`${styles.cardLink} ${styles.cardLinkClickable}`}
-                    >
-                      {cardContent}
-                    </Link>
-                  ) : (
-                    <div className={styles.cardStatic}>{cardContent}</div>
-                  )}
-                </motion.li>
-              );
-            })}
+                </Link>
+              ) : (
+                <div className={styles.cardStatic}>
+                  <div className={styles.photoWrap}>
+                    <OptimizedImage
+                      src={director.photo}
+                      alt={director.name}
+                      width={400}
+                      height={500}
+                      className={styles.photo}
+                      effect="blur"
+                    />
+                  </div>
+                  <div className={styles.body}>
+                    <h3 className={styles.name}>{director.name}</h3>
+                    {director.rank && <p className={styles.rank}>{director.rank}</p>}
+                    <p className={styles.role}>{director.role}</p>
+                  </div>
+                </div>
+              )}
+            </motion.li>
           </ul>
         </div>
 

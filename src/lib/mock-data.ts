@@ -111,34 +111,33 @@ export type NavItem =
 
 /** Меню с группами и выпадающими списками */
 export const navItems: NavItem[] = [
-  { href: "/", label: "Главная" },
   {
     label: "Спектакли",
     items: [
       { href: "/afisha", label: "Афиша" },
       { href: "/repertuar", label: "Репертуар" },
-      { href: "/sobytiya", label: "События" },
     ],
   },
   {
-    label: "О театре",
+    label: "О нас",
     items: [
-      { href: "/o-teatre", label: "О театре" },
+      { href: "/o-teatre", label: "О театре: история, ценности" },
       { href: "/team", label: "Команда" },
       { href: "/o-teatre/fotogalereya", label: "Фотогалерея" },
+      { href: "/sobytiya", label: "События" },
+      { href: "/kontakty", label: "Контакты" },
     ],
   },
   {
     label: "Сотрудничество",
     items: [
-      { href: "/kontakty", label: "Контакты" },
       { href: "/arenda-zala", label: "Аренда зала" },
       { href: "/pomoch-teatru", label: "Помочь театру" },
     ],
   },
   {
     href: "/teatr-teos",
-    label: "Театр ТЕОС",
+    label: "Театр ТеОс",
   },
 ];
 

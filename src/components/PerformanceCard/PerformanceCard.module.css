@@ -1,4 +1,4 @@
-/* ateatra-style: фото как фон, текст поверх */
+/* ateatra-style: фото как фон, текст поверх, без градиента */
 .card {
   @apply flex list-none min-h-0 flex-col overflow-hidden rounded-lg border border-graphite-200 shadow-sm transition-all hover:shadow-lg;
 }
@@ -10,13 +10,6 @@
 .cardClickArea {
   @apply relative block flex-1 no-underline;
   aspect-ratio: 4 / 5;
-}
-
-/* Десктоп: карточки чуть шире и ниже */
-@media (min-width: 1024px) {
-  .cardClickArea {
-    aspect-ratio: 5 / 6;
-  }
 }
 
 /* ateatra-style: на мобильном — шире (растянутые карточки) */
@@ -31,21 +24,11 @@
 }
 
 .posterBg {
-  @apply absolute inset-0 overflow-hidden bg-graphite-200 transition-transform duration-500 ease-in-out;
+  @apply absolute inset-0 overflow-hidden transition-transform duration-500 ease-in-out;
 }
 
 .posterImg {
   @apply h-full w-full object-cover;
-}
-
-.overlay {
-  @apply pointer-events-none absolute inset-0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 10, 0.95) 0%,
-    rgba(10, 10, 10, 0.5) 40%,
-    transparent 70%
-  );
 }
 
 .age {
