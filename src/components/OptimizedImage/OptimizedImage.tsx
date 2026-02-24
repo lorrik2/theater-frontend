@@ -45,8 +45,7 @@ export default function OptimizedImage({
   }
 
   const fill = imageProps.fill ?? false;
-  const hasDimensions =
-    imageProps.width != null && imageProps.height != null;
+  const hasDimensions = imageProps.width != null && imageProps.height != null;
 
   if (effect && hasDimensions) {
     return (

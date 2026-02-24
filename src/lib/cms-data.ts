@@ -191,12 +191,14 @@ export async function getPerformanceBySlug(
 
 /** Актёры */
 export async function getActors(): Promise<Actor[]> {
-  const res = await fetchStrapi<Array<unknown>>("/actors", {
-    populate: "*",
-    sort: ["name:asc"],
-  });
-  if (res?.data && Array.isArray(res.data)) {
-    return res.data.map((d: any) => mapStrapiActor(d));
+  if (await checkStrapi()) {
+    const res = await fetchStrapi<Array<unknown>>("/actors", {
+      populate: "*",
+      sort: ["name:asc"],
+    });
+    if (res?.data && Array.isArray(res.data)) {
+      return res.data.map((d: any) => mapStrapiActor(d));
+    }
   }
   return actors;
 }
