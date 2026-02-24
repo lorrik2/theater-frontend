@@ -13,7 +13,7 @@ const montserrat = Montserrat({
 });
 
 const posterama = localFont({
-  src: "../../public/fonts/Posterama1927-Regular.woff2",
+  src: "../../public/fonts/PosteramaTextW07-Regular.woff2",
   variable: "--font-posterama",
   display: "swap",
 });
