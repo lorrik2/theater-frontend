@@ -67,6 +67,18 @@
   @apply h-6 w-6;
 }
 
+.socialLink {
+  @apply flex items-center gap-1.5 text-graphite-400 no-underline transition-colors hover:text-white;
+}
+
+.socialLink svg {
+  @apply h-6 w-6 shrink-0;
+}
+
+.socialHandle {
+  @apply text-sm;
+}
+
 .bottom {
   @apply py-6;
 }

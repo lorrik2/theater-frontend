@@ -44,7 +44,7 @@ yarn start
 ## Структура
 
 - **`src/app/`** — страницы (SSR, SEO): главная, Афиша, О театре, Команда, События, Контакты, а также динамические маршруты для спектакля/артиста/события.
-- **`src/components/`** — переиспользуемые блоки: Header, Footer, Hero, Repertoire, Premiere, TicketsBlock, About, Team, News, Contacts, Subscribe. Стили в отдельных `.module.css` (Tailwind + кастомные классы).
+- **`src/components/`** — переиспользуемые блоки: Header, Footer, Hero, Repertoire, Premiere, TicketsBlock, About, Team, News, Contacts. Стили в отдельных `.module.css` (Tailwind + кастомные классы).
 - **`src/lib/mock-data.ts`** — моковые данные (fallback, если Strapi недоступен).
 - **`src/lib/cms-data.ts`** — слой данных: запросы к Strapi API с fallback на mock.
 - **`strapi/`** — Strapi CMS (content types: спектакли, актёры, новости, слайды, контакты, отзывы).
@@ -61,4 +61,3 @@ yarn start
 1. ~~Подключить Strapi~~ — сделано: контент тянется из Strapi или mock-данных.
 2. Наполнить Strapi контентом: импорт из `mock-data`, загрузка изображений в Media Library.
 3. Встроить карту (Яндекс.Карты/Google Maps) на странице контактов.
-4. Реализовать отправку формы подписки на бэкенд или сервис рассылки.

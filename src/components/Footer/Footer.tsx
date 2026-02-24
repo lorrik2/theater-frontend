@@ -92,10 +92,11 @@ export default function Footer() {
                 href={contactInfo.social.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.socialIcon}
-                aria-label="Telegram"
+                className={styles.socialLink}
+                aria-label="Telegram @teatr_krug"
               >
                 <IconTelegram />
+                <span className={styles.socialHandle}>@teatr_krug</span>
               </a>
             </div>
           </div>
@@ -108,12 +109,17 @@ export default function Footer() {
             защищены.
           </p>
           <div className={styles.legal}>
-            <Link href="/privacy" className={styles.legalLink}>
-              Политика конфиденциальности
-            </Link>
             <Link href="/partners" className={styles.legalLink}>
               Партнёры и спонсоры
             </Link>
+            <a
+              href="https://taplink.cc/korolevweb"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.legalLink}
+            >
+              Разработка и дизайн: KorolevWeb
+            </a>
           </div>
         </div>
       </div>
