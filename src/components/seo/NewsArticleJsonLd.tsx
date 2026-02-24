@@ -23,7 +23,7 @@ export default function NewsArticleJsonLd({ item }: Props) {
       description={item.excerpt}
       url={url}
       datePublished={datePublished ?? undefined}
-      images={image ? [image] : undefined}
+      image={image}
       author={{
         name: "Драматический театр «Круг»",
         url: SITE_URL,

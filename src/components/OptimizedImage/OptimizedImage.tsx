@@ -41,7 +41,7 @@ export default function OptimizedImage({
   ...imageProps
 }: OptimizedImageProps) {
   if (priority) {
-    return <Image {...imageProps} priority />;
+    return <Image {...imageProps} alt={imageProps.alt ?? ""} priority />;
   }
 
   const fill = imageProps.fill ?? false;
@@ -99,5 +99,5 @@ export default function OptimizedImage({
   }
 
   /* Next.js Image уже поддерживает lazy loading изображений, без задержки рендера блока */
-  return <Image {...imageProps} />;
+  return <Image {...imageProps} alt={imageProps.alt ?? ""} />;
 }

@@ -13,7 +13,7 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   display: "swap",
   preload: true,
-  adjustFontFallback: "Arial",
+  adjustFontFallback: true,
 });
 
 const posterama = localFont({
