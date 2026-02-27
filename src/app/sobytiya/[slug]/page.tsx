@@ -11,10 +11,19 @@ import styles from "../../styles/Page.module.css";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  const newsItems = await getNewsItems();
-  return newsItems
-    .filter((n) => typeof n.slug === "string" && n.slug.length > 0)
-    .map((n) => ({ slug: n.slug as string }));
+  try {
+    const newsItems = await getNewsItems();
+    const params: { slug: string }[] = [];
+    for (const n of newsItems) {
+      const s = n.slug;
+      if (typeof s === "string" && s.length > 0 && !s.includes("[object")) {
+        params.push({ slug: s });
+      }
+    }
+    return params;
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
