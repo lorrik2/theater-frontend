@@ -1,15 +1,11 @@
-.dialog {
-  @apply fixed inset-0 z-50 m-0 max-h-none max-w-none border-0 bg-black/50 p-0 backdrop-blur-sm;
+.overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm;
   width: 100vw;
   height: 100vh;
 }
 
-.dialog::backdrop {
-  @apply bg-black/50;
-}
-
 .content {
-  @apply relative mx-auto mt-[10vh] max-h-[80vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-6 shadow-xl;
+  @apply relative mx-auto max-h-[85vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-6 shadow-xl;
 }
 
 .closeBtn {
