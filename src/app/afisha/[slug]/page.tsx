@@ -20,6 +20,10 @@ import styles from "../../styles/PerformancePage.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
+/** Всегда рендерить при запросе — данные берутся из Strapi, чтобы избежать 404 при разных данных на билде и в рантайме */
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const performances = await getRepertoirePerformances();
   return performances
@@ -50,11 +54,12 @@ export default async function PerformancePage({ params }: Props) {
   const play = await getPerformanceBySlug(slug);
   if (!play) notFound();
 
-  const [actors, performances] = await Promise.all([
-    getActors(),
-    getRepertoirePerformances(),
+  const [actors = [], performances = []] = await Promise.all([
+    getActors().catch(() => []),
+    getRepertoirePerformances().catch(() => []),
   ]);
-  const galleryImages = play.gallery ?? [play.poster];
+  const galleryImages = (play.gallery ?? (play.poster ? [play.poster] : []))
+    .filter((s): s is string => !!s);
   const hasCreators =
     play.author ||
     play.director ||
@@ -87,7 +92,11 @@ export default async function PerformancePage({ params }: Props) {
         </nav>
         <section className={styles.aboutBlock}>
           <h1 className={styles.aboutTitle}>{play.title}</h1>
-          <p className={styles.aboutDesc}>{play.description}</p>
+          {(play.description || play.subtitle) && (
+            <p className={styles.aboutDesc}>
+              {play.description || play.subtitle || ""}
+            </p>
+          )}
           {(play.duration || play.intermissions != null) && (
             <div className={styles.infoBlock}>
               {play.duration && (
@@ -208,8 +217,8 @@ export default async function PerformancePage({ params }: Props) {
           {play.inAfisha &&
             (() => {
               const schedule = play.schedule?.length
-                ? play.schedule
-                : play.date !== "—"
+                ? play.schedule.filter((s) => s?.date || s?.time)
+                : play.date && play.date !== "—" && (play.date || play.time)
                   ? [{ date: play.date, time: play.time }]
                   : [];
               return schedule.length > 0 ? (

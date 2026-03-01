@@ -51,7 +51,9 @@ export default function PerformanceCast({
                     effect="blur"
                   />
                 ) : (
-                  <span className={styles.placeholder}>{member.name[0]}</span>
+                  <span className={styles.placeholder}>
+                    {member.name?.[0] ?? "?"}
+                  </span>
                 )}
               </div>
               <div className={styles.body}>

@@ -33,9 +33,13 @@ export async function fetchStrapi<T>(
     populate?: string | Record<string, unknown>;
     filters?: Record<string, unknown>;
     sort?: string | string[];
+    locale?: string;
   }
 ): Promise<StrapiResponse<T> | null> {
   const url = new URL(getStrapiUrl(`/api${path}`));
+
+  // Явно запрашиваем русскую локаль, чтобы slug и title не подменялись на en
+  url.searchParams.set("locale", options?.locale ?? "ru");
 
   if (options?.populate) {
     url.searchParams.set(

@@ -509,8 +509,8 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
 export interface ApiHeroSlideHeroSlide extends Struct.CollectionTypeSchema {
   collectionName: 'hero_slides';
   info: {
-    description: '\u0421\u043B\u0430\u0439\u0434\u044B \u0434\u043B\u044F \u0433\u043B\u0430\u0432\u043D\u043E\u0433\u043E \u0431\u0430\u043D\u043D\u0435\u0440\u0430';
-    displayName: '\u0421\u043B\u0430\u0439\u0434 \u0433\u0435\u0440\u043E\u044F';
+    description: '\u0421\u043B\u0430\u0439\u0434\u044B \u0434\u043B\u044F \u0431\u0430\u043D\u043D\u0435\u0440\u0430 \u043D\u0430 \u0433\u043B\u0430\u0432\u043D\u043E\u043C \u044D\u043A\u0430\u0440\u043D\u0435';
+    displayName: '\u0421\u043B\u0430\u0439\u0434\u0435\u0440 \u043D\u0430 \u0433\u043B\u0430\u0432\u043D\u043E\u0439';
     pluralName: 'hero-slides';
     singularName: 'hero-slide';
   };

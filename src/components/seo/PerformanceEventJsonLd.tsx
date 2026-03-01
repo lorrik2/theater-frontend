@@ -52,7 +52,7 @@ export default function PerformanceEventJsonLd({
           },
         }}
         url={url}
-        description={play.description}
+        description={play.description ?? ""}
         image={image}
         offers={
           ticketsUrl
