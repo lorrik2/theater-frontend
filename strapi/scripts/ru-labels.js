@@ -2,10 +2,10 @@
  * Скрипт обновления метаданных полей Content Manager на русские названия.
  * Запуск: node scripts/ru-labels.js (из папки strapi)
  *
- * Использует встроенный sqlite3 (без native modules).
+ * Использует better-sqlite3 (уже в зависимостях Strapi), без внешнего sqlite3.
  */
 
-const { execSync } = require('child_process');
+const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
@@ -158,21 +158,6 @@ function applyLabels(metadatas, labels) {
   return result;
 }
 
-function sqlEscape(s) {
-  return s.replace(/'/g, "''");
-}
-
-function runSql(dbPath, sql) {
-  const tmpFile = path.join(__dirname, '..', '.tmp', `ru-labels-${Date.now()}.sql`);
-  fs.mkdirSync(path.dirname(tmpFile), { recursive: true });
-  fs.writeFileSync(tmpFile, sql, 'utf8');
-  try {
-    execSync(`sqlite3 "${dbPath}" < "${tmpFile}"`, { encoding: 'utf8' });
-  } finally {
-    fs.unlinkSync(tmpFile);
-  }
-}
-
 function main() {
   if (!fs.existsSync(DB_PATH)) {
     console.error('База данных не найдена:', DB_PATH);
@@ -180,14 +165,15 @@ function main() {
     process.exit(1);
   }
 
-  const keys = execSync(
-    `sqlite3 "${DB_PATH}" "SELECT key FROM strapi_core_store_settings WHERE key LIKE 'plugin_content_manager_configuration%'"`,
-    { encoding: 'utf8' }
-  )
-    .trim()
-    .split('\n')
-    .filter(Boolean);
+  const db = new Database(DB_PATH, { readonly: false });
+  const selectKeys = db.prepare(
+    "SELECT key FROM strapi_core_store_settings WHERE key LIKE 'plugin_content_manager_configuration%'"
+  );
+  const selectValue = db.prepare('SELECT value FROM strapi_core_store_settings WHERE key = ?');
+  const updateValue = db.prepare('UPDATE strapi_core_store_settings SET value = ? WHERE key = ?');
 
+  const rows = selectKeys.all();
+  const keys = rows.map((r) => r.key);
   let updated = 0;
 
   for (const key of keys) {
@@ -202,29 +188,26 @@ function main() {
 
     if (!labels) continue;
 
-    const value = execSync(
-      `sqlite3 "${DB_PATH}" "SELECT value FROM strapi_core_store_settings WHERE key='${sqlEscape(key)}'"`,
-      { encoding: 'utf8' }
-    ).trim();
+    const row = selectValue.get(key);
+    if (!row) continue;
 
     let config;
     try {
-      config = JSON.parse(value);
+      config = JSON.parse(row.value);
     } catch {
       continue;
     }
 
     if (config.metadatas) {
       config.metadatas = applyLabels(config.metadatas, labels);
-      const newValue = sqlEscape(JSON.stringify(config));
-      const escapedKey = sqlEscape(key);
-      const sql = `UPDATE strapi_core_store_settings SET value='${newValue}' WHERE key='${escapedKey}';\n`;
-      runSql(DB_PATH, sql);
+      const newValue = JSON.stringify(config);
+      updateValue.run(newValue, key);
       updated++;
       console.log('Обновлено:', key.replace('plugin_content_manager_configuration_content_types::', '').replace('plugin_content_manager_configuration_components::', ''));
     }
   }
 
+  db.close();
   console.log(`\nГотово. Обновлено записей: ${updated}`);
   console.log('Перезапустите Strapi (yarn develop), чтобы увидеть изменения.');
 }

@@ -20,6 +20,14 @@ mkdir -p strapi/.tmp
 cp -a /tmp/teatr-backup/data.db strapi/.tmp/data.db 2>/dev/null || true
 
 echo ""
+echo "=== 2b. Русские метки Content Manager ==="
+if [ -f strapi/.tmp/data.db ]; then
+  cd strapi && yarn ru-labels && cd ..
+else
+  echo "Пропуск (нет data.db)"
+fi
+
+echo ""
 echo "=== 3. Очистка кэша ==="
 rm -rf .next strapi/.cache strapi/build
 echo "OK"
