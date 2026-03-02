@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getActorBySlug, getActors } from "@/lib/cms-data";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/site-config";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { ActorPageContent } from "@/components/ActorPage";
 
@@ -24,17 +24,30 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const actor = await getActorBySlug(slug);
-  if (!actor) return { title: "Артист" };
-  const url = `${SITE_URL}/team/${slug}`;
+  if (!actor) return { title: "Артист", description: "Артист не найден." };
+  const url = canonicalUrl(`/team/${slug}`);
+  const desc =
+    actor.bio?.trim() ||
+    `${actor.name} — актёр (режиссёр) драматического театра «Круг».`;
   return {
     title: `${actor.name} — Драматический театр «Круг»`,
-    description: actor.bio,
+    description: desc,
     alternates: { canonical: url },
     openGraph: {
-      title: actor.name,
-      description: actor.bio,
+      type: "profile",
+      locale: "ru_RU",
       url,
-      images: actor.photo ? [{ url: actor.photo, alt: actor.name }] : undefined,
+      siteName: "Драматический театр «Круг»",
+      title: actor.name,
+      description: desc,
+      images: actor.photo
+        ? [{ url: actor.photo, width: 1200, height: 630, alt: actor.name }]
+        : [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: actor.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: actor.name,
+      description: desc,
     },
   };
 }

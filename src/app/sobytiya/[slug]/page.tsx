@@ -5,7 +5,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import NewsArticleJsonLd from "@/components/seo/NewsArticleJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getNewsItemBySlug, getNewsItems } from "@/lib/cms-data";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../../styles/Page.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -29,17 +29,30 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = await getNewsItemBySlug(slug);
-  if (!item) return { title: "Событие" };
-  const url = `${SITE_URL}/sobytiya/${slug}`;
+  if (!item) return { title: "Событие", description: "Событие не найдено." };
+  const url = canonicalUrl(`/sobytiya/${slug}`);
+  const desc =
+    item.excerpt?.trim() ||
+    `Событие «${item.title}» в театре Круг. Анонсы, рецензии, экскурсии.`;
   return {
     title: `${item.title} — Драматический театр «Круг»`,
-    description: item.excerpt,
+    description: desc,
     alternates: { canonical: url },
     openGraph: {
-      title: item.title,
-      description: item.excerpt,
+      type: "article",
+      locale: "ru_RU",
       url,
-      images: item.image ? [{ url: item.image, alt: item.title }] : undefined,
+      siteName: "Драматический театр «Круг»",
+      title: item.title,
+      description: desc,
+      images: item.image
+        ? [{ url: item.image, width: 1200, height: 630, alt: item.title }]
+        : [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: item.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: item.title,
+      description: desc,
     },
   };
 }
@@ -59,11 +72,15 @@ export default async function EventItemPage({ params }: Props) {
           { name: item.title },
         ]}
       />
+      <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
+        <Link href="/">Главная</Link>
+        <span className={styles.breadcrumbsSep}>→</span>
+        <Link href="/sobytiya">События</Link>
+        <span className={styles.breadcrumbsSep}>→</span>
+        <span>{item.title}</span>
+      </nav>
       <header className={styles.header}>
-        <Link href="/sobytiya" className="text-graphite-600 hover:underline">
-          ← События
-        </Link>
-        <p className="mt-4 text-sm text-graphite-500">
+        <p className="mt-2 text-sm text-graphite-500">
           <time dateTime={item.date}>{item.date}</time> · {item.category}
         </p>
         <h1 className={styles.h1}>{item.title}</h1>

@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /** Единый формат URL — без trailing slash. /afisha/ → редирект на /afisha */
+  trailingSlash: false,
   images: {
     remotePatterns: [
       {

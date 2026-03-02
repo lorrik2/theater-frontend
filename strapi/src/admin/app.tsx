@@ -32,6 +32,9 @@ export default {
         'content-manager.content-types.api::contact.contact.fields.workingHoursAdmin': 'Часы работы администрации',
         'content-manager.content-types.api::contact.contact.fields.mapEmbed': 'Код карты',
         'content-manager.content-types.api::contact.contact.fields.howToGetThere': 'Как добраться',
+        'content-manager.content-types.api::contact.contact.fields.footerTagline': 'Слоган в подвале',
+        'content-manager.content-types.api::contact.contact.fields.footerContactsTitle': 'Заголовок контактов в подвале',
+        'content-manager.content-types.api::contact.contact.fields.footerCopyright': 'Авторские права (без года)',
 
         // api::hero-slide.hero-slide — Слайд героя
         'content-manager.content-types.api::hero-slide.hero-slide.info.displayName': 'Слайды героя',

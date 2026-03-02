@@ -2,12 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import { getArendaZalaPageData } from "@/lib/cms-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
   title: "Аренда зала — Драматический театр «Круг»",
-  description:
-    "Аренда зрительного зала и помещений театра для мероприятий, концертов, показов.",
+  description: "Аренда зрительного зала и помещений театра для мероприятий, концертов, показов.",
+  alternates: { canonical: canonicalUrl("/arenda-zala") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/arenda-zala"),
+    siteName: "Драматический театр «Круг»",
+    title: "Аренда зала — Драматический театр «Круг»",
+    description: "Аренда зрительного зала и помещений театра для мероприятий, концертов, показов.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Аренда зала театра Круг" }],
+  },
+  twitter: { card: "summary_large_image", title: "Аренда зала — Драматический театр «Круг»" },
 };
 
 export default async function ArendaZalaPage() {

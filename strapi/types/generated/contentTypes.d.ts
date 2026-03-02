@@ -517,6 +517,9 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
     emailAdmin: Schema.Attribute.String;
     emailBoxOffice: Schema.Attribute.String;
     emailPress: Schema.Attribute.String;
+    footerContactsTitle: Schema.Attribute.String;
+    footerCopyright: Schema.Attribute.String;
+    footerTagline: Schema.Attribute.Text;
     howToGetThere: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

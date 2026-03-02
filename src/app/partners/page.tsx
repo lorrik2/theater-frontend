@@ -2,11 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { getPartnersPageData } from "@/lib/cms-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
   title: "Партнёры и спонсоры — Драматический театр «Круг»",
   description: "Партнёры и спонсоры театра.",
+  alternates: { canonical: canonicalUrl("/partners") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/partners"),
+    siteName: "Драматический театр «Круг»",
+    title: "Партнёры и спонсоры — Драматический театр «Круг»",
+    description: "Партнёры и спонсоры театра.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Партнёры театра Круг" }],
+  },
+  twitter: { card: "summary_large_image", title: "Партнёры и спонсоры — Драматический театр «Круг»" },
 };
 
 export default async function PartnersPage() {
@@ -16,25 +28,53 @@ export default async function PartnersPage() {
     .filter((p) => p.trim());
   return (
     <div className={styles.wrap}>
+      <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
+        <Link href="/">Главная</Link>
+        <span className={styles.breadcrumbsSep}>→</span>
+        <span>Партнёры и спонсоры</span>
+      </nav>
+
       <header className={styles.header}>
-        <Link href="/" className="text-graphite-600 hover:underline">
-          ← На главную
-        </Link>
         <h1 className={styles.h1}>{data.title || "Партнёры и спонсоры"}</h1>
+        <p className={styles.lead}>
+          Организации, поддерживающие театр «Круг»
+        </p>
       </header>
-      <div className="mx-auto max-w-3xl text-graphite-700">
-        {introParagraphs.length > 0 ? (
-          introParagraphs.map((p, i) => <p key={i} className="mb-4">{p}</p>)
-        ) : (
-          <p>
-            Раздел в разработке. Здесь будут размещены логотипы и ссылки на
-            партнёров и спонсоров театра.
-          </p>
-        )}
-        {(data.partners ?? []).length > 0 && (
-          <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-3">
+
+      <section
+        className={styles.contentSection}
+        aria-labelledby="partners-intro-heading"
+      >
+        <h2 id="partners-intro-heading" className="sr-only">
+          О партнёрах
+        </h2>
+        <div className="mx-auto max-w-3xl text-graphite-700">
+          {introParagraphs.length > 0 ? (
+            introParagraphs.map((p, i) => (
+              <p key={i} className="mb-4">
+                {p}
+              </p>
+            ))
+          ) : (
+            <p>
+              Раздел в разработке. Здесь будут размещены логотипы и ссылки на
+              партнёров и спонсоров театра.
+            </p>
+          )}
+        </div>
+      </section>
+
+      {(data.partners ?? []).length > 0 && (
+        <section
+          className={`${styles.contentSection} ${styles.contentSectionWide}`}
+          aria-labelledby="partners-list-heading"
+        >
+          <h2 id="partners-list-heading" className={styles.h2}>
+            Наши партнёры
+          </h2>
+          <ul className="mt-6 grid list-none grid-cols-2 gap-8 p-0 sm:grid-cols-3">
             {(data.partners ?? []).map((partner, i) => (
-              <div
+              <li
                 key={i}
                 className="flex flex-col items-center gap-2 rounded-lg border border-graphite-200 p-4"
               >
@@ -76,11 +116,11 @@ export default async function PartnersPage() {
                     {partner.name}
                   </a>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
-        )}
-      </div>
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

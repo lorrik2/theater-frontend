@@ -65,6 +65,18 @@
     "howToGetThere": {
       "type": "text",
       "description": "Описание как добраться"
+    },
+    "footerTagline": {
+      "type": "text",
+      "description": "Слоган под логотипом в подвале"
+    },
+    "footerContactsTitle": {
+      "type": "string",
+      "description": "Заголовок блока контактов в подвале"
+    },
+    "footerCopyright": {
+      "type": "string",
+      "description": "Текст авторских прав (без года, год подставится автоматически)"
     }
   }
 }

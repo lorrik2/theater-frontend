@@ -3,13 +3,24 @@ import Link from "next/link";
 import ImageSlider from "@/components/ImageSlider";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import { getTeatrTeosPageData } from "@/lib/cms-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 import teosStyles from "./teatr-teos.module.css";
 
 export const metadata: Metadata = {
   title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»",
-  description:
-    "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
+  description: "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
+  alternates: { canonical: canonicalUrl("/teatr-teos") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/teatr-teos"),
+    siteName: "Драматический театр «Круг»",
+    title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»",
+    description: "Ещё один театр Маргариты Вафиной: спектакли, контакты, соцсети.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Театр Теос" }],
+  },
+  twitter: { card: "summary_large_image", title: "Ещё один театр Маргариты Вафиной — Драматический театр «Круг»" },
 };
 
 const IconVK = () => (

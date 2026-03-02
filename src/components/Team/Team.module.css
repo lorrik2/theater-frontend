@@ -43,7 +43,7 @@
 }
 
 .detailBtn {
-  @apply mt-2 inline-block text-xs font-medium text-graphite-600 underline-offset-2 hover:underline;
+  @apply mt-2 inline-block text-sm font-medium text-graphite-600 underline-offset-2 hover:underline;
 }
 
 .photoWrap {
@@ -67,16 +67,16 @@
 }
 
 .name {
-  @apply font-posterama text-xs font-bold text-graphite-950 sm:text-lg;
+  @apply font-posterama text-sm font-bold text-graphite-950 sm:text-lg md:text-xl;
   letter-spacing: 0.02em;
 }
 
 .rank {
-  @apply mt-0.5 text-[10px] text-graphite-600 sm:text-sm;
+  @apply mt-0.5 text-xs text-graphite-600 sm:text-sm;
 }
 
 .role {
-  @apply text-[10px] text-graphite-500 sm:text-sm;
+  @apply text-xs text-graphite-500 sm:text-sm;
 }
 
 .moreWrap {

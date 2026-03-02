@@ -460,6 +460,9 @@ export async function getContactInfo(): Promise<typeof contactInfo> {
         },
         mapEmbed: (d.mapEmbed as string) || "",
         howToGetThere: (d.howToGetThere as string) || "",
+        footerTagline: (d.footerTagline as string)?.trim() || contactInfo.footerTagline,
+        footerContactsTitle: (d.footerContactsTitle as string)?.trim() || contactInfo.footerContactsTitle,
+        footerCopyright: (d.footerCopyright as string)?.trim() || contactInfo.footerCopyright,
       };
     }
   }

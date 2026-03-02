@@ -6,7 +6,7 @@ import {
   getRepertoirePerformances,
   getActors,
 } from "@/lib/cms-data";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/site-config";
 import {
   isDirectorOrArtisticDirector,
   getMergedCast,
@@ -14,6 +14,7 @@ import {
 import { DEFAULT_TICKETS_URL } from "@/lib/mock-data";
 import PerformanceHero from "@/components/PerformanceHero";
 import PerformanceEventJsonLd from "@/components/seo/PerformanceEventJsonLd";
+import PerformanceReviewsJsonLd from "@/components/seo/PerformanceReviewsJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import PerformanceCast from "@/components/PerformanceCast";
 import PerformanceGallery from "@/components/PerformanceGallery";
@@ -39,17 +40,30 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const play = await getPerformanceBySlug(slug);
-  if (!play) return { title: "Спектакль" };
-  const url = `${SITE_URL}/repertuar/${slug}`;
+  if (!play) return { title: "Спектакль", description: "Спектакль не найден." };
+  const url = canonicalUrl(`/repertuar/${slug}`);
+  const desc =
+    play.description?.trim() ||
+    `Спектакль «${play.title}» в репертуаре театра Круг. Описание, фото, роли.`;
   return {
     title: `${play.title} — Репертуар — Драматический театр «Круг»`,
-    description: play.description,
+    description: desc,
     alternates: { canonical: url },
     openGraph: {
-      title: play.title,
-      description: play.description,
+      type: "website",
+      locale: "ru_RU",
       url,
-      images: play.poster ? [{ url: play.poster, alt: play.title }] : undefined,
+      siteName: "Драматический театр «Круг»",
+      title: play.title,
+      description: desc,
+      images: play.poster
+        ? [{ url: play.poster, width: 1200, height: 630, alt: play.title }]
+        : [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: play.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: play.title,
+      description: desc,
     },
   };
 }
@@ -82,6 +96,9 @@ export default async function RepertuarSlugPage({ params }: Props) {
         basePath="repertuar"
         ticketsUrl={play.ticketsUrl ?? DEFAULT_TICKETS_URL}
       />
+      {hasReviews && (
+        <PerformanceReviewsJsonLd play={play} basePath="repertuar" />
+      )}
       <BreadcrumbJsonLd
         items={[
           { name: "Главная", href: "/" },

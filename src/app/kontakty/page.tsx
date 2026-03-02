@@ -3,11 +3,23 @@ import Link from "next/link";
 import Contacts from "@/components/Contacts";
 import { getContactInfo } from "@/lib/cms-data";
 import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
   title: "Контакты и схема проезда — Драматический театр «Круг»",
   description: "Адрес, телефоны кассы и администрации, схема проезда, режим работы, соцсети.",
+  alternates: { canonical: canonicalUrl("/kontakty") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/kontakty"),
+    siteName: "Драматический театр «Круг»",
+    title: "Контакты и схема проезда — Драматический театр «Круг»",
+    description: "Адрес, телефоны кассы и администрации, схема проезда, режим работы, соцсети.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Контакты театра Круг" }],
+  },
+  twitter: { card: "summary_large_image", title: "Контакты — Драматический театр «Круг»" },
 };
 
 export default async function ContactsPage() {

@@ -2,12 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryLightbox from "@/components/GalleryLightbox";
 import { getOTeatrePageData } from "@/lib/cms-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
   title: "О театре — Драматический театр «Круг»",
-  description:
-    "История здания и труппы, миссия, художественный руководитель, фотогалерея.",
+  description: "История здания и труппы, миссия, художественный руководитель, фотогалерея.",
+  alternates: { canonical: canonicalUrl("/o-teatre") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/o-teatre"),
+    siteName: "Драматический театр «Круг»",
+    title: "О театре — Драматический театр «Круг»",
+    description: "История здания и труппы, миссия, художественный руководитель, фотогалерея.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "О театре Круг" }],
+  },
+  twitter: { card: "summary_large_image", title: "О театре — Драматический театр «Круг»" },
 };
 
 export default async function AboutPage() {

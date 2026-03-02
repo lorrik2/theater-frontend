@@ -2,12 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { getPomochTeatruPageData } from "@/lib/cms-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
 
 export const metadata: Metadata = {
   title: "Помочь театру — Драматический театр «Круг»",
-  description:
-    "Поддержать театр: реквизиты для перевода, QR-код для быстрой оплаты.",
+  description: "Поддержать театр: реквизиты для перевода, QR-код для быстрой оплаты.",
+  alternates: { canonical: canonicalUrl("/pomoch-teatru") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/pomoch-teatru"),
+    siteName: "Драматический театр «Круг»",
+    title: "Помочь театру — Драматический театр «Круг»",
+    description: "Поддержать театр: реквизиты для перевода, QR-код для быстрой оплаты.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Помочь театру Круг" }],
+  },
+  twitter: { card: "summary_large_image", title: "Помочь театру — Драматический театр «Круг»" },
 };
 
 export default async function PomochTeatruPage() {

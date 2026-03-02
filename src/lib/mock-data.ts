@@ -635,6 +635,10 @@ export const contactInfo = {
     "https://yandex.ru/map-widget/v1/?um=constructor%2Fplaceholder&lang=ru_RU",
   howToGetThere:
     "Метро «Волковская». Театр находится в 5 минутах от метро Волковская, в бизнес-центре. Вход — с торца здания, большая стеклянная дверь. За ней пункт охраны. Поднимитесь на лифте на 4 этаж, пройдите по коридору направо.",
+  footerTagline:
+    "Драматический театр «Круг» — живая сцена, классика и современность. С 2010 года.",
+  footerContactsTitle: "Контакты",
+  footerCopyright: "Драматический театр «Круг». Все права защищены.",
 };
 
 export const heroSlides = [

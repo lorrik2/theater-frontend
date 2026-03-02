@@ -5,6 +5,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { getContactInfo } from "@/lib/cms-data";
+import { contactInfo as defaultContactInfo } from "@/lib/mock-data";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import { SITE_URL } from "@/lib/site-config";
 
@@ -62,11 +64,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const contactInfo = await getContactInfo().catch(() => defaultContactInfo);
   return (
     <html
       lang="ru"
@@ -77,7 +80,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer contactInfo={contactInfo} />
         <ScrollToTop />
       </body>
     </html>

@@ -5,13 +5,24 @@ import {
   getTheaterGalleryImages,
   GALLERY_PAGE_SIZE,
 } from "@/lib/cms-data";
+import { canonicalUrl } from "@/lib/site-config";
 import styles from "../../styles/Page.module.css";
 import fotogalereyaStyles from "./fotogalereya.module.css";
 
 export const metadata: Metadata = {
   title: "Фотогалерея — О театре — Драматический театр «Круг»",
-  description:
-    "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
+  description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
+  alternates: { canonical: canonicalUrl("/o-teatre/fotogalereya") },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: canonicalUrl("/o-teatre/fotogalereya"),
+    siteName: "Драматический театр «Круг»",
+    title: "Фотогалерея — О театре — Драматический театр «Круг»",
+    description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
+    images: [{ url: "/fon/8.jpg", width: 1200, height: 630, alt: "Фотогалерея театра Круг" }],
+  },
+  twitter: { card: "summary_large_image", title: "Фотогалерея — Драматический театр «Круг»" },
 };
 
 type Props = { searchParams: Promise<{ page?: string }> };
@@ -46,7 +57,13 @@ export default async function FotogalereyaPage({ searchParams }: Props) {
         </p>
       </header>
 
-      <section className={`${styles.contentSection} ${styles.contentSectionWide}`}>
+      <section
+        className={`${styles.contentSection} ${styles.contentSectionWide}`}
+        aria-labelledby="gallery-heading"
+      >
+        <h2 id="gallery-heading" className={styles.h2}>
+          Фотографии театра
+        </h2>
         <GalleryLightbox
           images={imagesOnPage}
           variant="grid"

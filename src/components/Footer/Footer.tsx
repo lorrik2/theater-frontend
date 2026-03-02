@@ -1,7 +1,14 @@
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
-import { navLinks, contactInfo } from "@/lib/mock-data";
+import { navLinks } from "@/lib/mock-data";
 import styles from "./Footer.module.css";
+
+const DEFAULT_TAGLINE =
+  "Драматический театр «Круг» — живая сцена, классика и современность. С 2010 года.";
+const DEFAULT_CONTACTS_TITLE = "Контакты";
+const DEFAULT_COPYRIGHT = "Драматический театр «Круг». Все права защищены.";
+
+type ContactInfo = Awaited<ReturnType<typeof import("@/lib/cms-data").getContactInfo>>;
 
 const IconVK = () => (
   <svg
@@ -27,7 +34,13 @@ const IconTelegram = () => (
   </svg>
 );
 
-export default function Footer() {
+type Props = { contactInfo: ContactInfo };
+
+export default function Footer({ contactInfo }: Props) {
+  const tagline = contactInfo.footerTagline ?? DEFAULT_TAGLINE;
+  const contactsTitle = contactInfo.footerContactsTitle ?? DEFAULT_CONTACTS_TITLE;
+  const copyrightText = contactInfo.footerCopyright ?? DEFAULT_COPYRIGHT;
+
   return (
     <footer className={styles.footer}>
       <div className={styles.top}>
@@ -43,10 +56,7 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className={styles.tagline}>
-              Драматический театр «Круг» — живая сцена, классика и
-              современность. С 2010 года.
-            </p>
+            <p className={styles.tagline}>{tagline}</p>
           </div>
           <nav className={styles.links} aria-label="Меню в подвале">
             <ul className={styles.linkList}>
@@ -60,7 +70,7 @@ export default function Footer() {
             </ul>
           </nav>
           <div className={styles.contacts}>
-            <p className={styles.contactsTitle}>Контакты</p>
+            <p className={styles.contactsTitle}>{contactsTitle}</p>
             <p className={styles.address}>{contactInfo.address}</p>
             <p>
               <a
@@ -105,8 +115,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Драматический театр «Круг». Все права
-            защищены.
+            © {new Date().getFullYear()} {copyrightText}
           </p>
           <div className={styles.legal}>
             <Link href="/partners" className={styles.legalLink}>

@@ -37,6 +37,9 @@ const CONTENT_TYPE_LABELS = {
     workingHoursAdmin: 'Часы работы администрации',
     mapEmbed: 'Код карты',
     howToGetThere: 'Как добраться',
+    footerTagline: 'Слоган в подвале',
+    footerContactsTitle: 'Заголовок контактов в подвале',
+    footerCopyright: 'Авторские права (без года)',
   },
   'api::hero-slide.hero-slide': {
     title: 'Заголовок',
