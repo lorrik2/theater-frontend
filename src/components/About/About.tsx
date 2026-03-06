@@ -7,18 +7,27 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import useFancybox from "@/hooks/useFancybox";
 import styles from "./About.module.css";
+import type { OTeatrePageData } from "@/lib/cms-data";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-const gallery = [
+const defaultGallery = [
   { src: "/fon/8.jpg", alt: "Фасад театра" },
   { src: "/fon/12.jpg", alt: "Зрительный зал" },
   { src: "/fon/13.jpg", alt: "Фойе" },
   { src: "/fon/14.jpg", alt: "Закулисье" },
 ];
 
-export default function About() {
+function textToParagraphs(text: string): string[] {
+  return text.split(/\n\n+/).filter((p) => p.trim());
+}
+
+export default function About({ data }: { data?: OTeatrePageData | null }) {
+  const paragraphs = data?.lead ? textToParagraphs(data.lead).slice(0, 3) : [];
+  const gallery = data?.galleryImages?.length
+    ? data.galleryImages
+    : defaultGallery;
   const [fancyboxRef] = useFancybox();
 
   return (
@@ -49,21 +58,21 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <p className={styles.lead}>
-              Драматический театр «Круг» основан в 2010 году. Мы занимаем
-              историческое здание в центре города — бывший особняк XIX века,
-              переоборудованный под камерную сцену.
-            </p>
-            <p>
-              Наша миссия — сохранять живую театральную традицию и открывать
-              классику новым поколениям. Художественный руководитель — Андрей
-              Волков, режиссёр и педагог, лауреат национальных премий.
-            </p>
-            <p>
-              В репертуаре — русская и мировая классика, современная драматургия
-              и экспериментальные постановки. Зрительный зал на 120 мест создаёт
-              атмосферу камерности и доверия между сценой и залом.
-            </p>
+            {paragraphs.length > 0 ? (
+              <>
+                {paragraphs.map((p, i) => (
+                  <p key={i} className={i === 0 ? styles.lead : undefined}>
+                    {p}
+                  </p>
+                ))}
+              </>
+            ) : (
+              <>
+                <p className={styles.lead}>
+                  Драматический театр «Круг» основан в 2010 году.
+                </p>
+              </>
+            )}
             <Link href="/o-teatre" className={styles.link}>
               Подробнее об истории и миссии →
             </Link>

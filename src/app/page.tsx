@@ -13,6 +13,7 @@ import {
   getContactInfo,
   getTheaterReviews,
   getActors,
+  getOTeatrePageData,
   EMPTY_CONTACT,
 } from "@/lib/cms-data";
 import { canonicalUrl } from "@/lib/site-config";
@@ -50,22 +51,30 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [heroSlides = [], performances = [], newsItems = [], contactInfo, reviews = [], actors = []] =
-    await Promise.all([
-      getHeroSlides().catch(() => []),
-      getPerformances().catch(() => []),
-      getNewsItems().catch(() => []),
-      getContactInfo().catch(() => EMPTY_CONTACT),
-      getTheaterReviews().catch(() => []),
-      getActors().catch(() => []),
-    ]);
+  const [
+    heroSlides = [],
+    performances = [],
+    newsItems = [],
+    contactInfo,
+    reviews = [],
+    actors = [],
+    aboutData,
+  ] = await Promise.all([
+    getHeroSlides().catch(() => []),
+    getPerformances().catch(() => []),
+    getNewsItems().catch(() => []),
+    getContactInfo().catch(() => EMPTY_CONTACT),
+    getTheaterReviews().catch(() => []),
+    getActors().catch(() => []),
+    getOTeatrePageData().catch(() => null),
+  ]);
 
   return (
     <>
       <TheaterReviewsJsonLd reviews={reviews} />
       <Hero slides={heroSlides} />
       <Repertoire performances={performances} />
-      <About />
+      <About data={aboutData} />
       <Team actors={actors} />
       <Reviews reviews={reviews} />
       <News newsItems={newsItems} />
