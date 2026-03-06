@@ -93,25 +93,14 @@ export default function AfishaContent({
 }) {
   const afishaPerformances = performances.filter((p) => p.inAfisha !== false);
   const byMonth = groupByMonth(afishaPerformances);
-
-  if (afishaPerformances.length === 0) {
-    return (
-      <section className={styles.section}>
-        <p className={styles.emptyMessage}>Нет спектаклей в афише на данный момент.</p>
-      </section>
-    );
-  }
-
   const sortedEntries = Array.from(byMonth.entries()).sort(([a], [b]) => {
     if (a === "no-date") return 1;
     if (b === "no-date") return -1;
     return a.localeCompare(b);
   });
-
   const nearestMonthKey = sortedEntries[0]?.[0] ?? "";
-  const [value, setValue] = useState<string>(nearestMonthKey);
-  const monthEntries = sortedEntries.filter(([k]) => k !== "no-date");
 
+  const [value, setValue] = useState<string>(nearestMonthKey);
   const goToMonth = useCallback((monthKey: string) => {
     setValue(monthKey);
     // Ждём завершения анимации collapse предыдущего месяца — иначе layout shift сдвигает скролл ниже
@@ -121,6 +110,16 @@ export default function AfishaContent({
     };
     setTimeout(scrollAfterLayout, 320);
   }, []);
+
+  const monthEntries = sortedEntries.filter(([k]) => k !== "no-date");
+
+  if (afishaPerformances.length === 0) {
+    return (
+      <section className={styles.section}>
+        <p className={styles.emptyMessage}>Нет спектаклей в афише на данный момент.</p>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.section}>
