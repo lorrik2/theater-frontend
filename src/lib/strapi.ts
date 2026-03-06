@@ -33,7 +33,7 @@ export interface StrapiResponse<T> {
 export async function fetchStrapi<T>(
   path: string,
   options?: {
-    populate?: string | string[] | Record<string, unknown>;
+    populate?: string | Record<string, unknown>;
     filters?: Record<string, unknown>;
     sort?: string | string[];
     locale?: string;
@@ -46,13 +46,12 @@ export async function fetchStrapi<T>(
     url.searchParams.set("locale", options.locale);
   }
   if (options?.populate) {
-    const pop =
+    url.searchParams.set(
+      "populate",
       typeof options.populate === "string"
         ? options.populate
-        : Array.isArray(options.populate)
-          ? options.populate.join(",")
-          : JSON.stringify(options.populate);
-    url.searchParams.set("populate", pop);
+        : JSON.stringify(options.populate),
+    );
   }
   if (options?.filters) {
     Object.entries(options.filters).forEach(([key, value]) => {
@@ -73,9 +72,7 @@ export async function fetchStrapi<T>(
       );
   }
 
-  const headers: Record<string, string> = {
-    "Strapi-Response-Format": "v4",
-  };
+  const headers: Record<string, string> = {};
   if (process.env.STRAPI_API_TOKEN) {
     headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
   }
@@ -109,13 +106,8 @@ export async function fetchStrapi<T>(
 
 /** Проверяет, доступен ли Strapi (реальный endpoint) */
 export async function isStrapiAvailable(): Promise<boolean> {
-  if (process.env.USE_STRAPI === "1" || process.env.NEXT_PUBLIC_USE_STRAPI === "1") {
-    return true;
-  }
   try {
-    const headers: Record<string, string> = {
-      "Strapi-Response-Format": "v4",
-    };
+    const headers: Record<string, string> = {};
     if (process.env.STRAPI_API_TOKEN) {
       headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
     }

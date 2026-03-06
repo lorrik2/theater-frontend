@@ -1,6 +1,6 @@
 /**
- * Слой данных: Strapi CMS
- * Актёры и спектакли — только из Strapi (без fallback на mock)
+ * Слой данных: Strapi CMS с fallback на mock-data
+ * Использует Strapi, когда он доступен; иначе — локальные мок-данные
  */
 
 import {
@@ -10,6 +10,9 @@ import {
   type StrapiResponse,
 } from "./strapi";
 import {
+  performances,
+  repertoirePerformances,
+  actors,
   newsItems,
   heroSlides,
   contactInfo,
@@ -21,13 +24,11 @@ import { theaterGalleryImages, GALLERY_PAGE_SIZE } from "./theater-gallery";
 import type { Performance, Actor, NewsItem, Review } from "./mock-data";
 import { getPerformanceSlug, getActorSlug, getNewsSlug } from "./slug-utils";
 
-/** Безопасно извлекает URL из медиа-поля Strapi (v4: data.attributes.url, v5: url, attributes.url) */
+/** Безопасно извлекает URL из медиа-поля Strapi (поддержка data.attributes.url и прямого url) */
 function getMediaUrl(field: unknown): string {
   if (!field || typeof field !== "object") return "";
   const f = field as Record<string, unknown>;
   if (typeof f.url === "string") return getStrapiMediaUrl(f.url);
-  const attrs = f.attributes as Record<string, unknown> | undefined;
-  if (attrs && typeof attrs.url === "string") return getStrapiMediaUrl(attrs.url);
   const data = f.data as Record<string, unknown> | undefined;
   if (data?.attributes && typeof data.attributes === "object") {
     const url = (data.attributes as Record<string, unknown>).url;
@@ -53,18 +54,9 @@ function mapStrapiPerformance(d: any): Performance | null {
     const poster =
       getMediaUrl(attrs.poster ?? d.poster) || getMediaUrl(d.poster) || "";
     const galleryRaw = attrs.gallery ?? d.gallery;
-    const galleryData =
-      galleryRaw && typeof galleryRaw === "object" && "data" in galleryRaw
-        ? (galleryRaw as { data?: unknown[] }).data
-        : undefined;
-    const galleryArr = Array.isArray(galleryRaw)
-      ? galleryRaw
-      : Array.isArray(galleryData)
-        ? galleryData
-        : [];
     const gallery =
-      galleryArr.length > 0
-        ? galleryArr.map(mapGalleryItem).filter(Boolean)
+      galleryRaw && Array.isArray(galleryRaw)
+        ? galleryRaw.map(mapGalleryItem).filter(Boolean)
         : undefined;
 
     const rawSlug = attrs.slug ?? d.slug;
@@ -157,18 +149,9 @@ function mapStrapiActor(d: any): Actor | null {
     const attrs = d.attributes ?? d;
     const photo = getMediaUrl(attrs.photo ?? d.photo) || "";
     const galleryRaw = attrs.gallery ?? d.gallery;
-    const galleryData =
-      galleryRaw && typeof galleryRaw === "object" && "data" in galleryRaw
-        ? (galleryRaw as { data?: unknown[] }).data
-        : undefined;
-    const galleryArr = Array.isArray(galleryRaw)
-      ? galleryRaw
-      : Array.isArray(galleryData)
-        ? galleryData
-        : [];
     const gallery =
-      galleryArr.length > 0
-        ? galleryArr.map(mapGalleryItem).filter(Boolean)
+      galleryRaw && Array.isArray(galleryRaw)
+        ? galleryRaw.map(mapGalleryItem).filter(Boolean)
         : undefined;
 
     const rolesRaw = attrs.roles ?? d.roles;
@@ -299,7 +282,7 @@ export async function getPerformances(): Promise<Performance[]> {
   } catch (err) {
     console.warn("getPerformances error:", err);
   }
-  return [];
+  return performances;
 }
 
 /** Полный репертуар */
@@ -320,7 +303,7 @@ export async function getRepertoirePerformances(): Promise<Performance[]> {
   } catch (err) {
     console.warn("getRepertoirePerformances error:", err);
   }
-  return [];
+  return repertoirePerformances;
 }
 
 /** Спектакль по slug */
@@ -345,7 +328,7 @@ export async function getPerformanceBySlug(
   } catch (err) {
     console.warn("getPerformanceBySlug error:", err);
   }
-  return null;
+  return repertoirePerformances.find((p) => p.slug === slug) ?? null;
 }
 
 /** Актёры */
@@ -353,7 +336,7 @@ export async function getActors(): Promise<Actor[]> {
   try {
     if (await checkStrapi()) {
       const res = await fetchStrapi<Array<unknown>>("/actors", {
-        populate: ["photo", "gallery", "roles.performance"],
+        populate: "roles.performance",
         sort: ["name:asc"],
         pagination: { pageSize: 100 },
       });
@@ -367,7 +350,7 @@ export async function getActors(): Promise<Actor[]> {
   } catch (err) {
     console.warn("getActors error:", err);
   }
-  return [];
+  return actors;
 }
 
 /** Актёр по slug */
@@ -375,7 +358,7 @@ export async function getActorBySlug(slug: string): Promise<Actor | null> {
   try {
     if (await checkStrapi()) {
       const res = await fetchStrapi<Array<unknown>>("/actors", {
-        populate: ["photo", "gallery", "roles.performance"],
+        populate: "roles.performance",
         sort: ["name:asc"],
         pagination: { pageSize: 100 },
       });
@@ -390,7 +373,7 @@ export async function getActorBySlug(slug: string): Promise<Actor | null> {
   } catch (err) {
     console.warn("getActorBySlug error:", err);
   }
-  return null;
+  return actors.find((a) => a.slug === slug) ?? null;
 }
 
 /** Новости / события */
