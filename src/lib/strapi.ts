@@ -33,7 +33,7 @@ export interface StrapiResponse<T> {
 export async function fetchStrapi<T>(
   path: string,
   options?: {
-    populate?: string | Record<string, unknown>;
+    populate?: string | string[] | Record<string, unknown>;
     filters?: Record<string, unknown>;
     sort?: string | string[];
     locale?: string;
@@ -46,12 +46,13 @@ export async function fetchStrapi<T>(
     url.searchParams.set("locale", options.locale);
   }
   if (options?.populate) {
-    url.searchParams.set(
-      "populate",
+    const pop =
       typeof options.populate === "string"
         ? options.populate
-        : JSON.stringify(options.populate),
-    );
+        : Array.isArray(options.populate)
+          ? options.populate.join(",")
+          : JSON.stringify(options.populate);
+    url.searchParams.set("populate", pop);
   }
   if (options?.filters) {
     Object.entries(options.filters).forEach(([key, value]) => {
