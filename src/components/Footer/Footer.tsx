@@ -54,6 +54,7 @@ export default function Footer({ contactInfo }: Props) {
                 height={48}
                 className={styles.logoImg}
                 unoptimized
+                skipShimmer
               />
             </Link>
             <p className={styles.tagline}>{tagline}</p>

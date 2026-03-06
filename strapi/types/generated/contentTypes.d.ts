@@ -627,7 +627,7 @@ export interface ApiOTeatreOTeatre extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     gallery: Schema.Attribute.Media<'images', true>;
     historyText: Schema.Attribute.Text;
-    lead: Schema.Attribute.String;
+    lead: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

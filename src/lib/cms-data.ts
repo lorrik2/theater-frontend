@@ -351,41 +351,86 @@ export async function getPerformanceBySlug(
   return null;
 }
 
-/** Актёры */
+/** Опции для запроса актёров */
+const ACTORS_QUERY = { sort: ["name:asc"], pagination: { pageSize: 100 } };
+
+/** Актёры — два запроса: фото (populate *) и роли (roles.performance), затем слияние */
 export async function getActors(): Promise<Actor[]> {
   try {
-    const res = await fetchStrapi<Array<unknown>>("/actors", {
-      populate: "*",
-      sort: ["name:asc"],
-      pagination: { pageSize: 100 },
-    });
-    if (res?.data && Array.isArray(res.data)) {
-      const mapped = res.data
-        .map((d: any) => mapStrapiActor(d))
-        .filter((a): a is Actor => a != null);
-      if (mapped.length > 0) return mapped;
+    const [resPhotos, resRoles] = await Promise.all([
+      fetchStrapi<Array<unknown>>("/actors", {
+        populate: "*",
+        ...ACTORS_QUERY,
+      }),
+      fetchStrapi<Array<unknown>>("/actors", {
+        populate: "roles.performance",
+        ...ACTORS_QUERY,
+      }),
+    ]);
+    if (!resPhotos?.data || !Array.isArray(resPhotos.data)) return [];
+    const withPhotos = resPhotos.data
+      .map((d: any) => mapStrapiActor(d))
+      .filter((a): a is Actor => a != null);
+    if (withPhotos.length === 0) return [];
+
+    if (resRoles?.data && Array.isArray(resRoles.data)) {
+      const byId = new Map<string, Actor>();
+      for (const a of withPhotos) byId.set(a.id, a);
+      for (const d of resRoles.data) {
+        const withRoles = mapStrapiActor(d);
+        if (withRoles) {
+          const base = byId.get(withRoles.id);
+          if (base && (withRoles.roles?.length ?? 0) > 0) {
+            byId.set(base.id, { ...base, roles: withRoles.roles });
+          }
+        }
+      }
+      return Array.from(byId.values());
     }
+    return withPhotos;
   } catch (err) {
     console.warn("getActors error:", err);
   }
   return [];
 }
 
-/** Актёр по slug */
+/** Актёр по slug — два запроса: фото и роли, затем слияние */
 export async function getActorBySlug(slug: string): Promise<Actor | null> {
   try {
-    const res = await fetchStrapi<Array<unknown>>("/actors", {
-      populate: "*",
-      sort: ["name:asc"],
-      pagination: { pageSize: 100 },
-    });
-    const data = res?.data;
-    if (Array.isArray(data)) {
-      for (const d of data) {
-        const actor = mapStrapiActor(d);
-        if (actor && actor.slug === slug) return actor;
+    const [resPhotos, resRoles] = await Promise.all([
+      fetchStrapi<Array<unknown>>("/actors", {
+        populate: "*",
+        ...ACTORS_QUERY,
+      }),
+      fetchStrapi<Array<unknown>>("/actors", {
+        populate: "roles.performance",
+        ...ACTORS_QUERY,
+      }),
+    ]);
+    let withPhotos: Actor | null = null;
+    let withRoles: Actor | null = null;
+    if (resPhotos?.data && Array.isArray(resPhotos.data)) {
+      for (const d of resPhotos.data) {
+        const a = mapStrapiActor(d);
+        if (a && a.slug === slug) {
+          withPhotos = a;
+          break;
+        }
       }
     }
+    if (resRoles?.data && Array.isArray(resRoles.data)) {
+      for (const d of resRoles.data) {
+        const a = mapStrapiActor(d);
+        if (a && a.slug === slug) {
+          withRoles = a;
+          break;
+        }
+      }
+    }
+    if (!withPhotos) return null;
+    if (withRoles?.roles?.length)
+      return { ...withPhotos, roles: withRoles.roles };
+    return withPhotos;
   } catch (err) {
     console.warn("getActorBySlug error:", err);
   }
@@ -828,12 +873,12 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
         : (galleryRaw as { data?: unknown })?.data ?? [];
       return {
         title: (attrs.title as string) || defaults.title,
-        lead: (attrs.lead as string) || defaults.lead,
-        historyText: (attrs.historyText as string) || defaults.historyText,
-        missionText: (attrs.missionText as string) || defaults.missionText,
+        lead: typeof attrs.lead === "string" ? attrs.lead : "",
+        historyText: typeof attrs.historyText === "string" ? attrs.historyText : "",
+        missionText: typeof attrs.missionText === "string" ? attrs.missionText : "",
         galleryImages:
           mapGalleryImages(galleryArr, "Фото").length > 0
-            ?             mapGalleryImages(galleryArr, "Фото")
+            ? mapGalleryImages(galleryArr, "Фото")
             : defaults.galleryImages,
       };
     }

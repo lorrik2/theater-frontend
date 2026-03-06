@@ -21,14 +21,15 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "О театре — Драматический театр «Круг»" },
 };
 
+function textToParagraphs(text: string): string[] {
+  return text.split(/\n\n+/).filter((p) => p.trim());
+}
+
 export default async function AboutPage() {
   const data = await getOTeatrePageData();
-  const historyParagraphs = (data.historyText ?? "")
-    .split(/\n\n+/)
-    .filter((p) => p.trim());
-  const missionParagraphs = (data.missionText ?? "")
-    .split(/\n\n+/)
-    .filter((p) => p.trim());
+  const aboutParagraphs = textToParagraphs(data.lead ?? "");
+  const historyParagraphs = textToParagraphs(data.historyText ?? "");
+  const missionParagraphs = textToParagraphs(data.missionText ?? "");
   const galleryPreview =
     (data.galleryImages ?? []).length > 0
       ? (data.galleryImages ?? [])
@@ -47,33 +48,34 @@ export default async function AboutPage() {
       </nav>
       <header className={styles.header}>
         <h1 className={styles.h1}>{data.title || "О театре"}</h1>
-        <p className={styles.lead}>{data.lead || ""}</p>
       </header>
 
-      <section className={styles.contentSection}>
-        <h2 className={styles.h2}>История</h2>
-        {historyParagraphs.length > 0 ? (
-          historyParagraphs.map((p, i) => <p key={i}>{p}</p>)
-        ) : (
-          <p>
-            Драматический театр «Круг» основан в 2010 году. Здание — бывший
-            особняк XIX века в центре города — было передано под театр и
-            реконструировано с сохранением исторического облика.
-          </p>
-        )}
-      </section>
+      {aboutParagraphs.length > 0 && (
+        <section className={styles.contentSection}>
+          <h2 className={styles.h2}>О театре</h2>
+          {aboutParagraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </section>
+      )}
 
-      <section className={styles.contentSection}>
-        <h2 className={styles.h2}>Миссия</h2>
-        {missionParagraphs.length > 0 ? (
-          missionParagraphs.map((p, i) => <p key={i}>{p}</p>)
-        ) : (
-          <p>
-            Мы верим, что театр — это живое искусство, которое говорит с
-            каждым зрителем на его языке.
-          </p>
-        )}
-      </section>
+      {historyParagraphs.length > 0 && (
+        <section className={styles.contentSection}>
+          <h2 className={styles.h2}>История</h2>
+          {historyParagraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </section>
+      )}
+
+      {missionParagraphs.length > 0 && (
+        <section className={styles.contentSection}>
+          <h2 className={styles.h2}>Миссия</h2>
+          {missionParagraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </section>
+      )}
 
       <section
         id="gallery"

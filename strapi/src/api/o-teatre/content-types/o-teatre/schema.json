@@ -15,8 +15,8 @@
       "description": "Заголовок страницы"
     },
     "lead": {
-      "type": "string",
-      "description": "Подзаголовок"
+      "type": "text",
+      "description": "Текст блока «О театре»"
     },
     "historyText": {
       "type": "text",

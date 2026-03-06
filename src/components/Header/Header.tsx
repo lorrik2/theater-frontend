@@ -63,6 +63,7 @@ export default function Header() {
             className={styles.logoImg}
             priority
             unoptimized
+            skipShimmer
           />
         </Link>
 

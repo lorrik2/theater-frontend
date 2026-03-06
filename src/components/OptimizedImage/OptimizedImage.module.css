@@ -9,3 +9,35 @@
 .blurWrap.blurLoaded {
   filter: blur(0);
 }
+
+/* Shimmer skeleton — пока изображение загружается */
+.skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    var(--graphite-200, #e5e7eb) 0%,
+    var(--graphite-100, #f3f4f6) 50%,
+    var(--graphite-200, #e5e7eb) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+
+.skeleton.loaded {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}

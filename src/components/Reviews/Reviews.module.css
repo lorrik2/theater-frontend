@@ -55,11 +55,13 @@
 }
 
 .quote {
-  @apply relative overflow-hidden rounded-lg border border-graphite-700 bg-graphite-900/50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
+  @apply relative overflow-y-auto overflow-x-hidden rounded-lg border border-graphite-700 bg-graphite-900/50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
+  max-height: 450px;
 }
 
 .quoteLight {
-  @apply relative overflow-hidden rounded-lg border border-graphite-200 bg-graphite-50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
+  @apply relative overflow-y-auto overflow-x-hidden rounded-lg border border-graphite-200 bg-graphite-50 px-6 pt-12 pb-8 md:px-8 md:pt-14 md:pb-10;
+  max-height: 450px;
 }
 
 .quoteMark {
@@ -106,6 +108,16 @@
   @apply opacity-100;
 }
 
+/* Отзывы о театре: при наведении — смена цвета и контраста */
+.reviewLinkTheater {
+  @apply opacity-80 transition-all duration-200;
+}
+
+.reviewLinkTheater:hover {
+  @apply opacity-100;
+  filter: brightness(1.3) contrast(1.15);
+}
+
 .reviewIcon {
   @apply h-5 w-5 object-contain;
 }
@@ -120,7 +132,9 @@
   width: 8px;
   height: 8px;
   opacity: 1;
-  transition: background 0.3s, transform 0.3s;
+  transition:
+    background 0.3s,
+    transform 0.3s;
 }
 
 .section .slider :global(.swiper-pagination-bullet) {

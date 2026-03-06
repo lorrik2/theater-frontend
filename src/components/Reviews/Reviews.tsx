@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import type { SVGProps } from "react";
 
 function VkIcon(props: SVGProps<SVGSVGElement>) {
@@ -19,6 +18,27 @@ function VkIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+function LinkIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      {...props}
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import type { Review } from "@/lib/mock-data";
@@ -31,7 +51,7 @@ type ReviewsProps = {
   reviews?: Review[];
   title?: string;
   subtitle?: string;
-  /** dark (по умолчанию) — тёмный фон для главной; light — светлый для страницы спектакля */
+  /** dark — отзывы о театре (только VK, лого+ссылки с hover); light — отзывы о спектакле (только VK как сейчас) */
   variant?: "dark" | "light";
   id?: string;
 };
@@ -110,47 +130,27 @@ export default function Reviews({
                           href={review.vkUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={styles.reviewLink}
-                          aria-label="Отзыв ВКонтакте"
-                          title="Открыть отзыв ВКонтакте"
+                          className={
+                            variant === "dark"
+                              ? `${styles.reviewLink} ${styles.reviewLinkTheater}`
+                              : styles.reviewLink
+                          }
+                          aria-label={
+                            variant === "dark"
+                              ? "Перейти к отзыву"
+                              : "Отзыв ВКонтакте"
+                          }
+                          title={
+                            variant === "dark"
+                              ? "Открыть отзыв"
+                              : "Открыть отзыв ВКонтакте"
+                          }
                         >
-                          <VkIcon className={styles.reviewIcon} />
-                        </a>
-                      )}
-                      {review.yandexMapsUrl && (
-                        <a
-                          href={review.yandexMapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.reviewLink}
-                          aria-label="Отзыв в Яндекс Картах"
-                          title="Открыть отзыв в Яндекс Картах"
-                        >
-                          <Image
-                            src="/logo/logo_yandx.svg"
-                            alt=""
-                            width={20}
-                            height={20}
-                            className={styles.reviewIcon}
-                          />
-                        </a>
-                      )}
-                      {review.twoGisUrl && (
-                        <a
-                          href={review.twoGisUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.reviewLink}
-                          aria-label="Отзыв в 2ГИС"
-                          title="Открыть отзыв в 2ГИС"
-                        >
-                          <Image
-                            src="/logo/2gis_logo.png"
-                            alt=""
-                            width={20}
-                            height={20}
-                            className={styles.reviewIcon}
-                          />
+                          {variant === "dark" ? (
+                            <LinkIcon className={styles.reviewIcon} />
+                          ) : (
+                            <VkIcon className={styles.reviewIcon} />
+                          )}
                         </a>
                       )}
                     </span>

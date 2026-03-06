@@ -21,7 +21,7 @@
 }
 
 .photo {
-  @apply h-full w-full object-cover object-top;
+  @apply h-full w-full object-contain object-top;
 }
 
 .placeholder {

@@ -87,7 +87,7 @@ button.cardLink {
 }
 
 .photo {
-  @apply h-full w-full object-cover object-top transition-transform duration-500 ease-in-out;
+  @apply h-full w-full object-contain object-top transition-transform duration-500 ease-in-out;
 }
 
 .cardLinkClickable:hover .photo {
