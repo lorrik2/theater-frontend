@@ -73,22 +73,26 @@ export default function Footer({ contactInfo }: Props) {
           <div className={styles.contacts}>
             <p className={styles.contactsTitle}>{contactsTitle}</p>
             <p className={styles.address}>{contactInfo.address}</p>
-            <p>
-              <a
-                href={`tel:${contactInfo.boxOffice.replace(/\s/g, "")}`}
-                className={styles.tel}
-              >
-                Касса: {contactInfo.boxOffice}
-              </a>
-            </p>
-            <p>
-              <a
-                href={`mailto:${contactInfo.emailBoxOffice}`}
-                className={styles.mail}
-              >
-                {contactInfo.emailBoxOffice}
-              </a>
-            </p>
+            {contactInfo.boxOffice ? (
+              <p>
+                <a
+                  href={`tel:${contactInfo.boxOffice.replace(/\s/g, "")}`}
+                  className={styles.tel}
+                >
+                  Касса: {contactInfo.boxOffice}
+                </a>
+              </p>
+            ) : null}
+            {contactInfo.emailBoxOffice ? (
+              <p>
+                <a
+                  href={`mailto:${contactInfo.emailBoxOffice}`}
+                  className={styles.mail}
+                >
+                  {contactInfo.emailBoxOffice}
+                </a>
+              </p>
+            ) : null}
             <div className={styles.social}>
               <a
                 href={contactInfo.social.vk}
@@ -116,7 +120,7 @@ export default function Footer({ contactInfo }: Props) {
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} {copyrightText}
+            {copyrightText} © {new Date().getFullYear()}
           </p>
           <div className={styles.legal}>
             <Link href="/partners" className={styles.legalLink}>

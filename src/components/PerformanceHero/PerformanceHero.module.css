@@ -27,6 +27,19 @@
   @apply h-full w-full bg-graphite-300;
 }
 
+/* Десктоп: тёмный фон как на главной (Hero) */
+@media (min-width: 1024px) {
+  .imageWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-slider-bg);
+  }
+  .placeholder {
+    background-color: var(--color-slider-bg);
+  }
+}
+
 .slideBtn {
   @apply block h-full w-full cursor-zoom-in border-0 bg-transparent p-0 text-left outline-none no-underline;
 }

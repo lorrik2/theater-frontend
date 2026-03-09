@@ -5,22 +5,8 @@ import * as Accordion from "@radix-ui/react-accordion";
 import type { Performance } from "@/lib/types";
 import { PerformanceCard } from "@/components/PerformanceCard";
 import { sortPerformancesChronologically } from "@/lib/cms-data";
+import { MONTH_NAMES, MONTH_LABELS } from "@/lib/date-utils";
 import styles from "../styles/Page.module.css";
-
-const MONTH_NAMES: Record<string, number> = {
-  января: 1,
-  февраля: 2,
-  марта: 3,
-  апреля: 4,
-  мая: 5,
-  июня: 6,
-  июля: 7,
-  августа: 8,
-  сентября: 9,
-  октября: 10,
-  ноября: 11,
-  декабря: 12,
-};
 
 /** Извлекает месяц из даты "28 марта" или "15 февраля 2025" → { key: "03", label: "Март" } */
 function getMonthFromDate(dateStr: string): { key: string; label: string } | null {
@@ -32,21 +18,7 @@ function getMonthFromDate(dateStr: string): { key: string; label: string } | nul
   const monthNum = MONTH_NAMES[monthName];
   if (!monthNum) return null;
   const key = String(monthNum).padStart(2, "0");
-  const labelMap: Record<string, string> = {
-    января: "Январь",
-    февраля: "Февраль",
-    марта: "Март",
-    апреля: "Апрель",
-    мая: "Май",
-    июня: "Июнь",
-    июля: "Июль",
-    августа: "Август",
-    сентября: "Сентябрь",
-    октября: "Октябрь",
-    ноября: "Ноябрь",
-    декабря: "Декабрь",
-  };
-  const label = labelMap[monthName] || monthName;
+  const label = MONTH_LABELS[monthName] || monthName;
   return { key, label };
 }
 

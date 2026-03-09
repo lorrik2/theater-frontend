@@ -59,7 +59,7 @@ export interface Performance {
   /** Награды и дипломы спектакля */
   awards?: { title: string; year?: string }[];
   /** Участие в конкурсах и фестивалях */
-  festivals?: { title: string; year?: string; place?: string }[];
+  festivals?: { title: string; year?: string; place?: string; logo?: string }[];
   /** Ссылка на покупку билетов (настраивается в CMS для каждого спектакля) */
   ticketsUrl?: string;
 }

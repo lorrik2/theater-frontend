@@ -142,6 +142,20 @@
   @apply flex flex-col gap-1 border-l-2 border-graphite-300 pl-6 py-1 sm:flex-row sm:items-baseline sm:gap-4;
 }
 
+.awardFestItem {
+  @apply flex flex-row items-center justify-between gap-4 border-l-2 border-graphite-300 pl-6 py-1;
+}
+
+.awardFestContent {
+  @apply flex min-w-0 flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4;
+}
+
+.awardFestLogo {
+  @apply shrink-0 self-center rounded object-contain;
+  width: 56px;
+  height: 56px;
+}
+
 .awardTitle {
   @apply font-sans text-base text-graphite-800 md:text-lg;
 }

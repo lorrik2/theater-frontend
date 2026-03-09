@@ -4,7 +4,6 @@
  */
 
 import { fetchStrapi, getStrapiMediaUrl } from "./strapi";
-import { navLinks, navItems } from "./site-config";
 import { GALLERY_PAGE_SIZE } from "./theater-gallery";
 import type {
   Performance,
@@ -34,6 +33,7 @@ const EMPTY_CONTACT: ContactInfo = {
 
 export { EMPTY_CONTACT };
 import { getPerformanceSlug, getActorSlug, getNewsSlug } from "./slug-utils";
+import { MONTH_NAMES } from "./date-utils";
 
 /** Безопасно извлекает URL из медиа-поля Strapi (поддержка data.attributes.url, data.url и прямого url) */
 function getMediaUrl(field: unknown): string {
@@ -52,21 +52,6 @@ function getMediaUrl(field: unknown): string {
   if (typeof data.url === "string") return getStrapiMediaUrl(data.url);
   return "";
 }
-
-const MONTH_NAMES: Record<string, number> = {
-  января: 1,
-  февраля: 2,
-  марта: 3,
-  апреля: 4,
-  мая: 5,
-  июня: 6,
-  июля: 7,
-  августа: 8,
-  сентября: 9,
-  октября: 10,
-  ноября: 11,
-  декабря: 12,
-};
 
 /** Парсит дату "28 марта" или "15 февраля 2025" в timestamp для сортировки. Без года — текущий год. */
 function parseDisplayDate(dateStr: string): number {
@@ -250,10 +235,12 @@ function mapStrapiPerformance(d: any): Performance | null {
             .filter((f: unknown) => f && typeof f === "object")
             .map((f: any) => {
               const fAttrs = (f as any).attributes ?? f;
+              const logoMedia = fAttrs.logo ?? f.logo;
               return {
                 title: fAttrs.title ?? f.title ?? "",
                 year: fAttrs.year ?? f.year ?? "",
                 place: fAttrs.place ?? f.place ?? "",
+                logo: logoMedia ? getMediaUrl(logoMedia) : undefined,
               };
             })
         : undefined,
@@ -393,7 +380,7 @@ const PERFORMANCE_POPULATE = {
   reviews: true,
   schedule: true,
   awards: true,
-  festivals: true,
+  festivals: { populate: { logo: true } },
 } as const;
 
 /** Спектакли для афиши (inAfisha) */
@@ -457,31 +444,49 @@ export async function getPerformanceBySlug(
 }
 
 /** Опции для запроса актёров */
-const ACTORS_QUERY = { sort: ["name:asc"], pagination: { pageSize: 100 } };
+const ACTORS_SORT = ["name:asc"];
 
-/** Актёры — два запроса: фото (populate *) и роли (roles.performance), затем слияние */
+/** Собирает всех актёров с пагинацией — обходит ограничение Strapi (по умолчанию 25, max ~100–250) */
+async function fetchAllActors(
+  populate: string | Record<string, unknown>,
+): Promise<unknown[]> {
+  const all: unknown[] = [];
+  let page = 1;
+  const pageSize = 100;
+  for (;;) {
+    const res = await fetchStrapi<Array<unknown>>("/actors", {
+      populate,
+      sort: ACTORS_SORT,
+      pagination: { page, pageSize },
+    });
+    const data = res?.data;
+    if (!Array.isArray(data)) break;
+    all.push(...data);
+    const total = res?.meta?.pagination?.total;
+    const pageCount = res?.meta?.pagination?.pageCount ?? 1;
+    if (page >= pageCount || data.length === 0) break;
+    page++;
+  }
+  return all;
+}
+
+/** Актёры — фото (populate *) и роли (roles.performance), слияние. Загружает все страницы. */
 export async function getActors(): Promise<Actor[]> {
   try {
-    const [resPhotos, resRoles] = await Promise.all([
-      fetchStrapi<Array<unknown>>("/actors", {
-        populate: "*",
-        ...ACTORS_QUERY,
-      }),
-      fetchStrapi<Array<unknown>>("/actors", {
-        populate: "roles.performance",
-        ...ACTORS_QUERY,
-      }),
+    const [photosData, rolesData] = await Promise.all([
+      fetchAllActors("*"),
+      fetchAllActors("roles.performance"),
     ]);
-    if (!resPhotos?.data || !Array.isArray(resPhotos.data)) return [];
-    const withPhotos = resPhotos.data
+    if (!Array.isArray(photosData) || photosData.length === 0) return [];
+    const withPhotos = photosData
       .map((d: any) => mapStrapiActor(d))
       .filter((a): a is Actor => a != null);
     if (withPhotos.length === 0) return [];
 
-    if (resRoles?.data && Array.isArray(resRoles.data)) {
+    if (Array.isArray(rolesData) && rolesData.length > 0) {
       const byId = new Map<string, Actor>();
       for (const a of withPhotos) byId.set(a.id, a);
-      for (const d of resRoles.data) {
+      for (const d of rolesData) {
         const withRoles = mapStrapiActor(d);
         if (withRoles) {
           const base = byId.get(withRoles.id);
@@ -499,43 +504,39 @@ export async function getActors(): Promise<Actor[]> {
   return [];
 }
 
-/** Актёр по slug — два запроса: фото и роли, затем слияние */
+/** Актёр по slug — сначала фильтр по slug, иначе поиск во всех (fallback) */
 export async function getActorBySlug(slug: string): Promise<Actor | null> {
   try {
     const [resPhotos, resRoles] = await Promise.all([
       fetchStrapi<Array<unknown>>("/actors", {
         populate: "*",
-        ...ACTORS_QUERY,
+        filters: { slug },
+        sort: ACTORS_SORT,
+        pagination: { pageSize: 10 },
       }),
       fetchStrapi<Array<unknown>>("/actors", {
         populate: "roles.performance",
-        ...ACTORS_QUERY,
+        filters: { slug },
+        sort: ACTORS_SORT,
+        pagination: { pageSize: 10 },
       }),
     ]);
-    let withPhotos: Actor | null = null;
-    let withRoles: Actor | null = null;
-    if (resPhotos?.data && Array.isArray(resPhotos.data)) {
-      for (const d of resPhotos.data) {
-        const a = mapStrapiActor(d);
-        if (a && a.slug === slug) {
-          withPhotos = a;
-          break;
+    const photosArr = resPhotos?.data;
+    const rolesArr = resRoles?.data;
+    if (Array.isArray(photosArr) && photosArr.length > 0) {
+      const withPhotos = mapStrapiActor(photosArr[0] as any);
+      if (withPhotos && (withPhotos.slug === slug || photosArr.length === 1)) {
+        if (Array.isArray(rolesArr) && rolesArr.length > 0) {
+          const withRoles = mapStrapiActor(rolesArr[0] as any);
+          if (withRoles?.roles?.length)
+            return { ...withPhotos, roles: withRoles.roles };
         }
+        return withPhotos;
       }
     }
-    if (resRoles?.data && Array.isArray(resRoles.data)) {
-      for (const d of resRoles.data) {
-        const a = mapStrapiActor(d);
-        if (a && a.slug === slug) {
-          withRoles = a;
-          break;
-        }
-      }
-    }
-    if (!withPhotos) return null;
-    if (withRoles?.roles?.length)
-      return { ...withPhotos, roles: withRoles.roles };
-    return withPhotos;
+    const all = await getActors();
+    const found = all.find((a) => a.slug === slug);
+    return found ?? null;
   } catch (err) {
     console.warn("getActorBySlug error:", err);
   }
@@ -1004,24 +1005,3 @@ export async function getOTeatrePageData(): Promise<OTeatrePageData> {
   }
   return defaults;
 }
-
-/** Премьеры — из спектаклей с isPremiere */
-export async function getPremieres() {
-  const perfs = await getPerformances();
-  return perfs
-    .filter((p) => p.isPremiere)
-    .slice(0, 3)
-    .map((p) => ({
-      id: p.id,
-      title: p.title,
-      slug: p.slug,
-      poster: p.poster,
-      description: p.description,
-      director: p.director,
-      cast: p.cast?.map((c: { name: string }) => c.name) ?? [],
-      date: p.date,
-      time: p.time,
-    }));
-}
-
-export { navLinks, navItems };

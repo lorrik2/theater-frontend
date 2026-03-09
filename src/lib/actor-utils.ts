@@ -20,13 +20,15 @@ export function hasActorCardContent(actor: Actor): boolean {
 /**
  * Проверяет, является ли актёр режиссёром или художественным руководителем.
  * Только у них отображается полная карточка со ссылкой на страницу.
+ * Учитываются оба поля: role (роль) и rank (должность).
  */
 export function isDirectorOrArtisticDirector(actor: Actor): boolean {
   const role = (actor.role || "").toLowerCase();
   const rank = (actor.rank || "").toLowerCase();
+  const roleOrRank = `${role} ${rank}`;
   return (
-    role.includes("режиссёр-постановщик") ||
-    role.includes("режиссер-постановщик") ||
+    roleOrRank.includes("режиссёр-постановщик") ||
+    roleOrRank.includes("режиссер-постановщик") ||
     rank.includes("художественный руководитель")
   );
 }

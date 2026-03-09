@@ -172,6 +172,7 @@ export default {
         'content-type-builder.components.shared.festival.attributes.title': 'Название',
         'content-type-builder.components.shared.festival.attributes.year': 'Год',
         'content-type-builder.components.shared.festival.attributes.place': 'Место',
+        'content-type-builder.components.shared.festival.attributes.logo': 'Логотип',
 
         // Альтернативный формат для Content Manager (компоненты внутри контента)
         'content-manager.components.shared.role-item': 'Роль в спектакле',
@@ -195,6 +196,7 @@ export default {
         'content-manager.components.shared.festival.attributes.title': 'Название',
         'content-manager.components.shared.festival.attributes.year': 'Год',
         'content-manager.components.shared.festival.attributes.place': 'Место',
+        'content-manager.components.shared.festival.attributes.logo': 'Логотип',
         'content-manager.components.shared.partner-item': 'Партнёр',
         'content-manager.components.shared.partner-item.attributes.name': 'Название',
         'content-manager.components.shared.partner-item.attributes.logo': 'Логотип',
@@ -240,7 +242,7 @@ export default {
       },
     },
   },
-  bootstrap(app: StrapiApp) {
-    console.log(app);
+  bootstrap(_app: StrapiApp) {
+    // app available for custom plugins
   },
 };

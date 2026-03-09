@@ -50,7 +50,7 @@ export default function PerformanceCard({ play, variant, animated, variants, com
             <span className={styles.age}>{play.ageRating}</span>
             <div className={styles.topLeft}>
               <span className={styles.dateTime}>
-                {play.date !== "—" ? (
+                {play.inAfisha && play.date !== "—" ? (
                   <>
                     {formatDisplayDate(play.date)}
                     {play.time !== "—" && (

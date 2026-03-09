@@ -24,7 +24,7 @@ export default function TeamGrid({
   } | null>(null);
 
   const director = actors.find((a) => isDirectorOrArtisticDirector(a));
-  const otherActors = actors.filter((a) => !isDirectorOrArtisticDirector(a));
+  const otherActors = actors.filter((a) => a.id !== director?.id);
 
   return (
     <>

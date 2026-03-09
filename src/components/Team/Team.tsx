@@ -8,11 +8,16 @@ import { hasActorCardContent } from "@/lib/actor-utils";
 import styles from "./Team.module.css";
 
 export default function Team({ actors }: { actors: Actor[] }) {
-  const leadership = actors.filter(
-    (a) =>
-      a.role.toLowerCase().includes("режиссёр") ||
-      (a.rank && a.rank.includes("Художественный руководитель")),
-  );
+  const leadership = actors.filter((a) => {
+    const role = (a.role || "").toLowerCase();
+    const rank = (a.rank || "").toLowerCase();
+    return (
+      role.includes("режиссёр") ||
+      rank.includes("режиссёр") ||
+      rank.includes("режиссер") ||
+      rank.includes("художественный руководитель")
+    );
+  });
   const director = leadership[0];
   if (!director) {
     return (

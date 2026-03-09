@@ -131,7 +131,7 @@ export default function Contacts({
               src={mapSrc}
               className={styles.mapIframe}
               title="Карта проезда к театру"
-              frameBorder="0"
+              style={{ border: 0 }}
             />
           </div>
         </div>

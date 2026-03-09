@@ -41,7 +41,7 @@ export function canonicalUrl(path: string): string {
 }
 
 /** URL по умолчанию для покупки билетов (афиша на quicktickets.ru) */
-export const DEFAULT_TICKETS_URL = "https://quicktickets.ru/spb-teatr-krug/s44";
+export const DEFAULT_TICKETS_URL = "https://quicktickets.ru/spb-teatr-krug";
 
 /** Меню с группами и выпадающими списками */
 export const navItems: NavItem[] = [

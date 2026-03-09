@@ -41,13 +41,13 @@
   @apply object-cover object-center transition-transform duration-500 ease-in-out;
 }
 
-/* Десктоп: contain — фото целиком, без обрезки и растягивания, нейтральный тёмный фон */
+/* Десктоп: contain — фото целиком, нейтральный тёмный фон */
 @media (min-width: 1024px) {
   .imageWrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1a1a1a;
+    background-color: var(--color-slider-bg);
   }
   .image,
   .imageWrap img {

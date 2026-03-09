@@ -147,7 +147,7 @@ const COMPONENT_LABELS = {
   'shared.schedule-item': { date: 'Дата', time: 'Время' },
   'shared.review': { quote: 'Цитата', author: 'Автор', vkUrl: 'Ссылка ВКонтакте' },
   'shared.award': { title: 'Название', year: 'Год' },
-  'shared.festival': { title: 'Название', year: 'Год', place: 'Место' },
+  'shared.festival': { title: 'Название', year: 'Год', place: 'Место', logo: 'Логотип' },
   'shared.partner-item': { name: 'Название', logo: 'Логотип', url: 'Ссылка' },
 };
 

@@ -35,6 +35,7 @@ export interface SharedFestival extends Struct.ComponentSchema {
     icon: 'movie';
   };
   attributes: {
+    logo: Schema.Attribute.Media<'images'>;
     place: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     year: Schema.Attribute.String;
