@@ -62,6 +62,12 @@ export interface Performance {
   festivals?: { title: string; year?: string; place?: string; logo?: string }[];
   /** Ссылка на покупку билетов (настраивается в CMS для каждого спектакля) */
   ticketsUrl?: string;
+  /** Чёрный блок перед отзывами: главное фото (добавляется в админке) */
+  featuredBlockImage?: string;
+  /** Чёрный блок: текст */
+  featuredBlockText?: string;
+  /** Чёрный блок: карусель фото */
+  featuredBlockGallery?: string[];
 }
 
 export interface Premiere {

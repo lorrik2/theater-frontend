@@ -13,6 +13,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import PerformanceCast from "@/components/PerformanceCast";
 import PerformanceGallery from "@/components/PerformanceGallery";
 import GalleryLightbox from "@/components/GalleryLightbox";
+import PerformanceFeaturedBlock from "@/components/PerformanceFeaturedBlock";
 import Reviews from "@/components/Reviews";
 import styles from "@/app/styles/PerformancePage.module.css";
 
@@ -41,7 +42,6 @@ export default function PerformancePageContent({
     basePath,
     breadcrumbLabel,
     breadcrumbHref,
-    galleryBeforeCast,
   } = config;
 
   const heroImages = (
@@ -56,6 +56,12 @@ export default function PerformancePageContent({
 
   const galleryImages = (play.gallery ?? (play.poster ? [play.poster] : []))
     .filter((s): s is string => !!s);
+
+  const featuredMainImage = play.featuredBlockImage;
+  const featuredText = play.featuredBlockText?.trim();
+  const featuredCarousel = play.featuredBlockGallery?.filter((s): s is string => !!s) ?? [];
+  const hasFeaturedBlock =
+    !!featuredMainImage || !!featuredText || featuredCarousel.length > 0;
 
   const hasCreators =
     play.author ||
@@ -107,7 +113,7 @@ export default function PerformancePageContent({
   const gallerySection =
     galleryImages.length > 0 ? (
       <section
-        className={`${styles.section} ${!galleryBeforeCast && hasReviews ? styles.sectionAfterReviews : ""}`}
+        className={styles.section}
         aria-labelledby="gallery-title"
       >
         <h2 id="gallery-title" className={styles.sectionTitle}>
@@ -129,7 +135,7 @@ export default function PerformancePageContent({
   const castSection =
     hasCast ? (
       <section
-        className={`${styles.section} ${hasReviews && galleryBeforeCast && !hasAwards ? styles.sectionAfterReviews : ""}`}
+        className={styles.section}
         aria-labelledby="cast-title"
       >
         <h2 id="cast-title" className={styles.sectionTitle}>
@@ -292,37 +298,23 @@ export default function PerformancePageContent({
             })()}
           {scheduleBlock}
         </section>
-
-        {galleryBeforeCast && gallerySection}
-
-        {play.teaserUrl && (
-          <section className={styles.section} aria-labelledby="teaser-title">
-            <h2 id="teaser-title" className={styles.sectionTitle}>
-              Тизер
-            </h2>
-            <PerformanceGallery images={[]} teaserUrl={play.teaserUrl} />
-          </section>
-        )}
       </div>
 
-      {hasReviews && (
-        <div className={styles.reviewsWrapper}>
-          <Reviews
-            reviews={play.reviews!}
-            title="Отзывы зрителей"
-            subtitle="Что говорят о спектакле"
-            variant="dark"
-            id="reviews"
-          />
-        </div>
+      {hasFeaturedBlock && (
+        <PerformanceFeaturedBlock
+          mainImage={featuredMainImage}
+          text={featuredText || undefined}
+          carouselImages={
+            featuredCarousel.length > 0 ? featuredCarousel : undefined
+          }
+          performanceTitle={play.title}
+        />
       )}
 
       <div className={styles.wrap}>
-        {!galleryBeforeCast && gallerySection}
-
         {hasAwards && (
           <section
-            className={`${styles.section} ${hasReviews && galleryBeforeCast ? styles.sectionAfterReviews : ""}`}
+            className={styles.section}
             aria-labelledby="awards-title"
           >
             <h2 id="awards-title" className={styles.sectionTitle}>
@@ -362,6 +354,31 @@ export default function PerformancePageContent({
         )}
 
         {castSection}
+      </div>
+
+      {hasReviews && (
+        <div className={styles.reviewsWrapper}>
+          <Reviews
+            reviews={play.reviews!}
+            title="Отзывы зрителей"
+            subtitle="Что говорят о спектакле"
+            variant="dark"
+            id="reviews"
+          />
+        </div>
+      )}
+
+      <div className={styles.wrap}>
+        {play.teaserUrl && (
+          <section className={styles.section} aria-labelledby="teaser-title">
+            <h2 id="teaser-title" className={styles.sectionTitle}>
+              Тизер
+            </h2>
+            <PerformanceGallery images={[]} teaserUrl={play.teaserUrl} />
+          </section>
+        )}
+
+        {gallerySection}
       </div>
     </>
   );

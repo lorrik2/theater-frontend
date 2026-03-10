@@ -79,6 +79,25 @@
     "ticketsUrl": {
       "type": "string",
       "description": "Ссылка на покупку билетов (по умолчанию — общая афиша)"
+    },
+    "featuredBlockImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Чёрный блок перед отзывами: одна главная фотография"
+    },
+    "featuredBlockText": {
+      "type": "text",
+      "required": false,
+      "description": "Чёрный блок: текст (описание, цитата)"
+    },
+    "featuredBlockGallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Чёрный блок: карусель фото (альбомные)"
     }
   }
 }

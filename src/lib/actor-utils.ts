@@ -33,6 +33,17 @@ export function isDirectorOrArtisticDirector(actor: Actor): boolean {
   );
 }
 
+/**
+ * Проверяет, является ли актёр основателем театра.
+ * Учитываются оба поля: role (роль) и rank (должность).
+ */
+export function isTheaterFounder(actor: Actor): boolean {
+  const role = (actor.role || "").toLowerCase();
+  const rank = (actor.rank || "").toLowerCase();
+  const roleOrRank = `${role} ${rank}`;
+  return roleOrRank.includes("основатель театра");
+}
+
 export interface ActorPerformanceRole {
   title: string;
   slug: string;

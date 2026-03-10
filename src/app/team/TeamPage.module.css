@@ -40,6 +40,20 @@
   @apply w-full max-w-2xl mx-auto;
 }
 
+.founderSection {
+  @apply mt-12 pt-10 border-0 border-t border-graphite-200;
+  @apply w-full max-w-2xl mx-auto;
+}
+
+.founderSubtitle {
+  @apply font-posterama text-xl font-semibold text-graphite-700 mb-6 text-center;
+  letter-spacing: 0.02em;
+}
+
+.founderWrap {
+  @apply flex flex-col items-center;
+}
+
 .directorWrap {
   @apply flex flex-col items-center;
 }

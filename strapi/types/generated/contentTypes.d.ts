@@ -698,6 +698,9 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     director: Schema.Attribute.String;
     directorQuote: Schema.Attribute.Text;
     duration: Schema.Attribute.String;
+    featuredBlockGallery: Schema.Attribute.Media<'images', true>;
+    featuredBlockImage: Schema.Attribute.Media<'images'>;
+    featuredBlockText: Schema.Attribute.Text;
     festivals: Schema.Attribute.Component<'shared.festival', true>;
     gallery: Schema.Attribute.Media<'images', true>;
     genre: Schema.Attribute.String;

@@ -24,7 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/kontakty`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/arenda-zala`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/teatr-teos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/partners`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE_URL}/pomoch-teatru`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
 

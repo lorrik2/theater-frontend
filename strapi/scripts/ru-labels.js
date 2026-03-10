@@ -88,6 +88,9 @@ const CONTENT_TYPE_LABELS = {
     awards: 'Награды',
     festivals: 'Фестивали',
     ticketsUrl: 'Ссылка на билеты',
+    featuredBlockImage: 'Чёрный блок: главное фото',
+    featuredBlockText: 'Чёрный блок: текст',
+    featuredBlockGallery: 'Чёрный блок: карусель фото',
   },
   'api::theater-gallery.theater-gallery': {
     image: 'Изображение',
@@ -98,6 +101,8 @@ const CONTENT_TYPE_LABELS = {
     quote: 'Цитата',
     author: 'Автор',
     vkUrl: 'Ссылка ВКонтакте',
+    yandexMapsUrl: 'Ссылка в Яндекс Картах',
+    twoGisUrl: 'Ссылка в 2ГИС',
     order: 'Порядок',
   },
   'api::teatr-teos.teatr-teos': {

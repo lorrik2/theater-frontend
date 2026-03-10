@@ -123,9 +123,6 @@ export default function Footer({ contactInfo }: Props) {
             {copyrightText} © {new Date().getFullYear()}
           </p>
           <div className={styles.legal}>
-            <Link href="/partners" className={styles.legalLink}>
-              Партнёры и спонсоры
-            </Link>
             <a
               href="https://taplink.cc/korolevweb"
               target="_blank"

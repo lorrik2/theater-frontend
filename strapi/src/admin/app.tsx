@@ -60,6 +60,7 @@ export default {
         'content-manager.content-types.api::performance.performance.fields.title': 'Название',
         'content-manager.content-types.api::performance.performance.fields.slug': 'URL (слаг)',
         'content-manager.content-types.api::performance.performance.fields.poster': 'Постер',
+        'content-manager.content-types.api::performance.performance.fields.heroSlider': 'Слайдер наверху',
         'content-manager.content-types.api::performance.performance.fields.gallery': 'Галерея',
         'content-manager.content-types.api::performance.performance.fields.subtitle': 'Подзаголовок',
         'content-manager.content-types.api::performance.performance.fields.author': 'Автор',
@@ -85,6 +86,9 @@ export default {
         'content-manager.content-types.api::performance.performance.fields.awards': 'Награды',
         'content-manager.content-types.api::performance.performance.fields.festivals': 'Фестивали',
         'content-manager.content-types.api::performance.performance.fields.ticketsUrl': 'Ссылка на билеты',
+        'content-manager.content-types.api::performance.performance.fields.featuredBlockImage': 'Чёрный блок: главное фото',
+        'content-manager.content-types.api::performance.performance.fields.featuredBlockText': 'Чёрный блок: текст',
+        'content-manager.content-types.api::performance.performance.fields.featuredBlockGallery': 'Чёрный блок: карусель фото',
 
         // api::theater-gallery.theater-gallery — Фото галереи
         'content-manager.content-types.api::theater-gallery.theater-gallery.info.displayName': 'Фото галереи',
@@ -143,12 +147,15 @@ export default {
 
         // api::theater-review.theater-review — Отзыв о театре
         'content-manager.content-types.api::theater-review.theater-review.info.displayName': 'Отзывы о театре',
+        'content-type-builder.content-types.api::theater-review.theater-review.info.displayName': 'Отзывы о театре',
         'content-manager.content-types.api::theater-review.theater-review.fields.quote': 'Цитата',
         'content-manager.content-types.api::theater-review.theater-review.fields.author': 'Автор',
         'content-manager.content-types.api::theater-review.theater-review.fields.vkUrl': 'Ссылка ВКонтакте',
         'content-manager.content-types.api::theater-review.theater-review.fields.yandexMapsUrl': 'Ссылка в Яндекс Картах',
         'content-manager.content-types.api::theater-review.theater-review.fields.twoGisUrl': 'Ссылка в 2ГИС',
         'content-manager.content-types.api::theater-review.theater-review.fields.order': 'Порядок',
+        'content-type-builder.content-types.api::theater-review.theater-review.fields.yandexMapsUrl': 'Ссылка в Яндекс Картах',
+        'content-type-builder.content-types.api::theater-review.theater-review.fields.twoGisUrl': 'Ссылка в 2ГИС',
 
         // === Content-type Builder: Components ===
         'content-type-builder.components.shared.role-item': 'Роль в спектакле',
@@ -223,7 +230,11 @@ export default {
         'content-type-builder.content-types.api::arenda-zala.arenda-zala.fields.howToBookText': 'Как забронировать',
 
         // api::performance.performance — Content-type Builder
+        'content-type-builder.content-types.api::performance.performance.fields.heroSlider': 'Слайдер наверху',
         'content-type-builder.content-types.api::performance.performance.fields.invitedCast': 'Внешний состав (приглашённые)',
+        'content-type-builder.content-types.api::performance.performance.fields.featuredBlockImage': 'Чёрный блок: главное фото',
+        'content-type-builder.content-types.api::performance.performance.fields.featuredBlockText': 'Чёрный блок: текст',
+        'content-type-builder.content-types.api::performance.performance.fields.featuredBlockGallery': 'Чёрный блок: карусель фото',
 
         'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.fields.title': 'Заголовок',
         'content-type-builder.content-types.api::pomoch-teatru.pomoch-teatru.fields.lead': 'Подзаголовок',

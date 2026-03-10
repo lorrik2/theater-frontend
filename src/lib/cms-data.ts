@@ -245,6 +245,14 @@ function mapStrapiPerformance(d: any): Performance | null {
             })
         : undefined,
       ticketsUrl: (attrs.ticketsUrl ?? d.ticketsUrl) || undefined,
+      featuredBlockImage: getMediaUrl(
+        attrs.featuredBlockImage ?? d.featuredBlockImage,
+      ) || undefined,
+      featuredBlockText: (attrs.featuredBlockText ?? d.featuredBlockText)?.trim() || undefined,
+      featuredBlockGallery: (() => {
+        const arr = extractMediaArray(attrs.featuredBlockGallery ?? d.featuredBlockGallery);
+        return arr.length > 0 ? arr.map(mapGalleryItem).filter(Boolean) : undefined;
+      })(),
     };
   } catch (err) {
     console.warn("mapStrapiPerformance error:", err);
@@ -376,6 +384,8 @@ const PERFORMANCE_POPULATE = {
   poster: true,
   heroSlider: true,
   gallery: true,
+  featuredBlockImage: true,
+  featuredBlockGallery: true,
   invitedCast: { populate: ["photo"] },
   reviews: true,
   schedule: true,
@@ -750,20 +760,6 @@ export interface PomochTeatruPageData {
   qrCodeImageUrl: string;
 }
 
-/** Партнёр */
-export interface PartnerItem {
-  name: string;
-  logoUrl: string;
-  url: string;
-}
-
-/** Партнёры и спонсоры */
-export interface PartnersPageData {
-  title: string;
-  introText: string;
-  partners: PartnerItem[];
-}
-
 /** О театре */
 export interface OTeatrePageData {
   title: string;
@@ -909,46 +905,6 @@ export async function getPomochTeatruPageData(): Promise<PomochTeatruPageData> {
     }
   } catch (err) {
     console.warn("getPomochTeatruPageData error:", err);
-  }
-  return defaults;
-}
-
-/** Партнёры и спонсоры */
-export async function getPartnersPageData(): Promise<PartnersPageData> {
-  const defaults: PartnersPageData = {
-    title: "Партнёры и спонсоры",
-    introText:
-      "Раздел в разработке. Здесь будут размещены логотипы и ссылки на партнёров и спонсоров театра.",
-    partners: [],
-  };
-  try {
-    const res = await fetchStrapi<Record<string, unknown>>("/partners", {
-      populate: "*",
-    });
-    const d = (res as { data?: Record<string, unknown> } | null)?.data;
-    if (d) {
-      const attrs = (d.attributes ?? d) as Record<string, unknown>;
-      const partnersRaw = (attrs.partners ?? []) as Record<string, unknown>[];
-      const partnersArr = Array.isArray(partnersRaw) ? partnersRaw : [];
-      const partners: PartnerItem[] = partnersArr
-        .map((p: Record<string, unknown>) => {
-          const logoRaw = p.logo;
-          const logo = (logoRaw as { data?: unknown })?.data ?? logoRaw;
-          return {
-            name: (p.name as string) || "",
-            logoUrl: logo ? getMediaUrl(logo) : "",
-            url: (p.url as string) || "",
-          };
-        })
-        .filter((p) => p.name);
-      return {
-        title: (attrs.title as string) || defaults.title,
-        introText: (attrs.introText as string) || defaults.introText,
-        partners: partners.length > 0 ? partners : defaults.partners,
-      };
-    }
-  } catch (err) {
-    console.warn("getPartnersPageData error:", err);
   }
   return defaults;
 }
