@@ -60,3 +60,29 @@
 .slider :global(.swiper-pagination-bullet-active) {
   background: #fff;
 }
+
+/* Кнопка «Купить билет» внизу слайдера — поверх фото */
+.ticketBtnWrap {
+  @apply absolute bottom-0 left-0 right-0 z-[20] flex justify-center pb-12 pt-16;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  pointer-events: none;
+}
+
+.ticketBtnWrap > * {
+  pointer-events: auto;
+}
+
+.ticketBtn {
+  @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold text-white transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  background: var(--color-accent-red, #c41e3a);
+}
+
+@media (min-width: 1024px) {
+  .ticketBtn {
+    @apply px-7 py-3.5 text-base;
+  }
+}
+
+.ticketBtn:hover {
+  filter: brightness(1.1);
+}

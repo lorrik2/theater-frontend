@@ -98,7 +98,7 @@ export default function PerformancePageContent({
               {item.time}
             </span>
             <Link
-              href={play.ticketsUrl ?? DEFAULT_TICKETS_URL}
+              href={item.ticketsUrl ?? play.ticketsUrl ?? DEFAULT_TICKETS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.scheduleCta}
@@ -166,7 +166,12 @@ export default function PerformancePageContent({
           { name: play.title },
         ]}
       />
-      <PerformanceHero title={play.title} images={heroImages} />
+      <PerformanceHero
+        title={play.title}
+        images={heroImages}
+        ticketsUrl={play.ticketsUrl}
+        ticketButtonLabel={play.ticketButtonLabel}
+      />
       <div className={styles.wrap}>
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
           <Link href="/">Главная</Link>

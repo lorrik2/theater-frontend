@@ -8,12 +8,16 @@ import styles from "../styles/Page.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getOTeatrePageData();
   const ogImage = data.galleryImages?.[0]?.src
-    ? { url: data.galleryImages[0].src, width: 1200, height: 630, alt: "О театре Круг" }
+    ? {
+        url: data.galleryImages[0].src,
+        width: 1200,
+        height: 630,
+        alt: "О театре Круг",
+      }
     : { ...OG_LOGO, alt: "О театре Круг" };
   return {
     title: "О театре — Драматический театр «Круг»",
-    description:
-      "История здания и труппы, миссия, художественный руководитель, фотогалерея.",
+    description: "История театра и труппы, ценности, фотогалерея.",
     alternates: { canonical: canonicalUrl("/o-teatre") },
     openGraph: {
       type: "website",
@@ -21,8 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url: canonicalUrl("/o-teatre"),
       siteName: "Драматический театр «Круг»",
       title: "О театре — Драматический театр «Круг»",
-      description:
-        "История здания и труппы, миссия, художественный руководитель, фотогалерея.",
+      description: "История театра и труппы, ценности, фотогалерея.",
       images: [ogImage],
     },
     twitter: {

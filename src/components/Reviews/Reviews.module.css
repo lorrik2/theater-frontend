@@ -73,11 +73,11 @@
 }
 
 .quoteText {
-  @apply relative z-10 text-lg leading-relaxed text-graphite-100 md:text-xl whitespace-pre-line;
+  @apply relative z-10 text-sm leading-relaxed text-graphite-100 md:text-base whitespace-pre-line;
 }
 
 .quoteTextLight {
-  @apply relative z-10 text-lg leading-relaxed text-graphite-800 md:text-xl whitespace-pre-line;
+  @apply relative z-10 text-sm leading-relaxed text-graphite-800 md:text-base whitespace-pre-line;
 }
 
 .attribution {

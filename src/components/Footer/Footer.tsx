@@ -8,7 +8,9 @@ const DEFAULT_TAGLINE =
 const DEFAULT_CONTACTS_TITLE = "Контакты";
 const DEFAULT_COPYRIGHT = "Драматический театр «Круг». Все права защищены.";
 
-type ContactInfo = Awaited<ReturnType<typeof import("@/lib/cms-data").getContactInfo>>;
+type ContactInfo = Awaited<
+  ReturnType<typeof import("@/lib/cms-data").getContactInfo>
+>;
 
 const IconVK = () => (
   <svg
@@ -38,7 +40,8 @@ type Props = { contactInfo: ContactInfo };
 
 export default function Footer({ contactInfo }: Props) {
   const tagline = contactInfo.footerTagline ?? DEFAULT_TAGLINE;
-  const contactsTitle = contactInfo.footerContactsTitle ?? DEFAULT_CONTACTS_TITLE;
+  const contactsTitle =
+    contactInfo.footerContactsTitle ?? DEFAULT_CONTACTS_TITLE;
   const copyrightText = contactInfo.footerCopyright ?? DEFAULT_COPYRIGHT;
 
   return (
@@ -129,7 +132,7 @@ export default function Footer({ contactInfo }: Props) {
               rel="noopener noreferrer"
               className={styles.legalLink}
             >
-              Разработка и дизайн: KorolevWeb
+              Разработка и дизайн: KorolevWeb 1x1nw92dcpluiwek
             </a>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
+import GalleryLightbox from "@/components/GalleryLightbox";
 import { getTeatrTeosPageData } from "@/lib/cms-data";
 import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../styles/Page.module.css";
@@ -77,6 +78,19 @@ export default async function TeatrTeosPage() {
             )}
           </div>
         </section>
+
+        {data.galleryImages?.length > 0 && (
+          <section className={styles.contentSection} aria-labelledby="teos-gallery-title">
+            <h2 id="teos-gallery-title" className={styles.h2}>Фотографии</h2>
+            <GalleryLightbox
+              images={data.galleryImages}
+              variant="grid"
+              limit={4}
+              moreLabel="Смотреть ещё"
+              galleryId="teos-photos"
+            />
+          </section>
+        )}
 
         {(data.partnerBlockText || data.partnerBlockLink) && (
           <section

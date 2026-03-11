@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,12 +14,19 @@ import "swiper/css/pagination";
 export interface PerformanceHeroProps {
   title: string;
   images: string[];
+  /** Ссылка на покупку билетов. Если пусто — кнопка не показывается. */
+  ticketsUrl?: string;
+  /** Текст кнопки. По умолчанию «Купить билет». */
+  ticketButtonLabel?: string;
 }
 
 export default function PerformanceHero({
   title,
   images,
+  ticketsUrl,
+  ticketButtonLabel,
 }: PerformanceHeroProps) {
+  const btnLabel = ticketButtonLabel?.trim() || "Купить билет";
   const [fancyboxRef] = useFancybox();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const slides = images.length > 0 ? images : [""];
@@ -80,6 +88,18 @@ export default function PerformanceHero({
           </SwiperSlide>
         ))}
       </Swiper>
+      {ticketsUrl && (
+        <div className={styles.ticketBtnWrap}>
+          <Link
+            href={ticketsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.ticketBtn}
+          >
+            {btnLabel}
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

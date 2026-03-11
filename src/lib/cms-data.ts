@@ -216,6 +216,7 @@ function mapStrapiPerformance(d: any): Performance | null {
               return {
                 date: sAttrs.date ?? s.date ?? "",
                 time: sAttrs.time ?? s.time ?? "",
+                ticketsUrl: (sAttrs.ticketsUrl ?? s.ticketsUrl)?.trim() || undefined,
               };
             })
         : undefined,
@@ -245,6 +246,7 @@ function mapStrapiPerformance(d: any): Performance | null {
             })
         : undefined,
       ticketsUrl: (attrs.ticketsUrl ?? d.ticketsUrl) || undefined,
+      ticketButtonLabel: (attrs.ticketButtonLabel ?? d.ticketButtonLabel)?.trim() || undefined,
       featuredBlockImage: getMediaUrl(
         attrs.featuredBlockImage ?? d.featuredBlockImage,
       ) || undefined,
@@ -728,6 +730,8 @@ export interface TeatrTeosPageData {
   aboutText: string;
   /** Логотип театра (справа от текста в блоке «О театре») */
   logo: { src: string; alt: string } | null;
+  /** Фотогалерея (плитка как в спектаклях) */
+  galleryImages: { src: string; alt: string }[];
   address: string;
   /** Как добраться (транспорт, ориентиры) */
   howToGetThere: string;
@@ -782,6 +786,7 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
     aboutText:
       "Здесь будет текст о театре Маргариты Вафиной. Добавьте описание проекта, миссию, историю и ключевую информацию.",
     logo: null,
+    galleryImages: [],
     address: "Укажите адрес театра",
     howToGetThere: "",
     phone: "+7 921 64 59 200",
@@ -807,11 +812,17 @@ export async function getTeatrTeosPageData(): Promise<TeatrTeosPageData> {
           )
         : [];
       const logo = logoArr[0] ?? null;
+      const galleryArr = extractMediaArray(attrs.gallery ?? d.gallery);
+      const galleryImages =
+        galleryArr.length > 0
+          ? mapGalleryImages(galleryArr, "Театр Теос")
+          : defaults.galleryImages;
       return {
         title: (attrs.title as string) || defaults.title,
         lead: (attrs.lead as string) || defaults.lead,
         aboutText: (attrs.aboutText as string) || defaults.aboutText,
         logo,
+        galleryImages,
         address: (attrs.address as string) || defaults.address,
         howToGetThere: (attrs.howToGetThere as string) ?? defaults.howToGetThere,
         phone: (attrs.phone as string) || defaults.phone,

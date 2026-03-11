@@ -54,14 +54,16 @@ export interface Performance {
   isPremiere?: boolean;
   /** Есть ли спектакль в афише (продажа билетов) */
   inAfisha?: boolean;
-  /** Даты и время показов в сезоне (если несколько — одна строка на каждую) */
-  schedule?: { date: string; time: string }[];
+  /** Даты и время показов в сезоне (если несколько — одна строка на каждую). ticketsUrl — ссылка для этой даты, иначе общая. */
+  schedule?: { date: string; time: string; ticketsUrl?: string }[];
   /** Награды и дипломы спектакля */
   awards?: { title: string; year?: string }[];
   /** Участие в конкурсах и фестивалях */
   festivals?: { title: string; year?: string; place?: string; logo?: string }[];
   /** Ссылка на покупку билетов (настраивается в CMS для каждого спектакля) */
   ticketsUrl?: string;
+  /** Текст кнопки «Купить билет» на слайдере. Если пусто — «Купить билет» */
+  ticketButtonLabel?: string;
   /** Чёрный блок перед отзывами: главное фото (добавляется в админке) */
   featuredBlockImage?: string;
   /** Чёрный блок: текст */
