@@ -1,3 +1,5 @@
-# To prevent search engines from seeing the site altogether, uncomment the next two lines:
-# User-Agent: *
-# Disallow: /
+# Strapi CMS — запрет индексации админки и API
+User-Agent: *
+Disallow: /admin/
+Disallow: /api/
+Allow: /
