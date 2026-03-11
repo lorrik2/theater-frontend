@@ -132,7 +132,7 @@ export default function Footer({ contactInfo }: Props) {
               rel="noopener noreferrer"
               className={styles.legalLink}
             >
-              Разработка и дизайн: KorolevWeb 1x1nw92dcpluiwek
+              Разработка и дизайн: KorolevWeb
             </a>
           </div>
         </div>
