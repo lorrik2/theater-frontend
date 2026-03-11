@@ -88,6 +88,7 @@ const CONTENT_TYPE_LABELS = {
     awards: 'Награды',
     festivals: 'Фестивали',
     ticketsUrl: 'Ссылка на билеты',
+    ticketButtonLabel: 'Текст кнопки на слайдере',
     featuredBlockImage: 'Чёрный блок: главное фото',
     featuredBlockText: 'Чёрный блок: текст',
     featuredBlockGallery: 'Чёрный блок: карусель фото',
@@ -106,6 +107,7 @@ const CONTENT_TYPE_LABELS = {
     order: 'Порядок',
   },
   'api::teatr-teos.teatr-teos': {
+    gallery: 'Фотогалерея',
     title: 'Заголовок',
     lead: 'Подзаголовок',
     aboutText: 'О театре',
@@ -149,7 +151,7 @@ const CONTENT_TYPE_LABELS = {
 const COMPONENT_LABELS = {
   'shared.role-item': { text: 'Текст роли', performance: 'Спектакль' },
   'shared.cast-member': { name: 'Имя', role: 'Роль', photo: 'Фото' },
-  'shared.schedule-item': { date: 'Дата', time: 'Время' },
+  'shared.schedule-item': { date: 'Дата', time: 'Время', ticketsUrl: 'Ссылка на билеты' },
   'shared.review': { quote: 'Цитата', author: 'Автор', vkUrl: 'Ссылка ВКонтакте' },
   'shared.award': { title: 'Название', year: 'Год' },
   'shared.festival': { title: 'Название', year: 'Год', place: 'Место', logo: 'Логотип' },

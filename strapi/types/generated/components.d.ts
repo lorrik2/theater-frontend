@@ -95,6 +95,7 @@ export interface SharedScheduleItem extends Struct.ComponentSchema {
   };
   attributes: {
     date: Schema.Attribute.String & Schema.Attribute.Required;
+    ticketsUrl: Schema.Attribute.String;
     time: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }

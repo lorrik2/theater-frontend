@@ -29,6 +29,13 @@
       "allowedTypes": ["images"],
       "description": "Логотип театра (отображается справа от текста в блоке «О театре»)"
     },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Фотогалерея (плитка как в спектаклях)"
+    },
     "address": {
       "type": "string",
       "description": "Адрес"

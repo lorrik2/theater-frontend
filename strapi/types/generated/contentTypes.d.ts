@@ -725,6 +725,7 @@ export interface ApiPerformancePerformance extends Struct.CollectionTypeSchema {
     soundDesigner: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
     teaserUrl: Schema.Attribute.String;
+    ticketButtonLabel: Schema.Attribute.String;
     ticketsUrl: Schema.Attribute.String;
     time: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -783,6 +784,7 @@ export interface ApiTeatrTeosTeatrTeos extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    gallery: Schema.Attribute.Media<'images', true>;
     howToGetThere: Schema.Attribute.Text;
     lead: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
