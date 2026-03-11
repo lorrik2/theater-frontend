@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     "афиша спектаклей",
     "купить билеты",
     "театр СПб",
-	 "театр"
-	 'teatr krug',
+    "театр",
+    "teatr krug",
   ],
   icons: { icon: "/logo/logoLayout.png" },
   openGraph: {
