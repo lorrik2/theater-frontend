@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GalleryLightbox from "@/components/GalleryLightbox";
-import {
-  getTheaterGalleryImages,
-  GALLERY_PAGE_SIZE,
-} from "@/lib/cms-data";
+import { getTheaterGalleryImages, GALLERY_PAGE_SIZE } from "@/lib/cms-data";
 import { canonicalUrl, OG_LOGO } from "@/lib/site-config";
 import styles from "../../styles/Page.module.css";
 import fotogalereyaStyles from "./fotogalereya.module.css";
@@ -12,11 +9,17 @@ import fotogalereyaStyles from "./fotogalereya.module.css";
 export async function generateMetadata(): Promise<Metadata> {
   const images = await getTheaterGalleryImages().catch(() => []);
   const ogImage = images[0]?.src
-    ? { url: images[0].src, width: 1200, height: 630, alt: images[0].alt || "Фотогалерея театра Круг" }
+    ? {
+        url: images[0].src,
+        width: 1200,
+        height: 630,
+        alt: images[0].alt || "Фотогалерея театра Круг",
+      }
     : { ...OG_LOGO, alt: "Фотогалерея театра Круг" };
   return {
     title: "Фотогалерея — О театре — Драматический театр «Круг»",
-    description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
+    description:
+      "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
     alternates: { canonical: canonicalUrl("/o-teatre/fotogalereya") },
     openGraph: {
       type: "website",
@@ -24,10 +27,14 @@ export async function generateMetadata(): Promise<Metadata> {
       url: canonicalUrl("/o-teatre/fotogalereya"),
       siteName: "Драматический театр «Круг»",
       title: "Фотогалерея — О театре — Драматический театр «Круг»",
-      description: "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
+      description:
+        "Фотографии театра: фасад, зрительный зал, фойе, гримёрки, закулисье.",
       images: [ogImage],
     },
-    twitter: { card: "summary_large_image", title: "Фотогалерея — Драматический театр «Круг»" },
+    twitter: {
+      card: "summary_large_image",
+      title: "Фотогалерея — Драматический театр «Круг»",
+    },
   };
 }
 
@@ -41,10 +48,7 @@ export default async function FotogalereyaPage({ searchParams }: Props) {
   const currentPage = Math.min(page, totalPages);
 
   const start = (currentPage - 1) * GALLERY_PAGE_SIZE;
-  const imagesOnPage = images.slice(
-    start,
-    start + GALLERY_PAGE_SIZE
-  );
+  const imagesOnPage = images.slice(start, start + GALLERY_PAGE_SIZE);
 
   return (
     <div className={styles.wrap}>
@@ -58,9 +62,7 @@ export default async function FotogalereyaPage({ searchParams }: Props) {
 
       <header className={styles.header}>
         <h1 className={styles.h1}>Фотогалерея</h1>
-        <p className={styles.lead}>
-          Все фото театра: фасад, зал, фойе, гримёрки, закулисье
-        </p>
+        <p className={styles.lead}>Все фото театра и тд</p>
       </header>
 
       <section
@@ -70,10 +72,7 @@ export default async function FotogalereyaPage({ searchParams }: Props) {
         <h2 id="gallery-heading" className={styles.h2}>
           Фотографии театра
         </h2>
-        <GalleryLightbox
-          images={imagesOnPage}
-          variant="grid"
-        />
+        <GalleryLightbox images={imagesOnPage} variant="grid" />
       </section>
 
       {totalPages > 1 && (

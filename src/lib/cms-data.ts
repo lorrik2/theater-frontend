@@ -351,7 +351,6 @@ function mapStrapiNewsItem(d: any): NewsItem {
     content: (attrs.content ?? d.content) as string | undefined,
     image,
     date: (attrs.date ?? d.date) || "",
-    category: (attrs.category ?? d.category) || "",
   };
 }
 

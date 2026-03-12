@@ -112,7 +112,6 @@ export interface NewsItem {
   content?: string;
   image: string;
   date: string;
-  category: string;
 }
 
 export interface Review {

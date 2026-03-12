@@ -1,8 +1,35 @@
 /* Контрастный чёрный блок перед отзывами — референс idiot-teatr-krug.tilda.ws */
 
 .section {
-  @apply mt-8 overflow-x-hidden py-14 md:mt-10 md:py-20;
+  @apply overflow-x-hidden;
   background: #0a0a0a;
+  margin-top: 1.25rem;
+  padding-top: 2rem;
+  padding-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .section {
+    margin-top: 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section {
+    margin-top: 2rem;
+    padding-top: 3.5rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    margin-top: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 2.5rem;
+  }
 }
 
 .container {
@@ -20,7 +47,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    gap: 2.5rem;
+  }
 }
 
 /* 1. Секция с одной фотографией */

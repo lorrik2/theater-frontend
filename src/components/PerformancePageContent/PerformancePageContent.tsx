@@ -113,7 +113,7 @@ export default function PerformancePageContent({
   const gallerySection =
     galleryImages.length > 0 ? (
       <section
-        className={styles.section}
+        className={play.teaserUrl ? styles.section : styles.sectionFirstInWrap}
         aria-labelledby="gallery-title"
       >
         <h2 id="gallery-title" className={styles.sectionTitle}>
@@ -135,7 +135,11 @@ export default function PerformancePageContent({
   const castSection =
     hasCast ? (
       <section
-        className={styles.section}
+        className={
+          hasFeaturedBlock && !hasAwards
+            ? styles.sectionAfterFeatured
+            : styles.section
+        }
         aria-labelledby="cast-title"
       >
         <h2 id="cast-title" className={styles.sectionTitle}>
@@ -316,10 +320,18 @@ export default function PerformancePageContent({
         />
       )}
 
-      <div className={styles.wrap}>
+      <div
+        className={
+          hasFeaturedBlock
+            ? `${styles.wrap} ${styles.wrapAfterFeatured}`
+            : styles.wrap
+        }
+      >
         {hasAwards && (
           <section
-            className={styles.section}
+            className={
+              hasFeaturedBlock ? styles.sectionAfterFeatured : styles.section
+            }
             aria-labelledby="awards-title"
           >
             <h2 id="awards-title" className={styles.sectionTitle}>

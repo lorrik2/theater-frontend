@@ -149,14 +149,11 @@ export default function OptimizedImage({
       width: "100%",
       height: "100%",
       objectFit: "cover",
+      ...(typeof imageProps.style === "object" && imageProps.style
+        ? { objectFit: imageProps.style.objectFit, objectPosition: imageProps.style.objectPosition }
+        : {}),
     };
-    const explicitObjectFit =
-      typeof imageProps.style === "object" &&
-      imageProps.style &&
-      "objectFit" in imageProps.style;
-    if (explicitObjectFit) {
-      imgStyle.objectFit = imageProps.style!.objectFit as React.CSSProperties["objectFit"];
-    }
+    if (imgStyle.objectFit == null) imgStyle.objectFit = "cover";
     const lazyFill = (
       <LazyLoadImage
         src={getSrcString(imageProps.src)}

@@ -353,7 +353,7 @@
 }
 
 .newsImage {
-  @apply h-full w-full object-cover;
+  @apply h-full w-full object-contain object-center;
 }
 
 .newsCategory {

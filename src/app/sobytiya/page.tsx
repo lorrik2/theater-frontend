@@ -53,12 +53,11 @@ export default async function EventsPage() {
                   <OptimizedImage
                     src={item.image}
                     alt=""
-                    width={600}
-                    height={400}
+                    fill
                     className={styles.newsImage}
+                    style={{ objectFit: "contain", objectPosition: "center" }}
                     effect="blur"
                   />
-                  <span className={styles.newsCategory}>{item.category}</span>
                 </div>
                 <div className={styles.newsBody}>
                   <time className={styles.newsDate} dateTime={item.date}>

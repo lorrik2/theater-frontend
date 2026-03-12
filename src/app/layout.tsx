@@ -8,6 +8,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import NavigationProgress from "@/components/NavigationProgress/NavigationProgress";
 import { getContactInfo, EMPTY_CONTACT } from "@/lib/cms-data";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
+import YandexMetrika from "@/components/YandexMetrika";
 import { SITE_URL } from "@/lib/site-config";
 
 const montserrat = Montserrat({
@@ -82,6 +83,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col">
+        <YandexMetrika />
         <NavigationProgress />
         <OrganizationJsonLd />
         <Header />

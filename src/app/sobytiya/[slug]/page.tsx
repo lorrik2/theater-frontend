@@ -81,7 +81,7 @@ export default async function EventItemPage({ params }: Props) {
       </nav>
       <header className={styles.header}>
         <p className="mt-2 text-sm text-graphite-500">
-          <time dateTime={item.date}>{item.date}</time> · {item.category}
+          <time dateTime={item.date}>{item.date}</time>
         </p>
         <h1 className={styles.h1}>{item.title}</h1>
       </header>
